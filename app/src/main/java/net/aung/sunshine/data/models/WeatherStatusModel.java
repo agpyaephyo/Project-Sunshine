@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.SparseArray;
 
 import net.aung.sunshine.data.responses.WeatherStatusListResponse;
-import net.aung.sunshine.data.vos.DailyWeatherStatusVO;
+import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.utils.CommonInstances;
 import net.aung.sunshine.utils.JsonUtils;
@@ -20,31 +20,31 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by aung on 12/10/15.
  */
-public class DailyWeatherStatusModel {
+public class WeatherStatusModel {
 
     private static final String DUMMY_WEATHER_DATA_FILENAME = "singapore_14days_weather.json";
 
-    private static DailyWeatherStatusModel objInstance;
+    private static WeatherStatusModel objInstance;
 
     private SparseArray<WeatherStatusListResponse> weatherStatusSparseArray; //14 days weather statuses based on city id.
 
-    public static DailyWeatherStatusModel getInstance() {
+    public static WeatherStatusModel getInstance() {
         if (objInstance == null) {
-            objInstance = new DailyWeatherStatusModel();
+            objInstance = new WeatherStatusModel();
         }
 
         return objInstance;
     }
 
-    private DailyWeatherStatusModel() {
+    private WeatherStatusModel() {
         weatherStatusSparseArray = new SparseArray<>();
     }
 
-    public List<DailyWeatherStatusVO> load14daysWeather(int cityID) {
+    public List<WeatherStatusVO> load14daysWeather(int cityID) {
         WeatherStatusListResponse weatherStatusListResponse = weatherStatusSparseArray.get(cityID);
         if (weatherStatusListResponse == null) {
             new Load14DaysWeatherStatusTask().execute(cityID);
-            return null;
+            return new ArrayList<>();
         } else {
             return weatherStatusListResponse.getWeatherStatusList();
         }

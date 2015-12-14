@@ -2,7 +2,7 @@ package net.aung.sunshine.data.responses;
 
 import com.google.gson.annotations.SerializedName;
 
-import net.aung.sunshine.data.vos.DailyWeatherStatusVO;
+import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.data.vos.CityVO;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class WeatherStatusListResponse {
     private int count;
 
     @SerializedName("list")
-    private ArrayList<DailyWeatherStatusVO> weatherStatusList;
+    private ArrayList<WeatherStatusVO> weatherStatusList;
 
     public CityVO getCity() {
         return city;
@@ -43,7 +43,7 @@ public class WeatherStatusListResponse {
         return count;
     }
 
-    public ArrayList<DailyWeatherStatusVO> getWeatherStatusList() {
+    public ArrayList<WeatherStatusVO> getWeatherStatusList() {
         return weatherStatusList;
     }
 }

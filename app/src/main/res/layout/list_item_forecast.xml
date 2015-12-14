@@ -6,8 +6,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="weather"
-            type="net.aung.sunshine.data.vos.DailyWeatherStatusVO" />
+            name="weatherStatus"
+            type="net.aung.sunshine.data.vos.WeatherStatusVO" />
 
     </data>
     <LinearLayout
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:text="@{weather.day}"
+                android:text="@{weatherStatus.date}"
                 />
 
             <TextView
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:text="@{weather.status}"
+                android:text="@{weatherStatus.weather.description}"
                 />
 
         </LinearLayout>
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
                 android:textAppearance="?android:textAppearanceLarge"
-                android:text="@{weather.maxTemperature}"
+                android:text="@{weatherStatus.temperature.maxTemperature}"
                 />
 
             <TextView
@@ -80,7 +80,7 @@
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="sans-serif-condensed"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:text="@{weather.minTemperature}"
+                android:text="@{weatherStatus.temperature.minTemperature}"
                 />
 
         </LinearLayout>

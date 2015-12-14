@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import net.aung.sunshine.R;
-import net.aung.sunshine.data.vos.DailyWeatherStatusVO;
+import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.databinding.ListItemForecastBinding;
 import net.aung.sunshine.utils.WeatherIconUtils;
 
@@ -29,9 +29,9 @@ public class DailyWeatherViewHolder extends WeatherViewHolder {
     }
 
     @Override
-    public void bind(DailyWeatherStatusVO status) {
-        binding.setWeather(status);
-        int weatherIconResourceId = WeatherIconUtils.getIconResourceForWeatherCondition(status.getWeatherId());
+    public void bind(WeatherStatusVO status) {
+        binding.setWeatherStatus(status);
+        int weatherIconResourceId = WeatherIconUtils.getIconResourceForWeatherCondition(status.getWeather().getId());
         ivStatus.setImageResource(weatherIconResourceId);
     }
 }

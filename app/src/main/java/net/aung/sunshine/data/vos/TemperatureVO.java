@@ -8,44 +8,44 @@ import com.google.gson.annotations.SerializedName;
 public class TemperatureVO {
 
     @SerializedName("day")
-    private int dayTemperature;
+    private double dayTemperature;
 
     @SerializedName("night")
-    private int nightTemperature;
+    private double nightTemperature;
 
     @SerializedName("min")
-    private int minTemperature;
+    private double minTemperature;
 
     @SerializedName("max")
-    private int maxTemperature;
+    private double maxTemperature;
 
     @SerializedName("morn")
-    private int morningTemperature;
+    private double morningTemperature;
 
     @SerializedName("eve")
-    private int eveningTemperature;
+    private double eveningTemperature;
 
-    public int getDayTemperature() {
-        return dayTemperature;
+    public String getDayTemperature() {
+        return String.valueOf((int)dayTemperature) + (char) 0x00B0;
     }
 
-    public int getNightTemperature() {
-        return nightTemperature;
+    public String getNightTemperature() {
+        return String.valueOf((int)nightTemperature) + (char) 0x00B0;
     }
 
-    public int getMinTemperature() {
-        return minTemperature;
+    public String getMinTemperature() {
+        return String.valueOf((int)minTemperature) + (char) 0x00B0;
     }
 
-    public int getMaxTemperature() {
-        return maxTemperature;
+    public String getMaxTemperature() {
+        return String.valueOf((int)maxTemperature) + (char) 0x00B0;
     }
 
-    public int getMorningTemperature() {
-        return morningTemperature;
+    public String getMorningTemperature() {
+        return String.valueOf((int)morningTemperature) + (char) 0x00B0;
     }
 
-    public int getEveningTemperature() {
-        return eveningTemperature;
+    public String getEveningTemperature() {
+        return String.valueOf((int)eveningTemperature) + (char) 0x00B0;
     }
 }

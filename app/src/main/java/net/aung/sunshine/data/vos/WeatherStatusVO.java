@@ -2,10 +2,18 @@ package net.aung.sunshine.data.vos;
 
 import com.google.gson.annotations.SerializedName;
 
+import net.aung.sunshine.R;
+import net.aung.sunshine.SunshineApplication;
+import net.aung.sunshine.utils.DateFormatUtils;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * This object is immutable.
  */
-public class DailyWeatherStatusVO {
+public class WeatherStatusVO {
 
     @SerializedName("dt")
     private long dateTime;
@@ -20,7 +28,7 @@ public class DailyWeatherStatusVO {
     private double humidity;
 
     @SerializedName("weather")
-    private WeatherVO weather;
+    private ArrayList<WeatherVO> weatherList;
 
     @SerializedName("speed")
     private double windSpeed;
@@ -33,6 +41,8 @@ public class DailyWeatherStatusVO {
 
     @SerializedName("rain")
     private double rain;
+
+    private Date date;
 
     public long getDateTime() {
         return dateTime;
@@ -50,8 +60,12 @@ public class DailyWeatherStatusVO {
         return humidity;
     }
 
+    public ArrayList<WeatherVO> getWeatherList() {
+        return weatherList;
+    }
+
     public WeatherVO getWeather() {
-        return weather;
+        return weatherList.get(0);
     }
 
     public double getWindSpeed() {
@@ -68,5 +82,26 @@ public class DailyWeatherStatusVO {
 
     public double getRain() {
         return rain;
+    }
+
+    public String getDate() {
+        if (date == null) {
+            date = new Date(dateTime * 1000);
+        }
+
+        String dateText = DateFormatUtils.sdfWeatherStatusDate.format(date);
+        Calendar calendar = Calendar.getInstance();
+        int todayDate = calendar.get(Calendar.DATE);
+        calendar.setTime(date);
+        int weatherDate = calendar.get(Calendar.DATE);
+        if (todayDate == weatherDate) {
+            //today
+            dateText = SunshineApplication.getContext().getString(R.string.lbl_today);
+        } else if (todayDate +1 == weatherDate) {
+            //tomorrow
+            dateText = SunshineApplication.getContext().getString(R.string.lbl_tomorrow);
+        }
+
+        return dateText;
     }
 }
