@@ -20,7 +20,7 @@ public class ForecastListPresenter extends BasePresenter {
 
     @Override
     public void onStart() {
-        List<WeatherStatusVO> weatherStatusList = WeatherStatusModel.getInstance().load14daysWeather(1880252); //Singapore City ID
+        List<WeatherStatusVO> weatherStatusList = WeatherStatusModel.getInstance().loadWeatherStatusList("Singapore"); //Singapore City ID
         forecastListView.displayWeatherList(weatherStatusList);
     }
 

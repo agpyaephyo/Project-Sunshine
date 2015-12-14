@@ -23,3 +23,15 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+def openWeatherMapApiProperties = loadOpenWeatherMapApiProperteis()
+
+ext {
+    openWeatherMapApiKey = openWeatherMapApiProperties.getProperty('OPEN_WEATHER_MAP_API_KEY')
+}
+
+def loadOpenWeatherMapApiProperteis() {
+    Properties localProperties = new Properties();
+    localProperties.load(project.rootProject.file('open_weather_map_api.properties').newDataInputStream())
+    return localProperties
+}

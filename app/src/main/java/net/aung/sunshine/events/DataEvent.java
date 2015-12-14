@@ -1,5 +1,6 @@
 package net.aung.sunshine.events;
 
+import net.aung.sunshine.data.responses.WeatherStatusListResponse;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 
 import java.util.List;
@@ -18,6 +19,18 @@ public class DataEvent {
 
         public List<WeatherStatusVO> getWeatherStatusList() {
             return weatherStatusList;
+        }
+    }
+
+    public static class LoadedWeatherStatusListEvent {
+        private WeatherStatusListResponse response;
+
+        public LoadedWeatherStatusListEvent( WeatherStatusListResponse response) {
+            this.response = response;
+        }
+
+        public WeatherStatusListResponse getResponse() {
+            return response;
         }
     }
 }

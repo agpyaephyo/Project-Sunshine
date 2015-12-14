@@ -1,11 +1,12 @@
 package net.aung.sunshine.data.models;
 
 import android.os.AsyncTask;
-import android.util.SparseArray;
 
 import net.aung.sunshine.data.responses.WeatherStatusListResponse;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
+import net.aung.sunshine.network.WeatherDataSource;
+import net.aung.sunshine.network.WeatherDataSourceImpl;
 import net.aung.sunshine.utils.CommonInstances;
 import net.aung.sunshine.utils.JsonUtils;
 
@@ -13,7 +14,9 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.greenrobot.event.EventBus;
 
@@ -26,7 +29,8 @@ public class WeatherStatusModel {
 
     private static WeatherStatusModel objInstance;
 
-    private SparseArray<WeatherStatusListResponse> weatherStatusSparseArray; //14 days weather statuses based on city id.
+    private WeatherDataSource weatherDataSource;
+    private Map<String, WeatherStatusListResponse> weatherStatusListResponseMap;
 
     public static WeatherStatusModel getInstance() {
         if (objInstance == null) {
@@ -37,26 +41,51 @@ public class WeatherStatusModel {
     }
 
     private WeatherStatusModel() {
-        weatherStatusSparseArray = new SparseArray<>();
+        weatherStatusListResponseMap = new HashMap<>();
+        weatherDataSource = WeatherDataSourceImpl.getInstance();
+
+        EventBus eventBus = EventBus.getDefault();
+        if (!eventBus.isRegistered(this)) {
+            eventBus.register(this);
+        }
     }
 
-    public List<WeatherStatusVO> load14daysWeather(int cityID) {
-        WeatherStatusListResponse weatherStatusListResponse = weatherStatusSparseArray.get(cityID);
+    public List<WeatherStatusVO> loadWeatherStatusList(String city) {
+        WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(city);
         if (weatherStatusListResponse == null) {
-            new Load14DaysWeatherStatusTask().execute(cityID);
+            weatherDataSource.getWeatherForecastList(city);
             return new ArrayList<>();
         } else {
             return weatherStatusListResponse.getWeatherStatusList();
         }
     }
 
-    private class Load14DaysWeatherStatusTask extends AsyncTask<Integer, Void, WeatherStatusListResponse> {
+    public void onEventMainThread(DataEvent.LoadedWeatherStatusListEvent event) {
+        WeatherStatusListResponse response = event.getResponse();
+        String city = response.getCity().getName();
+        weatherStatusListResponseMap.put(city, response);
 
-        private int cityID;
+        DataEvent.Loaded14DaysWeatherEvent eventToUI = new DataEvent.Loaded14DaysWeatherEvent(response.getWeatherStatusList());
+        EventBus.getDefault().post(eventToUI);
+    }
+
+    public List<WeatherStatusVO> loadDummyWeatherStatusList(String city) {
+        WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(city);
+        if (weatherStatusListResponse == null) {
+            new LoadDummyWeatherStatusListTask().execute(city);
+            return new ArrayList<>();
+        } else {
+            return weatherStatusListResponse.getWeatherStatusList();
+        }
+    }
+
+    private class LoadDummyWeatherStatusListTask extends AsyncTask<String, Void, WeatherStatusListResponse> {
+
+        private String city;
 
         @Override
-        protected WeatherStatusListResponse doInBackground(Integer... params) {
-            cityID = params[0];
+        protected WeatherStatusListResponse doInBackground(String... params) {
+            city = params[0];
             WeatherStatusListResponse response = null;
 
             try {
@@ -74,9 +103,9 @@ public class WeatherStatusModel {
         @Override
         protected void onPostExecute(WeatherStatusListResponse response) {
             super.onPostExecute(response);
-            weatherStatusSparseArray.put(cityID, response);
+            weatherStatusListResponseMap.put(city, response);
 
-            DataEvent.Loaded14DaysWeatherEvent event = new DataEvent.Loaded14DaysWeatherEvent(weatherStatusSparseArray.get(cityID).getWeatherStatusList());
+            DataEvent.Loaded14DaysWeatherEvent event = new DataEvent.Loaded14DaysWeatherEvent(weatherStatusListResponseMap.get(city).getWeatherStatusList());
             EventBus.getDefault().post(event);
         }
     }
