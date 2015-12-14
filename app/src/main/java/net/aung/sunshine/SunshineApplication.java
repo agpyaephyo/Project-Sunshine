@@ -8,6 +8,8 @@ import android.content.Context;
  */
 public class SunshineApplication extends Application {
 
+    public static final String TAG = SunshineApplication.class.getSimpleName(); // all the logging should have this as Log Tag.
+
     private static Context context;
 
     @Override

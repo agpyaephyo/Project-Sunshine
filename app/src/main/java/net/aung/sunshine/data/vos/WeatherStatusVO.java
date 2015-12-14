@@ -89,7 +89,7 @@ public class WeatherStatusVO {
             date = new Date(dateTime * 1000);
         }
 
-        String dateText = new String();
+        String dateText;
 
         Calendar calendar = Calendar.getInstance();
         int todayDate = calendar.get(Calendar.DATE);

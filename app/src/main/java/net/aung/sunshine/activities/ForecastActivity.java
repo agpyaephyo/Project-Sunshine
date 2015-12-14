@@ -3,16 +3,16 @@ package net.aung.sunshine.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-import net.aung.sunshine.fragments.ForecastListFragment;
 import net.aung.sunshine.R;
+import net.aung.sunshine.fragments.ForecastListFragment;
 
-public class ForecastListActivity extends BaseActivity {
+public class ForecastActivity extends BaseActivity {
+
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class ForecastListActivity extends BaseActivity {
 
         getSupportActionBar().setElevation(0f);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +44,7 @@ public class ForecastListActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_forecast_list, menu);
+        getMenuInflater().inflate(R.menu.menu_forecast, menu);
         return true;
     }
 
@@ -57,6 +57,16 @@ public class ForecastListActivity extends BaseActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Snackbar.make(fab, "Settings options are coming soon", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
+            return true;
+        } else if (id == R.id.action_about) {
+            Snackbar.make(fab, "About this Project Sunshine is coming soon", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
+            return true;
+        } else if (id == R.id.action_help) {
+            Snackbar.make(fab, "The help that you gonna need to use this App is coming soon", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
             return true;
         }
 
