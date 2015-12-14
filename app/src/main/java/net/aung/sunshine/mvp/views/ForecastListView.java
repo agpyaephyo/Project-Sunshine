@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface ForecastListView {
     void displayWeatherList(List<WeatherStatusVO> weatherStatusList);
+    void displayErrorMessage(String message);
 }

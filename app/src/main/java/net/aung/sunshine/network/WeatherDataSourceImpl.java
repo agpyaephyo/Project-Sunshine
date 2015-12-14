@@ -34,7 +34,8 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
 
         @Override
         public void failure(RetrofitError error) {
-
+            DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(error);
+            EventBus.getDefault().post(event);
         }
     };
 

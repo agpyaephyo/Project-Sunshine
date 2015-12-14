@@ -5,15 +5,17 @@ import net.aung.sunshine.data.vos.WeatherStatusVO;
 
 import java.util.List;
 
+import retrofit.RetrofitError;
+
 /**
  * Created by aung on 12/14/15.
  */
 public class DataEvent {
 
-    public static class Loaded14DaysWeatherEvent {
+    public static class NewWeatherStatusList {
         private List<WeatherStatusVO> weatherStatusList;
 
-        public Loaded14DaysWeatherEvent(List<WeatherStatusVO> weatherStatusList) {
+        public NewWeatherStatusList(List<WeatherStatusVO> weatherStatusList) {
             this.weatherStatusList = weatherStatusList;
         }
 
@@ -31,6 +33,18 @@ public class DataEvent {
 
         public WeatherStatusListResponse getResponse() {
             return response;
+        }
+    }
+
+    public static class LoadedWeatherStatusListErrorEvent {
+        private RetrofitError error;
+
+        public LoadedWeatherStatusListErrorEvent(RetrofitError error) {
+            this.error = error;
+        }
+
+        public RetrofitError getResponse() {
+            return error;
         }
     }
 }

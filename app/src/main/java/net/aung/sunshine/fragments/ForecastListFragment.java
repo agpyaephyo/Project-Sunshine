@@ -117,7 +117,22 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public void displayWeatherList(List<WeatherStatusVO> weatherStatusList) {
         adapter.setStatusList(weatherStatusList);
-        swipeContainer.setRefreshing(false);
+
+        if(swipeContainer.isRefreshing()) {
+            swipeContainer.setRefreshing(false);
+            Snackbar.make(rootView, "New weather data has been refreshed.", Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
+        }
+    }
+
+    @Override
+    public void displayErrorMessage(String message) {
+        if(swipeContainer.isRefreshing()) {
+            swipeContainer.setRefreshing(false);
+        }
+
+        Snackbar.make(rootView, "Failed to load weather status list ("+message+")", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Action", null).show();
     }
 
     @Override

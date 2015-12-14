@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class ForecastListPresenter extends BasePresenter {
 
+    private static final String DUMMY_CITY_NAME = "Singapore"; //ABCDEFG
+
     private ForecastListView forecastListView;
 
     public ForecastListPresenter(ForecastListView forecastListView) {
@@ -20,7 +22,7 @@ public class ForecastListPresenter extends BasePresenter {
 
     @Override
     public void onStart() {
-        List<WeatherStatusVO> weatherStatusList = WeatherStatusModel.getInstance().loadWeatherStatusList("Singapore", false);
+        List<WeatherStatusVO> weatherStatusList = WeatherStatusModel.getInstance().loadWeatherStatusList(DUMMY_CITY_NAME, false);
         forecastListView.displayWeatherList(weatherStatusList);
     }
 
@@ -29,11 +31,16 @@ public class ForecastListPresenter extends BasePresenter {
 
     }
 
-    public void onEventMainThread(DataEvent.Loaded14DaysWeatherEvent event) {
+    public void onEventMainThread(DataEvent.NewWeatherStatusList event) {
         forecastListView.displayWeatherList(event.getWeatherStatusList());
     }
 
+    public void onEventMainThread(DataEvent.LoadedWeatherStatusListErrorEvent event) {
+        String errorMessage = event.getResponse().getMessage();
+        forecastListView.displayErrorMessage(errorMessage);
+    }
+
     public void forceRefresh() {
-        WeatherStatusModel.getInstance().loadWeatherStatusList("Singapore", true);
+        WeatherStatusModel.getInstance().loadWeatherStatusList(DUMMY_CITY_NAME, true);
     }
 }

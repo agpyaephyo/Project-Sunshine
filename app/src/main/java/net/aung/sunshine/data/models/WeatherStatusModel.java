@@ -65,10 +65,11 @@ public class WeatherStatusModel {
         String city = response.getCity().getName();
         weatherStatusListResponseMap.put(city, response);
 
-        DataEvent.Loaded14DaysWeatherEvent eventToUI = new DataEvent.Loaded14DaysWeatherEvent(response.getWeatherStatusList());
+        DataEvent.NewWeatherStatusList eventToUI = new DataEvent.NewWeatherStatusList(response.getWeatherStatusList());
         EventBus.getDefault().post(eventToUI);
     }
 
+    //just to test the data layer before network layer hooks up to the api.
     public List<WeatherStatusVO> loadDummyWeatherStatusList(String city) {
         WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(city);
         if (weatherStatusListResponse == null) {
@@ -105,7 +106,7 @@ public class WeatherStatusModel {
             super.onPostExecute(response);
             weatherStatusListResponseMap.put(city, response);
 
-            DataEvent.Loaded14DaysWeatherEvent event = new DataEvent.Loaded14DaysWeatherEvent(weatherStatusListResponseMap.get(city).getWeatherStatusList());
+            DataEvent.NewWeatherStatusList event = new DataEvent.NewWeatherStatusList(weatherStatusListResponseMap.get(city).getWeatherStatusList());
             EventBus.getDefault().post(event);
         }
     }
