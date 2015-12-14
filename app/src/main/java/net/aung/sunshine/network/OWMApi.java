@@ -2,7 +2,7 @@ package net.aung.sunshine.network;
 
 import net.aung.sunshine.data.responses.WeatherStatusListResponse;
 
-import retrofit.Callback;
+import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Query;
 
@@ -11,13 +11,12 @@ import retrofit.http.Query;
  */
 public interface OWMApi {
 
-    @GET("/forecast/daily")
-    void getDailyForecast(
+    @GET("forecast/daily")
+    Call<WeatherStatusListResponse> getDailyForecast(
             @Query("q") String city,
             @Query("appid") String apiKey,
             @Query("mode") String responseFormat,
             @Query("units") String responseUnit,
-            @Query("cnt") String responseCount,
-            Callback<WeatherStatusListResponse> response
+            @Query("cnt") String responseCount
     );
 }
