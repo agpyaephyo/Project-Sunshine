@@ -50,9 +50,9 @@ public class WeatherStatusModel {
         }
     }
 
-    public List<WeatherStatusVO> loadWeatherStatusList(String city) {
+    public List<WeatherStatusVO> loadWeatherStatusList(String city, boolean isForce) {
         WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(city);
-        if (weatherStatusListResponse == null) {
+        if (weatherStatusListResponse == null || isForce) {
             weatherDataSource.getWeatherForecastList(city);
             return new ArrayList<>();
         } else {

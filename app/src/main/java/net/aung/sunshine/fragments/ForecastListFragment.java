@@ -17,6 +17,7 @@ import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.data.models.WeatherStatusModel;
 import net.aung.sunshine.mvp.presenters.ForecastListPresenter;
 import net.aung.sunshine.mvp.views.ForecastListView;
+import net.aung.sunshine.views.components.ViewComponentLoader;
 
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class ForecastListFragment extends BaseFragment implements ForecastListVi
 
     @Bind(R.id.rv_forecasts)
     RecyclerView rvForecasts;
+
+    @Bind(R.id.vc_loader)
+    ViewComponentLoader vcLoader;
 
     private View rootView;
 
@@ -79,6 +83,10 @@ public class ForecastListFragment extends BaseFragment implements ForecastListVi
             Snackbar.make(rootView, "Later, you will be able to filter the list of dates that has specific weathers", Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
             return true;
+        } else if (id == R.id.action_refresh) {
+            vcLoader.displayLoader();
+            presenter.forceRefresh();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -105,5 +113,6 @@ public class ForecastListFragment extends BaseFragment implements ForecastListVi
     @Override
     public void displayWeatherList(List<WeatherStatusVO> weatherStatusList) {
         adapter.setStatusList(weatherStatusList);
+        vcLoader.dismissLoader();
     }
 }

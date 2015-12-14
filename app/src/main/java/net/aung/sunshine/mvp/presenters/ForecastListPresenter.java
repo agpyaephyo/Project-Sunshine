@@ -20,7 +20,7 @@ public class ForecastListPresenter extends BasePresenter {
 
     @Override
     public void onStart() {
-        List<WeatherStatusVO> weatherStatusList = WeatherStatusModel.getInstance().loadWeatherStatusList("Singapore"); //Singapore City ID
+        List<WeatherStatusVO> weatherStatusList = WeatherStatusModel.getInstance().loadWeatherStatusList("Singapore", false);
         forecastListView.displayWeatherList(weatherStatusList);
     }
 
@@ -31,5 +31,9 @@ public class ForecastListPresenter extends BasePresenter {
 
     public void onEventMainThread(DataEvent.Loaded14DaysWeatherEvent event) {
         forecastListView.displayWeatherList(event.getWeatherStatusList());
+    }
+
+    public void forceRefresh() {
+        WeatherStatusModel.getInstance().loadWeatherStatusList("Singapore", true);
     }
 }
