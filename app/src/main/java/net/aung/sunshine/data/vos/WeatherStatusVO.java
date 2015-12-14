@@ -89,17 +89,21 @@ public class WeatherStatusVO {
             date = new Date(dateTime * 1000);
         }
 
-        String dateText = DateFormatUtils.sdfWeatherStatusDate.format(date);
+        String dateText = new String();
+
         Calendar calendar = Calendar.getInstance();
         int todayDate = calendar.get(Calendar.DATE);
         calendar.setTime(date);
         int weatherDate = calendar.get(Calendar.DATE);
         if (todayDate == weatherDate) {
             //today
-            dateText = SunshineApplication.getContext().getString(R.string.lbl_today);
+            dateText = SunshineApplication.getContext().getString(R.string.lbl_today) + ", " + DateFormatUtils.sdfWeatherStatusDateToday.format(date);
         } else if (todayDate +1 == weatherDate) {
             //tomorrow
-            dateText = SunshineApplication.getContext().getString(R.string.lbl_tomorrow);
+            dateText = SunshineApplication.getContext().getString(R.string.lbl_tomorrow) + ", " + DateFormatUtils.sdfWeatherStatusDateTomorrow.format(date);
+        } else {
+            //the rest
+            dateText = DateFormatUtils.sdfWeatherStatusDate.format(date);
         }
 
         return dateText;

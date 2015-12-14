@@ -11,23 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7948ceb8-b879-4f56-a461-1f38fc2fdc13" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/mvp/presenters/BasePresenter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/DateFormatUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/mvp/presenters/ForecastListPresenter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/mvp/views/ForecastListView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/models/DailyWeatherStatusModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/models/WeatherStatusModel.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/vos/DailyWeatherStatusVO.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/vos/WeatherStatusVO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/viewholders/DailyWeatherViewHolder.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/viewholders/DailyWeatherViewHolder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/events/DataEvent.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/events/DataEvent.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/adapters/ForecastListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/adapters/ForecastListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/vos/TemperatureVO.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/vos/TemperatureVO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/viewholders/TodayWeatherViewHolder.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/viewholders/TodayWeatherViewHolder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/responses/WeatherStatusListResponse.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/responses/WeatherStatusListResponse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/viewholders/WeatherViewHolder.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/viewholders/WeatherViewHolder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast_today.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast_today.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/DateFormatUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/DateFormatUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/vos/WeatherStatusVO.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/vos/WeatherStatusVO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Project-Sunshine.iws" />
@@ -59,14 +44,14 @@
       <file leaf-file-name="WeatherStatusVO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/vos/WeatherStatusVO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7315436">
-              <caret line="98" column="85" selection-start-line="98" selection-start-column="85" selection-end-line="98" selection-end-column="85" />
+            <state vertical-scroll-proportion="1.2130872">
+              <caret line="104" column="22" selection-start-line="104" selection-start-column="22" selection-end-line="104" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1250#1251#0" expanded="true" />
                 <element signature="e#1284#1285#0" expanded="true" />
-                <element signature="e#2070#2132#0" expanded="true" />
-                <element signature="e#2230#2295#0" expanded="true" />
+                <element signature="e#2034#2096#0" expanded="true" />
+                <element signature="e#2258#2323#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -128,10 +113,8 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/DateFormatUtils.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+              <caret line="11" column="69" selection-start-line="11" selection-start-column="69" selection-end-line="11" selection-end-column="69" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -142,8 +125,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.4838705">
-              <caret line="64" column="48" selection-start-line="64" selection-start-column="48" selection-end-line="64" selection-end-column="48" />
+            <state vertical-scroll-proportion="-15.870968">
+              <caret line="65" column="14" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -1831,8 +1814,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/vos/TemperatureVO.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast_today.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/DateFormatUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/DateFormatUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/vos/WeatherStatusVO.java" />
       </list>
     </option>
@@ -2659,8 +2642,8 @@
             <element signature="imports" expanded="true" />
             <element signature="e#1250#1251#0" expanded="true" />
             <element signature="e#1284#1285#0" expanded="true" />
-            <element signature="e#2070#2132#0" expanded="true" />
-            <element signature="e#2230#2295#0" expanded="true" />
+            <element signature="e#2034#2096#0" expanded="true" />
+            <element signature="e#2258#2323#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2915,27 +2898,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast_today.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.4838705">
-          <caret line="64" column="48" selection-start-line="64" selection-start-column="48" selection-end-line="64" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/DateFormatUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.0689654">
@@ -2944,16 +2906,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast_today.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.870968">
+          <caret line="65" column="14" selection-start-line="65" selection-start-column="14" selection-end-line="65" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/DateFormatUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="69" selection-start-line="11" selection-start-column="69" selection-end-line="11" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/data/vos/WeatherStatusVO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7315436">
-          <caret line="98" column="85" selection-start-line="98" selection-start-column="85" selection-end-line="98" selection-end-column="85" />
+        <state vertical-scroll-proportion="1.2130872">
+          <caret line="104" column="22" selection-start-line="104" selection-start-column="22" selection-end-line="104" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1250#1251#0" expanded="true" />
             <element signature="e#1284#1285#0" expanded="true" />
-            <element signature="e#2070#2132#0" expanded="true" />
-            <element signature="e#2230#2295#0" expanded="true" />
+            <element signature="e#2034#2096#0" expanded="true" />
+            <element signature="e#2258#2323#0" expanded="true" />
           </folding>
         </state>
       </provider>
