@@ -1,7 +1,9 @@
 package net.aung.sunshine.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,10 +16,8 @@ import android.view.ViewGroup;
 import net.aung.sunshine.R;
 import net.aung.sunshine.adapters.ForecastListAdapter;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
-import net.aung.sunshine.data.models.WeatherStatusModel;
 import net.aung.sunshine.mvp.presenters.ForecastListPresenter;
 import net.aung.sunshine.mvp.views.ForecastListView;
-import net.aung.sunshine.views.components.ViewComponentLoader;
 
 import java.util.List;
 
@@ -27,13 +27,15 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class ForecastListFragment extends BaseFragment implements ForecastListView {
+public class ForecastListFragment extends BaseFragment
+        implements ForecastListView,
+        SwipeRefreshLayout.OnRefreshListener{
 
     @Bind(R.id.rv_forecasts)
     RecyclerView rvForecasts;
 
-    @Bind(R.id.vc_loader)
-    ViewComponentLoader vcLoader;
+    @Bind(R.id.swipe_container)
+    SwipeRefreshLayout swipeContainer;
 
     private View rootView;
 
@@ -68,6 +70,12 @@ public class ForecastListFragment extends BaseFragment implements ForecastListVi
         adapter = ForecastListAdapter.newInstance();
         rvForecasts.setAdapter(adapter);
 
+        swipeContainer.setOnRefreshListener(this);
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_dark,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_orange_dark,
+                android.R.color.holo_red_dark);
+
         return rootView;
     }
 
@@ -82,10 +90,6 @@ public class ForecastListFragment extends BaseFragment implements ForecastListVi
         if (id == R.id.action_filter) {
             Snackbar.make(rootView, "Later, you will be able to filter the list of dates that has specific weathers", Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
-            return true;
-        } else if (id == R.id.action_refresh) {
-            vcLoader.displayLoader();
-            presenter.forceRefresh();
             return true;
         }
 
@@ -113,6 +117,11 @@ public class ForecastListFragment extends BaseFragment implements ForecastListVi
     @Override
     public void displayWeatherList(List<WeatherStatusVO> weatherStatusList) {
         adapter.setStatusList(weatherStatusList);
-        vcLoader.dismissLoader();
+        swipeContainer.setRefreshing(false);
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.forceRefresh();
     }
 }
