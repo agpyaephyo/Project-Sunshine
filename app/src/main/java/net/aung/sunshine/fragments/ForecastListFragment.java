@@ -1,6 +1,5 @@
 package net.aung.sunshine.fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +9,8 @@ import android.view.ViewGroup;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.adapters.ForecastListAdapter;
-import net.aung.sunshine.data.DailyWeatherStatus;
-import net.aung.sunshine.data.DailyWeatherStatusModel;
+import net.aung.sunshine.data.vos.DailyWeatherStatusVO;
+import net.aung.sunshine.data.models.DailyWeatherStatusModel;
 
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class ForecastListFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        List<DailyWeatherStatus> dummyStatusList = DailyWeatherStatusModel.initDummyWeatherStatusList();
+        List<DailyWeatherStatusVO> dummyStatusList = DailyWeatherStatusModel.getInstance().load14daysWeather(1880252); //Singapore City ID
         adapter.setStatusList(dummyStatusList);
     }
 }

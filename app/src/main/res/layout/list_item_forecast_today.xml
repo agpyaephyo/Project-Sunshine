@@ -7,7 +7,7 @@
         <import type="android.view.View" />
         <variable
             name="weather"
-            type="net.aung.sunshine.data.DailyWeatherStatus" />
+            type="net.aung.sunshine.data.vos.DailyWeatherStatusVO" />
     </data>
 
     <RelativeLayout

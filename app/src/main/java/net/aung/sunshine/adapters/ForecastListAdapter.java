@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.aung.sunshine.R;
-import net.aung.sunshine.data.DailyWeatherStatus;
+import net.aung.sunshine.data.vos.DailyWeatherStatusVO;
 import net.aung.sunshine.viewholders.DailyWeatherViewHolder;
 import net.aung.sunshine.viewholders.TodayWeatherViewHolder;
 import net.aung.sunshine.viewholders.WeatherViewHolder;
@@ -24,18 +24,18 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
     private static final int VIEW_TYPE_TODAY = 0;
     private static final int VIEW_TYPE_OTHER_THAN_TODAY = 1;
 
-    private List<DailyWeatherStatus> statusList;
+    private List<DailyWeatherStatusVO> statusList;
 
     public static ForecastListAdapter newInstance() {
-        List<DailyWeatherStatus> statusList = new ArrayList<>();
+        List<DailyWeatherStatusVO> statusList = new ArrayList<>();
         return newInstance(statusList);
     }
 
-    public static ForecastListAdapter newInstance(@NonNull List<DailyWeatherStatus> statusList) {
+    public static ForecastListAdapter newInstance(@NonNull List<DailyWeatherStatusVO> statusList) {
         return new ForecastListAdapter(statusList);
     }
 
-    public ForecastListAdapter(List<DailyWeatherStatus> statusList) {
+    public ForecastListAdapter(List<DailyWeatherStatusVO> statusList) {
         this.statusList = statusList;
     }
 
@@ -57,7 +57,7 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
 
     @Override
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
-        DailyWeatherStatus status = statusList.get(position);
+        DailyWeatherStatusVO status = statusList.get(position);
         holder.bind(status);
     }
 
@@ -71,7 +71,7 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
         return position == 0 ? VIEW_TYPE_TODAY : VIEW_TYPE_OTHER_THAN_TODAY;
     }
 
-    public void setStatusList(List<DailyWeatherStatus> newStatusList) {
+    public void setStatusList(List<DailyWeatherStatusVO> newStatusList) {
         this.statusList.clear();
         this.statusList.addAll(newStatusList);
         notifyDataSetChanged();

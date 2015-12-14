@@ -7,7 +7,7 @@
 
         <variable
             name="weather"
-            type="net.aung.sunshine.data.DailyWeatherStatus" />
+            type="net.aung.sunshine.data.vos.DailyWeatherStatusVO" />
 
     </data>
     <LinearLayout

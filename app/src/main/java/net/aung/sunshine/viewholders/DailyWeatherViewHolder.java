@@ -1,12 +1,11 @@
 package net.aung.sunshine.viewholders;
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
 import net.aung.sunshine.R;
-import net.aung.sunshine.data.DailyWeatherStatus;
+import net.aung.sunshine.data.vos.DailyWeatherStatusVO;
 import net.aung.sunshine.databinding.ListItemForecastBinding;
 import net.aung.sunshine.utils.WeatherIconUtils;
 
@@ -30,7 +29,7 @@ public class DailyWeatherViewHolder extends WeatherViewHolder {
     }
 
     @Override
-    public void bind(DailyWeatherStatus status) {
+    public void bind(DailyWeatherStatusVO status) {
         binding.setWeather(status);
         int weatherIconResourceId = WeatherIconUtils.getIconResourceForWeatherCondition(status.getWeatherId());
         ivStatus.setImageResource(weatherIconResourceId);
