@@ -3,6 +3,7 @@ package net.aung.sunshine.viewholders;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
@@ -25,6 +26,14 @@ public class DailyWeatherViewHolder extends WeatherViewHolder {
     public DailyWeatherViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Weather Item Clicked!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         binding = DataBindingUtil.bind(itemView);
     }
 
