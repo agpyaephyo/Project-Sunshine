@@ -57,7 +57,7 @@ public class WeatherStatusVO {
     }
 
     public String getPressureDisplay() {
-        return String.valueOf(pressure);
+        return String.valueOf(pressure) + " hPa";
     }
 
     public double getHumidity() {
@@ -65,7 +65,7 @@ public class WeatherStatusVO {
     }
 
     public String getHumidityDisplay() {
-        return String.valueOf(humidity);
+        return String.valueOf(humidity) + " %";
     }
 
     public ArrayList<WeatherVO> getWeatherList() {
@@ -81,7 +81,7 @@ public class WeatherStatusVO {
     }
 
     public String getWindSpeedDisplay() {
-        return String.valueOf(windSpeed);
+        return String.valueOf(windSpeed) + " km/h SE";
     }
 
     public int getDeg() {

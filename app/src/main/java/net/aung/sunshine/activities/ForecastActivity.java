@@ -3,6 +3,8 @@ package net.aung.sunshine.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Toast;
 import net.aung.sunshine.R;
 import net.aung.sunshine.controllers.WeatherListItemController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
+import net.aung.sunshine.fragments.ForecastDetailFragment;
 import net.aung.sunshine.fragments.ForecastListFragment;
 
 public class ForecastActivity extends BaseActivity
@@ -79,6 +82,11 @@ public class ForecastActivity extends BaseActivity
 
     @Override
     public void onNavigateToForecastDetail(WeatherStatusVO weatherStatus) {
-        Toast.makeText(getApplicationContext(), "Weather Item Clicked - " + weatherStatus.getDateDisplay(), Toast.LENGTH_SHORT).show();
+        getSupportFragmentManager().beginTransaction()
+                //.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .setCustomAnimations(R.anim.screen_enter_horizontal, R.anim.screen_exit_horizontal, R.anim.screen_pop_enter_horizontal, R.anim.screen_pop_exit_horizontal)
+                .replace(R.id.fl_container, ForecastDetailFragment.newInstance(weatherStatus.getDateTime()))
+                .addToBackStack(null)
+                .commit();
     }
 }

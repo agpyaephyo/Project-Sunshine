@@ -17,6 +17,7 @@ public class BaseFragment extends Fragment {
         }
     }
 
+    //Overwrite this if your fragment is expecting arguments being set from static builder method.
     protected void readArguments(Bundle bundle) {
 
     }

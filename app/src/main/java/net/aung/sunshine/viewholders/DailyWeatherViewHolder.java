@@ -3,7 +3,6 @@ package net.aung.sunshine.viewholders;
 import android.databinding.DataBindingUtil;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.controllers.WeatherListItemController;

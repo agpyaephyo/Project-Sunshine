@@ -26,11 +26,15 @@ import de.greenrobot.event.EventBus;
 public class WeatherStatusModel {
 
     private static final String DUMMY_WEATHER_DATA_FILENAME = "singapore_14days_weather.json";
+    public static final int LOADING_TYPE_LIST = 1;
+    public static final int LOADING_TYPE_DETAIL = 2;
 
     private static WeatherStatusModel objInstance;
 
     private WeatherDataSource weatherDataSource;
     private Map<String, WeatherStatusListResponse> weatherStatusListResponseMap;
+    private String currentCity;
+    private long currentDateForWeatherDetail;
 
     public static WeatherStatusModel getInstance() {
         if (objInstance == null) {
@@ -51,26 +55,19 @@ public class WeatherStatusModel {
     }
 
     public List<WeatherStatusVO> loadWeatherStatusList(String city, boolean isForce) {
+        currentCity = city;
         WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(city);
         if (weatherStatusListResponse == null || isForce) {
-            weatherDataSource.getWeatherForecastList(city);
+            weatherDataSource.getWeatherForecastList(city, LOADING_TYPE_LIST);
             return new ArrayList<>();
         } else {
             return weatherStatusListResponse.getWeatherStatusList();
         }
     }
 
-    public void onEventMainThread(DataEvent.LoadedWeatherStatusListEvent event) {
-        WeatherStatusListResponse response = event.getResponse();
-        String city = response.getCity().getName();
-        weatherStatusListResponseMap.put(city, response);
-
-        DataEvent.NewWeatherStatusList eventToUI = new DataEvent.NewWeatherStatusList(response.getWeatherStatusList());
-        EventBus.getDefault().post(eventToUI);
-    }
-
     //just to test the data layer before network layer hooks up to the api.
     public List<WeatherStatusVO> loadDummyWeatherStatusList(String city) {
+        currentCity = city;
         WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(city);
         if (weatherStatusListResponse == null) {
             new LoadDummyWeatherStatusListTask().execute(city);
@@ -80,6 +77,43 @@ public class WeatherStatusModel {
         }
     }
 
+    public WeatherStatusVO loadWeatherStatusDetail(long dateForWeatherDetail) {
+        currentDateForWeatherDetail = dateForWeatherDetail;
+        WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(currentCity);
+        if (weatherStatusListResponse == null) {
+            weatherDataSource.getWeatherForecastList(currentCity, LOADING_TYPE_DETAIL);
+            return null;
+        } else {
+            return findWeatherStatusByDate(weatherStatusListResponse, dateForWeatherDetail);
+        }
+    }
+
+    private WeatherStatusVO findWeatherStatusByDate(WeatherStatusListResponse weatherStatusListResponse, long dateForWeatherDetail) {
+        ArrayList<WeatherStatusVO> weatherStatusList = weatherStatusListResponse.getWeatherStatusList();
+        for(WeatherStatusVO weatherStatus : weatherStatusList) {
+            if (weatherStatus.getDateTime() == dateForWeatherDetail)
+                return weatherStatus;
+        }
+
+        return null;
+    }
+
+    public void onEventMainThread(DataEvent.LoadedWeatherStatusListEvent event) {
+        WeatherStatusListResponse response = event.getResponse();
+        String city = response.getCity().getName();
+        weatherStatusListResponseMap.put(city, response);
+
+        if(event.getLoadingType() == LOADING_TYPE_LIST) {
+            DataEvent.NewWeatherStatusList eventToUI = new DataEvent.NewWeatherStatusList(response.getWeatherStatusList());
+            EventBus.getDefault().post(eventToUI);
+        } else if (event.getLoadingType() == LOADING_TYPE_DETAIL) {
+            WeatherStatusVO weatherStatus = findWeatherStatusByDate(response, currentDateForWeatherDetail);
+            DataEvent.NewWeatherStatusDetail eventToUI = new DataEvent.NewWeatherStatusDetail(weatherStatus);
+            EventBus.getDefault().post(eventToUI);
+        }
+    }
+
+    //just to test the data layer before network layer hooks up to the api.
     private class LoadDummyWeatherStatusListTask extends AsyncTask<String, Void, WeatherStatusListResponse> {
 
         private String city;

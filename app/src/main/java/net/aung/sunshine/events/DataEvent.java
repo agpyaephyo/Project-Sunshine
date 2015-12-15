@@ -22,15 +22,33 @@ public class DataEvent {
         }
     }
 
+    public static class NewWeatherStatusDetail {
+        private WeatherStatusVO weatherStatus;
+
+        public NewWeatherStatusDetail(WeatherStatusVO weatherStatus) {
+            this.weatherStatus = weatherStatus;
+        }
+
+        public WeatherStatusVO getWeatherStatus() {
+            return weatherStatus;
+        }
+    }
+
     public static class LoadedWeatherStatusListEvent {
         private WeatherStatusListResponse response;
+        private int loadingType;
 
-        public LoadedWeatherStatusListEvent(WeatherStatusListResponse response) {
+        public LoadedWeatherStatusListEvent(WeatherStatusListResponse response, int loadingType) {
             this.response = response;
+            this.loadingType = loadingType;
         }
 
         public WeatherStatusListResponse getResponse() {
             return response;
+        }
+
+        public int getLoadingType() {
+            return loadingType;
         }
     }
 

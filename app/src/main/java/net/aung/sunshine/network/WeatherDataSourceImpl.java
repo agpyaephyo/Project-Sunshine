@@ -1,6 +1,7 @@
 package net.aung.sunshine.network;
 
 import net.aung.sunshine.BuildConfig;
+import net.aung.sunshine.data.models.WeatherStatusModel;
 import net.aung.sunshine.data.responses.WeatherStatusListResponse;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.utils.CommonInstances;
@@ -38,7 +39,7 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
     }
 
     @Override
-    public void getWeatherForecastList(String city) {
+    public void getWeatherForecastList(final String city, final int loadingType) {
         Call<WeatherStatusListResponse> weatherForecastListCall = owmApi.getDailyForecast(
                 city,
                 BuildConfig.OPEN_WEATHER_MAP_API_KEY,
@@ -54,7 +55,7 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
                     DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(response.message());
                     EventBus.getDefault().post(event);
                 } else {
-                    DataEvent.LoadedWeatherStatusListEvent event = new DataEvent.LoadedWeatherStatusListEvent(response.body());
+                    DataEvent.LoadedWeatherStatusListEvent event = new DataEvent.LoadedWeatherStatusListEvent(response.body(), loadingType);
                     EventBus.getDefault().post(event);
                 }
             }
