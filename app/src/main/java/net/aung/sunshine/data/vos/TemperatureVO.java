@@ -25,27 +25,51 @@ public class TemperatureVO {
     @SerializedName("eve")
     private double eveningTemperature;
 
-    public String getDayTemperature() {
+    public String getDayTemperatureDisplay() {
         return String.valueOf((int)dayTemperature) + (char) 0x00B0;
     }
 
-    public String getNightTemperature() {
+    public String getNightTemperatureDisplay() {
         return String.valueOf((int)nightTemperature) + (char) 0x00B0;
     }
 
-    public String getMinTemperature() {
+    public String getMinTemperatureDisplay() {
         return String.valueOf((int)minTemperature) + (char) 0x00B0;
     }
 
-    public String getMaxTemperature() {
+    public String getMaxTemperatureDisplay() {
         return String.valueOf((int)maxTemperature) + (char) 0x00B0;
     }
 
-    public String getMorningTemperature() {
+    public String getMorningTemperatureDisplay() {
         return String.valueOf((int)morningTemperature) + (char) 0x00B0;
     }
 
-    public String getEveningTemperature() {
+    public String getEveningTemperatureDisplay() {
         return String.valueOf((int)eveningTemperature) + (char) 0x00B0;
+    }
+
+    public double getDayTemperature() {
+        return dayTemperature;
+    }
+
+    public double getNightTemperature() {
+        return nightTemperature;
+    }
+
+    public double getMinTemperature() {
+        return minTemperature;
+    }
+
+    public double getMaxTemperature() {
+        return maxTemperature;
+    }
+
+    public double getMorningTemperature() {
+        return morningTemperature;
+    }
+
+    public double getEveningTemperature() {
+        return eveningTemperature;
     }
 }

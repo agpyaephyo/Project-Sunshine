@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
-                android:text="@{weatherStatus.date}"
+                android:text="@{weatherStatus.dateDisplay}"
                 />
 
             <TextView
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-condensed"
                 android:textAppearance="?android:textAppearanceLarge"
-                android:text="@{weatherStatus.temperature.maxTemperature}"
+                android:text="@{weatherStatus.temperature.maxTemperatureDisplay}"
                 />
 
             <TextView
@@ -80,7 +80,7 @@
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="sans-serif-condensed"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:text="@{weatherStatus.temperature.minTemperature}"
+                android:text="@{weatherStatus.temperature.minTemperatureDisplay}"
                 />
 
         </LinearLayout>

@@ -56,8 +56,16 @@ public class WeatherStatusVO {
         return pressure;
     }
 
+    public String getPressureDisplay() {
+        return String.valueOf(pressure);
+    }
+
     public double getHumidity() {
         return humidity;
+    }
+
+    public String getHumidityDisplay() {
+        return String.valueOf(humidity);
     }
 
     public ArrayList<WeatherVO> getWeatherList() {
@@ -72,6 +80,10 @@ public class WeatherStatusVO {
         return windSpeed;
     }
 
+    public String getWindSpeedDisplay() {
+        return String.valueOf(windSpeed);
+    }
+
     public int getDeg() {
         return deg;
     }
@@ -84,7 +96,7 @@ public class WeatherStatusVO {
         return rain;
     }
 
-    public String getDate() {
+    public String getDateDisplay() {
         if (date == null) {
             date = new Date(dateTime * 1000);
         }
@@ -107,5 +119,38 @@ public class WeatherStatusVO {
         }
 
         return dateText;
+    }
+
+    public String getDay() {
+        if (date == null) {
+            date = new Date(dateTime * 1000);
+        }
+
+        String dateText;
+
+        Calendar calendar = Calendar.getInstance();
+        int todayDate = calendar.get(Calendar.DATE);
+        calendar.setTime(date);
+        int weatherDate = calendar.get(Calendar.DATE);
+        if (todayDate == weatherDate) {
+            //today
+            dateText = SunshineApplication.getContext().getString(R.string.lbl_today);
+        } else if (todayDate +1 == weatherDate) {
+            //tomorrow
+            dateText = SunshineApplication.getContext().getString(R.string.lbl_tomorrow);
+        } else {
+            //the rest
+            dateText = DateFormatUtils.sdfDay.format(date);
+        }
+
+        return dateText;
+    }
+
+    public String getDetailDate() {
+        if (date == null) {
+            date = new Date(dateTime * 1000);
+        }
+
+        return DateFormatUtils.sdfWeatherStatusDateToday.format(date);
     }
 }

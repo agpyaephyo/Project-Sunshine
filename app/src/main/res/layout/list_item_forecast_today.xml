@@ -50,7 +50,7 @@
             android:fontFamily="sans-serif-light"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_big_2x"
-            android:text="@{weatherStatus.temperature.maxTemperature}"
+            android:text="@{weatherStatus.temperature.maxTemperatureDisplay}"
             tools:text="21" />
 
         <TextView
@@ -62,7 +62,7 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_regular_3x"
             tools:text="Today, December 13"
-            android:text="@{weatherStatus.date}"
+            android:text="@{weatherStatus.dateDisplay}"
             />
 
         <TextView
@@ -73,7 +73,7 @@
             android:layout_marginBottom="@dimen/margin_medium_2"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_heading_2x"
-            android:text="@{weatherStatus.temperature.minTemperature}"
+            android:text="@{weatherStatus.temperature.minTemperatureDisplay}"
             tools:text="13" />
 
     </RelativeLayout>
