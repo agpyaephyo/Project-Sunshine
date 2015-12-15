@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.aung.sunshine.R;
+import net.aung.sunshine.controllers.WeatherListItemController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.viewholders.DailyWeatherViewHolder;
 import net.aung.sunshine.viewholders.TodayWeatherViewHolder;
@@ -25,18 +26,16 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
     private static final int VIEW_TYPE_OTHER_THAN_TODAY = 1;
 
     private List<WeatherStatusVO> statusList;
+    private WeatherListItemController controller;
 
-    public static ForecastListAdapter newInstance() {
+    public static ForecastListAdapter newInstance(WeatherListItemController controller) {
         List<WeatherStatusVO> statusList = new ArrayList<>();
-        return newInstance(statusList);
+        return new ForecastListAdapter(statusList, controller);
     }
 
-    public static ForecastListAdapter newInstance(@NonNull List<WeatherStatusVO> statusList) {
-        return new ForecastListAdapter(statusList);
-    }
-
-    public ForecastListAdapter(List<WeatherStatusVO> statusList) {
+    public ForecastListAdapter(List<WeatherStatusVO> statusList, WeatherListItemController controller) {
         this.statusList = statusList;
+        this.controller = controller;
     }
 
     @Override
@@ -46,10 +45,10 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
 
         if (viewType == VIEW_TYPE_TODAY) {
             View statusContainer = inflater.inflate(R.layout.list_item_forecast_today, parent, false);
-            return new TodayWeatherViewHolder(statusContainer);
+            return new TodayWeatherViewHolder(statusContainer, controller);
         } else if (viewType == VIEW_TYPE_OTHER_THAN_TODAY) {
             View statusContainer = inflater.inflate(R.layout.list_item_forecast, parent, false);
-            return new DailyWeatherViewHolder(statusContainer);
+            return new DailyWeatherViewHolder(statusContainer, controller);
         }
 
         return null;

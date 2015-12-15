@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import net.aung.sunshine.R;
+import net.aung.sunshine.controllers.WeatherListItemController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.databinding.ListItemForecastBinding;
 import net.aung.sunshine.utils.WeatherIconUtils;
@@ -23,23 +24,20 @@ public class DailyWeatherViewHolder extends WeatherViewHolder {
 
     private ListItemForecastBinding binding;
 
-    public DailyWeatherViewHolder(View itemView) {
-        super(itemView);
-        ButterKnife.bind(this, itemView);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Weather Item Clicked!", Toast.LENGTH_SHORT).show();
-            }
-        });
+    public DailyWeatherViewHolder(View itemView, WeatherListItemController controller) {
+        super(itemView, controller);
+        ButterKnife.bind(this, itemView);
+        itemView.setOnClickListener(this);
 
         binding = DataBindingUtil.bind(itemView);
     }
 
     @Override
     public void bind(WeatherStatusVO status) {
+        super.bind(status);
         binding.setWeatherStatus(status);
+
         int weatherIconResourceId = WeatherIconUtils.getIconResourceForWeatherCondition(status.getWeather().getId());
         ivStatus.setImageResource(weatherIconResourceId);
     }

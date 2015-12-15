@@ -1,5 +1,7 @@
 package net.aung.sunshine.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
@@ -15,6 +17,7 @@ import android.view.ViewGroup;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.adapters.ForecastListAdapter;
+import net.aung.sunshine.controllers.WeatherListItemController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.mvp.presenters.ForecastListPresenter;
 import net.aung.sunshine.mvp.views.ForecastListView;
@@ -41,6 +44,7 @@ public class ForecastListFragment extends BaseFragment
 
     private ForecastListAdapter adapter;
     private ForecastListPresenter presenter;
+    private WeatherListItemController controller;
 
     public static ForecastListFragment newInstance() {
         ForecastListFragment fragment = new ForecastListFragment();
@@ -51,10 +55,18 @@ public class ForecastListFragment extends BaseFragment
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        controller = (WeatherListItemController) context;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new ForecastListPresenter(this);
         presenter.onCreate();
+
+        adapter = ForecastListAdapter.newInstance(controller);
 
         setHasOptionsMenu(true);
     }
@@ -66,8 +78,6 @@ public class ForecastListFragment extends BaseFragment
         ButterKnife.bind(this, rootView);
 
         rvForecasts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-
-        adapter = ForecastListAdapter.newInstance();
         rvForecasts.setAdapter(adapter);
 
         swipeContainer.setOnRefreshListener(this);

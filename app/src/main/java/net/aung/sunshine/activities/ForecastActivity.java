@@ -6,11 +6,15 @@ import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import net.aung.sunshine.R;
+import net.aung.sunshine.controllers.WeatherListItemController;
+import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.fragments.ForecastListFragment;
 
-public class ForecastActivity extends BaseActivity {
+public class ForecastActivity extends BaseActivity
+        implements WeatherListItemController {
 
     private FloatingActionButton fab;
 
@@ -71,5 +75,10 @@ public class ForecastActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onNavigateToForecastDetail(WeatherStatusVO weatherStatus) {
+        Toast.makeText(getApplicationContext(), "Weather Item Clicked - " + weatherStatus.getDateDisplay(), Toast.LENGTH_SHORT).show();
     }
 }
