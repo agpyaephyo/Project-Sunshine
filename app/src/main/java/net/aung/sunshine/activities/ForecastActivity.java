@@ -3,21 +3,18 @@ package net.aung.sunshine.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import net.aung.sunshine.R;
-import net.aung.sunshine.controllers.WeatherListItemController;
+import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.fragments.ForecastDetailFragment;
 import net.aung.sunshine.fragments.ForecastListFragment;
 
 public class ForecastActivity extends BaseActivity
-        implements WeatherListItemController {
+        implements ForecastListScreenController {
 
     private FloatingActionButton fab;
 
@@ -25,12 +22,11 @@ public class ForecastActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast_list);
+
         /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         */
-
-        getSupportActionBar().setElevation(0f);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,22 +59,23 @@ public class ForecastActivity extends BaseActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Snackbar.make(fab, "Settings options are coming soon", Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
-            return true;
-        } else if (id == R.id.action_about) {
-            Snackbar.make(fab, "About this Project Sunshine is coming soon", Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
-            return true;
-        } else if (id == R.id.action_help) {
-            Snackbar.make(fab, "The help that you gonna need to use this App is coming soon", Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
-            return true;
+        switch (id) {
+            case R.id.action_settings:
+                startSettingActivity();
+                break;
+            case R.id.action_about:
+                Snackbar.make(fab, "About this Project Sunshine is coming soon", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+                break;
+            case R.id.action_help:
+                Snackbar.make(fab, "The help that you gonna need to use this App is coming soon", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 
     @Override
     public void onNavigateToForecastDetail(WeatherStatusVO weatherStatus) {
@@ -88,5 +85,10 @@ public class ForecastActivity extends BaseActivity
                 .replace(R.id.fl_container, ForecastDetailFragment.newInstance(weatherStatus.getDateTime()))
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void showCityInGoogleMap(String city) {
+        showCityInGoogleMap(city, fab);
     }
 }

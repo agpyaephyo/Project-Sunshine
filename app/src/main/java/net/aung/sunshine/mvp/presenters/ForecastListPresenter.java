@@ -1,9 +1,13 @@
 package net.aung.sunshine.mvp.presenters;
 
+import android.util.Log;
+
+import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.data.models.WeatherStatusModel;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.mvp.views.ForecastListView;
+import net.aung.sunshine.utils.SettingsUtils;
 
 import java.util.List;
 
@@ -11,8 +15,6 @@ import java.util.List;
  * Created by aung on 12/14/15.
  */
 public class ForecastListPresenter extends BasePresenter {
-
-    private static final String DUMMY_CITY_NAME = "Singapore"; //ABCDEFG
 
     private ForecastListView forecastListView;
 
@@ -22,7 +24,10 @@ public class ForecastListPresenter extends BasePresenter {
 
     @Override
     public void onStart() {
-        List<WeatherStatusVO> weatherStatusList = WeatherStatusModel.getInstance().loadWeatherStatusList(DUMMY_CITY_NAME, false);
+        String userLocation = SettingsUtils.retrieveUserLocation();
+        Log.d(SunshineApplication.TAG, "Retrieving weather data for city : " + userLocation);
+
+        List<WeatherStatusVO> weatherStatusList = WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, false);
         forecastListView.displayWeatherList(weatherStatusList);
     }
 
@@ -41,6 +46,11 @@ public class ForecastListPresenter extends BasePresenter {
     }
 
     public void forceRefresh() {
-        WeatherStatusModel.getInstance().loadWeatherStatusList(DUMMY_CITY_NAME, true);
+        String userLocation = SettingsUtils.retrieveUserLocation();
+        Log.d(SunshineApplication.TAG, "Force refresh weather data for city : " + userLocation);
+
+        WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, true);
     }
+
+
 }

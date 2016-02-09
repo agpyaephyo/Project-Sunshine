@@ -5,7 +5,9 @@ import net.aung.sunshine.data.vos.WeatherStatusVO;
 /**
  * Created by aung on 12/15/15.
  */
-public interface WeatherListItemController extends BaseController {
+public interface ForecastListScreenController extends BaseController {
 
     void onNavigateToForecastDetail(WeatherStatusVO weatherStatus);
+
+    void showCityInGoogleMap(String city);
 }

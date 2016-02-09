@@ -50,6 +50,7 @@ public class DataEvent {
         public int getLoadingType() {
             return loadingType;
         }
+
     }
 
     public static class LoadedWeatherStatusListErrorEvent {

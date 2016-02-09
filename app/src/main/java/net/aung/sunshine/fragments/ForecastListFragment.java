@@ -1,11 +1,11 @@
 package net.aung.sunshine.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,22 +17,20 @@ import android.view.ViewGroup;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.adapters.ForecastListAdapter;
-import net.aung.sunshine.controllers.WeatherListItemController;
+import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.mvp.presenters.ForecastListPresenter;
 import net.aung.sunshine.mvp.views.ForecastListView;
+import net.aung.sunshine.utils.SettingsUtils;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class ForecastListFragment extends BaseFragment
         implements ForecastListView,
-        SwipeRefreshLayout.OnRefreshListener{
+        SwipeRefreshLayout.OnRefreshListener {
 
     @Bind(R.id.rv_forecasts)
     RecyclerView rvForecasts;
@@ -44,7 +42,7 @@ public class ForecastListFragment extends BaseFragment
 
     private ForecastListAdapter adapter;
     private ForecastListPresenter presenter;
-    private WeatherListItemController controller;
+    private ForecastListScreenController controller;
 
     public static ForecastListFragment newInstance() {
         ForecastListFragment fragment = new ForecastListFragment();
@@ -57,7 +55,7 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        controller = (WeatherListItemController) context;
+        controller = (ForecastListScreenController) context;
     }
 
     @Override
@@ -97,10 +95,16 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_filter) {
-            Snackbar.make(rootView, "Later, you will be able to filter the list of dates that has specific weathers", Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
-            return true;
+        switch (id) {
+            case R.id.action_filter:
+                Snackbar.make(rootView, "Later, you will be able to filter the list of dates that has specific weathers", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+                break;
+
+            case R.id.action_show_city:
+                String city = SettingsUtils.retrieveUserLocation();
+                controller.showCityInGoogleMap(city);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -110,6 +114,15 @@ public class ForecastListFragment extends BaseFragment
     public void onStart() {
         super.onStart();
         presenter.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = activity.getSupportActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
+        actionBar.setElevation(0f);
     }
 
     @Override
@@ -128,7 +141,7 @@ public class ForecastListFragment extends BaseFragment
     public void displayWeatherList(List<WeatherStatusVO> weatherStatusList) {
         adapter.setStatusList(weatherStatusList);
 
-        if(swipeContainer.isRefreshing()) {
+        if (swipeContainer.isRefreshing()) {
             swipeContainer.setRefreshing(false);
             Snackbar.make(rootView, "New weather data has been refreshed.", Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
@@ -137,11 +150,11 @@ public class ForecastListFragment extends BaseFragment
 
     @Override
     public void displayErrorMessage(String message) {
-        if(swipeContainer.isRefreshing()) {
+        if (swipeContainer.isRefreshing()) {
             swipeContainer.setRefreshing(false);
         }
 
-        Snackbar.make(rootView, "Failed to load weather status list ("+message+")", Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(rootView, "Failed to load weather status list (" + message + ")", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
     }
 

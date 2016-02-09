@@ -1,6 +1,12 @@
 package net.aung.sunshine.data.vos;
 
+import android.content.Context;
+
 import com.google.gson.annotations.SerializedName;
+
+import net.aung.sunshine.R;
+import net.aung.sunshine.SunshineApplication;
+import net.aung.sunshine.utils.SettingsUtils;
 
 /**
  * Created by aung on 12/14/15.
@@ -34,11 +40,13 @@ public class TemperatureVO {
     }
 
     public String getMinTemperatureDisplay() {
-        return String.valueOf((int)minTemperature) + (char) 0x00B0;
+        double temperature = getTemperatureBySelectedUnit(minTemperature);
+        return String.valueOf((int)temperature) + (char) 0x00B0;
     }
 
     public String getMaxTemperatureDisplay() {
-        return String.valueOf((int)maxTemperature) + (char) 0x00B0;
+        double temperature = getTemperatureBySelectedUnit(maxTemperature);
+        return String.valueOf((int)temperature) + (char) 0x00B0;
     }
 
     public String getMorningTemperatureDisplay() {
@@ -71,5 +79,15 @@ public class TemperatureVO {
 
     public double getEveningTemperature() {
         return eveningTemperature;
+    }
+
+    private double getTemperatureBySelectedUnit(double temperature) {
+        String selectedUnit = SettingsUtils.retrieveSelectedUnit();
+        Context context = SunshineApplication.getContext();
+        if(selectedUnit.equalsIgnoreCase(context.getString(R.string.pref_unit_imperial))) {
+            temperature = (temperature * 1.8) + 32;
+        }
+
+        return temperature;
     }
 }

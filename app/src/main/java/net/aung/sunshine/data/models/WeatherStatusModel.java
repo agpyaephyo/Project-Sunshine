@@ -56,7 +56,8 @@ public class WeatherStatusModel {
 
     public List<WeatherStatusVO> loadWeatherStatusList(String city, boolean isForce) {
         currentCity = city;
-        WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(city);
+        String key = getKeyForWeatherStatus(city);
+        WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(key);
         if (weatherStatusListResponse == null || isForce) {
             weatherDataSource.getWeatherForecastList(city, LOADING_TYPE_LIST);
             return new ArrayList<>();
@@ -79,7 +80,8 @@ public class WeatherStatusModel {
 
     public WeatherStatusVO loadWeatherStatusDetail(long dateForWeatherDetail) {
         currentDateForWeatherDetail = dateForWeatherDetail;
-        WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(currentCity);
+        String key = getKeyForWeatherStatus(currentCity);
+        WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(key);
         if (weatherStatusListResponse == null) {
             weatherDataSource.getWeatherForecastList(currentCity, LOADING_TYPE_DETAIL);
             return null;
@@ -101,7 +103,8 @@ public class WeatherStatusModel {
     public void onEventMainThread(DataEvent.LoadedWeatherStatusListEvent event) {
         WeatherStatusListResponse response = event.getResponse();
         String city = response.getCity().getName();
-        weatherStatusListResponseMap.put(city, response);
+        String key = getKeyForWeatherStatus(city);
+        weatherStatusListResponseMap.put(key, response);
 
         if(event.getLoadingType() == LOADING_TYPE_LIST) {
             DataEvent.NewWeatherStatusList eventToUI = new DataEvent.NewWeatherStatusList(response.getWeatherStatusList());
@@ -143,5 +146,14 @@ public class WeatherStatusModel {
             DataEvent.NewWeatherStatusList event = new DataEvent.NewWeatherStatusList(weatherStatusListResponseMap.get(city).getWeatherStatusList());
             EventBus.getDefault().post(event);
         }
+    }
+
+    /**
+     * Dummy key generation for weather status hash map.
+     * @param city
+     * @return
+     */
+    private String getKeyForWeatherStatus(String city) {
+        return city;
     }
 }

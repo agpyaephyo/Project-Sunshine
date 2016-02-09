@@ -4,6 +4,7 @@ import net.aung.sunshine.data.models.WeatherStatusModel;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.mvp.views.ForecastDetailView;
+import net.aung.sunshine.utils.SettingsUtils;
 
 /**
  * Created by aung on 12/15/15.
@@ -21,7 +22,9 @@ public class ForecastDetailPresenter extends BasePresenter {
     @Override
     public void onStart() {
         WeatherStatusVO weatherStatus = WeatherStatusModel.getInstance().loadWeatherStatusDetail(dateForWeatherDetail);
-        forecastDetailView.displayWeatherDetail(weatherStatus);
+
+        if(weatherStatus != null)
+            forecastDetailView.displayWeatherDetail(weatherStatus);
     }
 
     @Override

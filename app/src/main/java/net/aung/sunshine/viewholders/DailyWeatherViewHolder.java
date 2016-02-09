@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import net.aung.sunshine.R;
-import net.aung.sunshine.controllers.WeatherListItemController;
+import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.databinding.ListItemForecastBinding;
 import net.aung.sunshine.utils.WeatherIconUtils;
@@ -24,7 +24,7 @@ public class DailyWeatherViewHolder extends WeatherViewHolder {
     private ListItemForecastBinding binding;
 
 
-    public DailyWeatherViewHolder(View itemView, WeatherListItemController controller) {
+    public DailyWeatherViewHolder(View itemView, ForecastListScreenController controller) {
         super(itemView, controller);
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);

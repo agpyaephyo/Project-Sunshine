@@ -13,4 +13,16 @@
     <string name="lbl_humidity">Humidity :</string>
     <string name="lbl_pressure">Pressure :</string>
     <string name="lbl_wind">Wind :</string>
+
+    <!-- Preferences -->
+    <string name="pref_location_key" translatable="false">pref_location_key</string>
+    <string name="pref_location_label">Pick city</string>
+    <string name="pref_location_default">Your current city</string>
+
+    <string name="pref_unit_key" translatable="false">pref_unit_key</string>
+    <string name="pref_unit_label">Pick degree unit</string>
+    <string name="pref_unit_metric">Celsius</string>
+    <string name="pref_unit_imperial">Fahrenheit</string>
+    <string name="action_show_city">Show City</string>
+    <string name="action_share">Share</string>
 </resources>
