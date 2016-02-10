@@ -39,6 +39,10 @@
             </intent-filter>
         </receiver>
 
+        <provider
+            android:authorities="@string/content_authority"
+            android:name=".data.persistence.WeatherProvider" />
+
     </application>
 
 </manifest>

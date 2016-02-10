@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class WeatherDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1; /* manually update every time you release a new apk with updated database schema. */
+    private static final int DATABASE_VERSION = 2; /* manually update every time you release a new apk with updated database schema. */
 
     public static final String DATABASE_NAME = "weather.db"; /* actual database file on the file system */
 
@@ -26,7 +26,7 @@ public class WeatherDBHelper extends SQLiteOpenHelper {
             WeatherContract.WeatherEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
 
             /* FK */
-            WeatherContract.WeatherEntry.COLUMN_LOCATION_ID + " INTEGER NOT NULL, "+
+            WeatherContract.WeatherEntry.COLUMN_LOCATION_ID + " INTEGER, "+
 
             WeatherContract.WeatherEntry.COLUMN_DATE + " INTEGER NOT NULL, "+
             WeatherContract.WeatherEntry.COLUMN_WEATHER_DESC + " TEXT NOT NULL, "+

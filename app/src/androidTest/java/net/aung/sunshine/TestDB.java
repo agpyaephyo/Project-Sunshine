@@ -8,6 +8,7 @@ import android.util.Log;
 
 import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.persistence.WeatherDBHelper;
+import net.aung.sunshine.utils.TestUtils;
 
 import java.util.HashSet;
 
@@ -144,7 +145,7 @@ public class TestDB extends AndroidTestCase {
         assertTrue("Fail to insert north pole location value", northPoleLocationRowId != -1);
         Log.d(SunshineApplication.TAG, "Success to insert north pole location values");
 
-        ContentValues testWeatherValues = TestUtils.createTestWeatherValues(northPoleLocationRowId);
+        ContentValues testWeatherValues = TestUtils.createTestWeatherValues(northPoleLocationRowId, TestUtils.TEST_DATE);
 
         //Insert test weather values into weather table.
         long testWeatherRowId = db.insert(WeatherContract.WeatherEntry.TABLE_NAME, null, testWeatherValues);
