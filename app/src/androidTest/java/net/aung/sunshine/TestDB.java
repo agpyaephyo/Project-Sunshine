@@ -49,7 +49,7 @@ public class TestDB extends AndroidTestCase {
 
         //Create HashSet for table name we would like to create.
         final HashSet<String> tableNames = new HashSet<>();
-        tableNames.add(WeatherContract.LocationEntry.TABLE_NAME);
+        tableNames.add(WeatherContract.CityEntry.TABLE_NAME);
         tableNames.add(WeatherContract.WeatherEntry.TABLE_NAME);
 
         //TODO Are tables created correctly ?
@@ -97,13 +97,13 @@ public class TestDB extends AndroidTestCase {
         ContentValues northPoleLocationValues = TestUtils.createNorthPoleLocationValues();
 
         //Insert north pole location value into location table.
-        long locationRowId = db.insert(WeatherContract.LocationEntry.TABLE_NAME, null, northPoleLocationValues);
+        long locationRowId = db.insert(WeatherContract.CityEntry.TABLE_NAME, null, northPoleLocationValues);
 
         assertTrue("Fail to insert north pole location value", locationRowId != -1);
         Log.d(SunshineApplication.TAG, "Success to insert north pole location values");
 
         //Query north pole location value.
-        Cursor cursorLocationAll = db.query(WeatherContract.LocationEntry.TABLE_NAME,
+        Cursor cursorLocationAll = db.query(WeatherContract.CityEntry.TABLE_NAME,
                 null, //the columns you want. all.
                 null, //columns for the "where" clause.
                 null, //values for the "where" clause.
@@ -140,7 +140,7 @@ public class TestDB extends AndroidTestCase {
         ContentValues northPoleLocationValues = TestUtils.createNorthPoleLocationValues();
 
         //Insert north pole location value into location table.
-        long northPoleLocationRowId = db.insert(WeatherContract.LocationEntry.TABLE_NAME, null, northPoleLocationValues);
+        long northPoleLocationRowId = db.insert(WeatherContract.CityEntry.TABLE_NAME, null, northPoleLocationValues);
 
         assertTrue("Fail to insert north pole location value", northPoleLocationRowId != -1);
         Log.d(SunshineApplication.TAG, "Success to insert north pole location values");
@@ -199,7 +199,7 @@ public class TestDB extends AndroidTestCase {
      * Test if columns in Location table are correct.
      */
     private void locationColumnsTest(SQLiteDatabase db) {
-        Cursor cursorLocationColumns = db.rawQuery("PRAGMA table_info(" + WeatherContract.LocationEntry.TABLE_NAME + ")", null);
+        Cursor cursorLocationColumns = db.rawQuery("PRAGMA table_info(" + WeatherContract.CityEntry.TABLE_NAME + ")", null);
 
         //** Check if cursor is operational.
         assertTrue("Location column cursor can't move to first", cursorLocationColumns.moveToFirst());
@@ -207,11 +207,10 @@ public class TestDB extends AndroidTestCase {
 
         //Create HashSet for column names in Location Table.
         final HashSet<String> locationColumns = new HashSet<String>();
-        locationColumns.add(WeatherContract.LocationEntry._ID);
-        locationColumns.add(WeatherContract.LocationEntry.COLUMN_CITY_NAME);
-        locationColumns.add(WeatherContract.LocationEntry.COLUMN_COORD_LAT);
-        locationColumns.add(WeatherContract.LocationEntry.COLUMN_COORD_LNG);
-        locationColumns.add(WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING);
+        locationColumns.add(WeatherContract.CityEntry._ID);
+        locationColumns.add(WeatherContract.CityEntry.COLUMN_CITY_NAME);
+        locationColumns.add(WeatherContract.CityEntry.COLUMN_COORD_LAT);
+        locationColumns.add(WeatherContract.CityEntry.COLUMN_COORD_LNG);
 
         int indexForColumnName = cursorLocationColumns.getColumnIndex("name");
         do {

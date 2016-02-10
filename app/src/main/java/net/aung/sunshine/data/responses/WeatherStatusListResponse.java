@@ -6,6 +6,7 @@ import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.data.vos.CityVO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by aung on 12/14/15.
@@ -45,5 +46,12 @@ public class WeatherStatusListResponse {
 
     public ArrayList<WeatherStatusVO> getWeatherStatusList() {
         return weatherStatusList;
+    }
+
+    public static WeatherStatusListResponse createFromCache(ArrayList<WeatherStatusVO> weatherStatusList, CityVO city) {
+        WeatherStatusListResponse response = new WeatherStatusListResponse();
+        response.weatherStatusList = weatherStatusList;
+        response.city = city;
+        return response;
     }
 }

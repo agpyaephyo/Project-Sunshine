@@ -46,13 +46,13 @@ public class TestContentProvider extends AndroidTestCase {
                 weatherCursor.getCount(), 0);
         weatherCursor.close();
 
-        db.delete(WeatherContract.LocationEntry.TABLE_NAME,
+        db.delete(WeatherContract.CityEntry.TABLE_NAME,
                 null,
                 null
         );
 
         Cursor locationCursor = mContext.getContentResolver().query(
-                WeatherContract.LocationEntry.CONTENT_URI,
+                WeatherContract.CityEntry.CONTENT_URI,
                 null,
                 null,
                 null,
@@ -113,9 +113,9 @@ public class TestContentProvider extends AndroidTestCase {
         Log.d(SunshineApplication.TAG, "Correct : Type for weather/London/12345678L - " + weatehrLocationDateMIME);
 
         //content://net.aung.sunshine/location
-        String locationMIME = mContext.getContentResolver().getType(WeatherContract.LocationEntry.CONTENT_URI);
+        String locationMIME = mContext.getContentResolver().getType(WeatherContract.CityEntry.CONTENT_URI);
         assertEquals("Error : Type for location should be DIR instead of " + locationMIME,
-                WeatherContract.LocationEntry.DIR_TYPE, locationMIME);
+                WeatherContract.CityEntry.DIR_TYPE, locationMIME);
         Log.d(SunshineApplication.TAG, "Correct : Type for location - " + locationMIME);
     }
 
@@ -133,11 +133,11 @@ public class TestContentProvider extends AndroidTestCase {
         */
 
         //Insert via ContentProvider.
-        mContext.getContentResolver().insert(WeatherContract.LocationEntry.CONTENT_URI, northPoleLocation);
+        mContext.getContentResolver().insert(WeatherContract.CityEntry.CONTENT_URI, northPoleLocation);
         Log.d(SunshineApplication.TAG, "Inserted by ContentProvider success. North pole values into location table.");
 
         Cursor locationCursor = mContext.getContentResolver().query(
-                WeatherContract.LocationEntry.CONTENT_URI,
+                WeatherContract.CityEntry.CONTENT_URI,
                 null,
                 null,
                 null,
@@ -177,7 +177,7 @@ public class TestContentProvider extends AndroidTestCase {
                 locationNorthId != -1);
         Log.d(SunshineApplication.TAG, "Inserted north pole values into location table.");
         */
-        Uri northPoleLocationUri = mContext.getContentResolver().insert(WeatherContract.LocationEntry.CONTENT_URI, northPoleLocation);
+        Uri northPoleLocationUri = mContext.getContentResolver().insert(WeatherContract.CityEntry.CONTENT_URI, northPoleLocation);
         long locationNorthId = ContentUris.parseId(northPoleLocationUri);
         Log.d(SunshineApplication.TAG, "Inserted by ContentProvider success. North pole values into location table.");
 
@@ -191,7 +191,7 @@ public class TestContentProvider extends AndroidTestCase {
         Log.d(SunshineApplication.TAG, "Inserted south pole values into location table.");
         */
 
-        Uri southPoleLocationUri = mContext.getContentResolver().insert(WeatherContract.LocationEntry.CONTENT_URI, southPoleLocation);
+        Uri southPoleLocationUri = mContext.getContentResolver().insert(WeatherContract.CityEntry.CONTENT_URI, southPoleLocation);
         long locationSouthId = ContentUris.parseId(southPoleLocationUri);
         Log.d(SunshineApplication.TAG, "Inserted by ContentProvider success. South pole values into location table.");
 
@@ -245,9 +245,9 @@ public class TestContentProvider extends AndroidTestCase {
         //###
 
         //- retrieve by location_setting
-        String locationSetting = northPoleLocation.get(WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING).toString();
+        String city = northPoleLocation.get(WeatherContract.CityEntry.COLUMN_CITY_NAME).toString();
         Cursor weatherCursor = mContext.getContentResolver().query(
-                WeatherContract.WeatherEntry.buildWeatherUri(locationSetting),
+                WeatherContract.WeatherEntry.buildWeatherUri(city),
                 null,
                 null,
                 null,
@@ -289,9 +289,9 @@ public class TestContentProvider extends AndroidTestCase {
         Log.d(SunshineApplication.TAG, "Retrieved North 1 by using content resolver are correct");
 
         //- weather list by location_setting + date
-        locationSetting = southPoleLocation.get(WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING).toString();
+        city = southPoleLocation.get(WeatherContract.CityEntry.COLUMN_CITY_NAME).toString();
         weatherCursor = mContext.getContentResolver().query(
-                WeatherContract.WeatherEntry.buildWeatherUri(locationSetting, TestUtils.TEST_DATE),
+                WeatherContract.WeatherEntry.buildWeatherUri(city, TestUtils.TEST_DATE),
                 null,
                 null,
                 null,
@@ -311,9 +311,9 @@ public class TestContentProvider extends AndroidTestCase {
         Log.d(SunshineApplication.TAG, "Retrieved South 1 by using content resolver are correct");
 
         //- weather list by location_setting AND start_date
-        locationSetting = northPoleLocation.get(WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING).toString();
+        city = northPoleLocation.get(WeatherContract.CityEntry.COLUMN_CITY_NAME).toString();
         weatherCursor = mContext.getContentResolver().query(
-                WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(locationSetting, TestUtils.TEST_DATE + 1),
+                WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, TestUtils.TEST_DATE + 1),
                 null,
                 null,
                 null,
@@ -337,16 +337,16 @@ public class TestContentProvider extends AndroidTestCase {
 
     public void testInsertWithObserver() {
         ContentValues northPoleLocation = TestUtils.createNorthPoleLocationValues();
-        String northLS = northPoleLocation.get(WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING).toString();
+        String northLS = northPoleLocation.get(WeatherContract.CityEntry.COLUMN_CITY_NAME).toString();
 
         ContentValues southPoleLocation = TestUtils.createSouthPoleLocationValues();
-        String southLS = southPoleLocation.get(WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING).toString();
+        String southLS = southPoleLocation.get(WeatherContract.CityEntry.COLUMN_CITY_NAME).toString();
 
 
         TestUtils.TestContentObserver testObserverLocation = TestUtils.TestContentObserver.getTestContentObserver();
-        mContext.getContentResolver().registerContentObserver(WeatherContract.LocationEntry.CONTENT_URI, true, testObserverLocation);
+        mContext.getContentResolver().registerContentObserver(WeatherContract.CityEntry.CONTENT_URI, true, testObserverLocation);
 
-        Uri northPoleUri = mContext.getContentResolver().insert(WeatherContract.LocationEntry.CONTENT_URI, northPoleLocation);
+        Uri northPoleUri = mContext.getContentResolver().insert(WeatherContract.CityEntry.CONTENT_URI, northPoleLocation);
 
         testObserverLocation.waitForNotificationOrFail();
         mContext.getContentResolver().unregisterContentObserver(testObserverLocation);
@@ -356,7 +356,7 @@ public class TestContentProvider extends AndroidTestCase {
                 northPoleRowId != -1);
 
         Cursor locationCursor = mContext.getContentResolver().query(
-                WeatherContract.LocationEntry.CONTENT_URI,
+                WeatherContract.CityEntry.CONTENT_URI,
                 null,
                 null,
                 null,
@@ -396,7 +396,7 @@ public class TestContentProvider extends AndroidTestCase {
         TestUtils.validateCurrentCursorRow("Error validating test weather entry",
                 weatherCursor, northOne);
 
-        Uri southPoleUri = mContext.getContentResolver().insert(WeatherContract.LocationEntry.CONTENT_URI, southPoleLocation);
+        Uri southPoleUri = mContext.getContentResolver().insert(WeatherContract.CityEntry.CONTENT_URI, southPoleLocation);
         long southPoleRowId = ContentUris.parseId(southPoleUri);
 
         ContentValues southOne = TestUtils.createTestWeatherValues(southPoleRowId);
@@ -462,20 +462,20 @@ public class TestContentProvider extends AndroidTestCase {
 
     public void testLocationUpdate() {
         ContentValues northPoleLocation = TestUtils.createNorthPoleLocationValues();
-        Uri northPoleUri = mContext.getContentResolver().insert(WeatherContract.LocationEntry.CONTENT_URI, northPoleLocation);
+        Uri northPoleUri = mContext.getContentResolver().insert(WeatherContract.CityEntry.CONTENT_URI, northPoleLocation);
         long northPoleRowId = ContentUris.parseId(northPoleUri);
 
-        Cursor locationCursor = mContext.getContentResolver().query(WeatherContract.LocationEntry.CONTENT_URI,
+        Cursor locationCursor = mContext.getContentResolver().query(WeatherContract.CityEntry.CONTENT_URI,
                 null, null, null, null);
 
         TestUtils.TestContentObserver testLocationObserver = TestUtils.TestContentObserver.getTestContentObserver();
         locationCursor.registerContentObserver(testLocationObserver);
 
         ContentValues updatedNorthPoleLocation = new ContentValues(northPoleLocation);
-        updatedNorthPoleLocation.put(WeatherContract.LocationEntry.COLUMN_CITY_NAME, "Santa's Village");
+        updatedNorthPoleLocation.put(WeatherContract.CityEntry.COLUMN_CITY_NAME, "Santa's Village");
 
-        int updatedRowCount = mContext.getContentResolver().update(WeatherContract.LocationEntry.CONTENT_URI, updatedNorthPoleLocation,
-                WeatherContract.LocationEntry._ID + "=?", new String[]{Long.toString(northPoleRowId)});
+        int updatedRowCount = mContext.getContentResolver().update(WeatherContract.CityEntry.CONTENT_URI, updatedNorthPoleLocation,
+                WeatherContract.CityEntry._ID + "=?", new String[]{Long.toString(northPoleRowId)});
 
         //check if update happens.
         assertTrue("Update for north pole location fails because updated row count is " + updatedRowCount,
@@ -486,9 +486,9 @@ public class TestContentProvider extends AndroidTestCase {
         locationCursor.unregisterContentObserver(testLocationObserver);
         locationCursor.close();
 
-        Cursor updatedLocationCursor = mContext.getContentResolver().query(WeatherContract.LocationEntry.CONTENT_URI,
+        Cursor updatedLocationCursor = mContext.getContentResolver().query(WeatherContract.CityEntry.CONTENT_URI,
                 null,
-                WeatherContract.LocationEntry._ID + " = ?",
+                WeatherContract.CityEntry._ID + " = ?",
                 new String[]{Long.toString(northPoleRowId)},
                 null);
 
@@ -503,7 +503,7 @@ public class TestContentProvider extends AndroidTestCase {
 
     public void testLocationDelete() {
         ContentValues northPoleLocation = TestUtils.createNorthPoleLocationValues();
-        Uri northPoleUri = mContext.getContentResolver().insert(WeatherContract.LocationEntry.CONTENT_URI, northPoleLocation);
+        Uri northPoleUri = mContext.getContentResolver().insert(WeatherContract.CityEntry.CONTENT_URI, northPoleLocation);
         long northPoleRowId = ContentUris.parseId(northPoleUri);
 
         /*
@@ -511,17 +511,17 @@ public class TestContentProvider extends AndroidTestCase {
         mContext.getContentResolver().insert(WeatherContract.WeatherEntry.CONTENT_URI, northOne);
         */
 
-        int deletedRowCount = mContext.getContentResolver().delete(WeatherContract.LocationEntry.CONTENT_URI,
-                WeatherContract.LocationEntry._ID + " = ? ",
+        int deletedRowCount = mContext.getContentResolver().delete(WeatherContract.CityEntry.CONTENT_URI,
+                WeatherContract.CityEntry._ID + " = ? ",
                 new String[]{Long.toString(northPoleRowId)});
 
         //check if delete happens.
         assertTrue("Delete for north pole location fails because deleted row count is"+deletedRowCount,
                 deletedRowCount == 1);
 
-        Cursor locationCursor = mContext.getContentResolver().query(WeatherContract.LocationEntry.CONTENT_URI,
+        Cursor locationCursor = mContext.getContentResolver().query(WeatherContract.CityEntry.CONTENT_URI,
                 null,
-                WeatherContract.LocationEntry._ID + " = ?",
+                WeatherContract.CityEntry._ID + " = ?",
                 new String[]{Long.toString(northPoleRowId)},
                 null);
 

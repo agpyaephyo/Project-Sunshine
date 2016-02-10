@@ -1,6 +1,10 @@
 package net.aung.sunshine.data.vos;
 
+import android.database.Cursor;
+
 import com.google.gson.annotations.SerializedName;
+
+import net.aung.sunshine.data.persistence.WeatherContract;
 
 /**
  * Created by aung on 12/14/15.
@@ -33,5 +37,12 @@ public class WeatherVO {
 
     public String getIcon() {
         return icon;
+    }
+
+    public static WeatherVO parseFromCursor(Cursor cursor) {
+        WeatherVO weather = new WeatherVO();
+        weather.id = cursor.getInt(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_WEATHER_CONDITION_ID));
+        weather.description = cursor.getString(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_WEATHER_DESC));
+        return weather;
     }
 }

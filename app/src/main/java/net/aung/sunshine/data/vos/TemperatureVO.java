@@ -1,11 +1,13 @@
 package net.aung.sunshine.data.vos;
 
 import android.content.Context;
+import android.database.Cursor;
 
 import com.google.gson.annotations.SerializedName;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
+import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.utils.SettingsUtils;
 
 /**
@@ -88,6 +90,13 @@ public class TemperatureVO {
             temperature = (temperature * 1.8) + 32;
         }
 
+        return temperature;
+    }
+
+    public static TemperatureVO parseFromCursor(Cursor cursor) {
+        TemperatureVO temperature = new TemperatureVO();
+        temperature.minTemperature = cursor.getDouble(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN_TEMPERATURE));
+        temperature.maxTemperature = cursor.getDouble(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MAX_TEMPERATURE));
         return temperature;
     }
 }

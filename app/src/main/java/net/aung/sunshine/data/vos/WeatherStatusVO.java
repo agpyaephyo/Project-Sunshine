@@ -1,14 +1,19 @@
 package net.aung.sunshine.data.vos;
 
+import android.content.ContentValues;
+import android.database.Cursor;
+
 import com.google.gson.annotations.SerializedName;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
+import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.utils.DateFormatUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * This object is immutable.
@@ -110,7 +115,7 @@ public class WeatherStatusVO {
         if (todayDate == weatherDate) {
             //today
             dateText = SunshineApplication.getContext().getString(R.string.lbl_today) + ", " + DateFormatUtils.sdfWeatherStatusDateToday.format(date);
-        } else if (todayDate +1 == weatherDate) {
+        } else if (todayDate + 1 == weatherDate) {
             //tomorrow
             dateText = SunshineApplication.getContext().getString(R.string.lbl_tomorrow) + ", " + DateFormatUtils.sdfWeatherStatusDateTomorrow.format(date);
         } else {
@@ -135,7 +140,7 @@ public class WeatherStatusVO {
         if (todayDate == weatherDate) {
             //today
             dateText = SunshineApplication.getContext().getString(R.string.lbl_today);
-        } else if (todayDate +1 == weatherDate) {
+        } else if (todayDate + 1 == weatherDate) {
             //tomorrow
             dateText = SunshineApplication.getContext().getString(R.string.lbl_tomorrow);
         } else {
@@ -152,5 +157,50 @@ public class WeatherStatusVO {
         }
 
         return DateFormatUtils.sdfWeatherStatusDateToday.format(date);
+    }
+
+    private ContentValues getContentValues(long cityRowId) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_LOCATION_ID, cityRowId);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_DATE, dateTime);
+
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_HUMIDITY, humidity);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_PRESSURE, pressure);
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED, windSpeed);
+
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_MAX_TEMPERATURE, temperature.getMaxTemperature());
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_MIN_TEMPERATURE, temperature.getMinTemperature());
+
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_WEATHER_DESC, getWeather().getDescription());
+        contentValues.put(WeatherContract.WeatherEntry.COLUMN_WEATHER_CONDITION_ID, getWeather().getId());
+
+        return contentValues;
+    }
+
+    public static WeatherStatusVO parseFromCursor(Cursor cursor) {
+        WeatherStatusVO weatherStatus = new WeatherStatusVO();
+
+        weatherStatus.dateTime = cursor.getInt(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_DATE));
+        weatherStatus.humidity = cursor.getDouble(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_HUMIDITY));
+        weatherStatus.pressure = cursor.getDouble(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_PRESSURE));
+        weatherStatus.windSpeed = cursor.getDouble(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED));
+
+
+        weatherStatus.temperature = TemperatureVO.parseFromCursor(cursor);
+        weatherStatus.weatherList = new ArrayList<>();
+        weatherStatus.weatherList.add(WeatherVO.parseFromCursor(cursor));
+
+        return weatherStatus;
+    }
+
+    public static ContentValues[] parseToContentValuesArray(List<WeatherStatusVO> weatherStatusList, long cityRowId) {
+        ContentValues[] contentValueArray = new ContentValues[weatherStatusList.size()];
+
+        for (int index = 0;index<contentValueArray.length;index++) {
+            WeatherStatusVO weatherStatus = weatherStatusList.get(index);
+            contentValueArray[index] = weatherStatus.getContentValues(cityRowId);
+        }
+
+        return contentValueArray;
     }
 }

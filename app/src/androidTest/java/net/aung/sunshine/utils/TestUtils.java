@@ -18,26 +18,28 @@ import java.util.Set;
  */
 public class TestUtils extends AndroidTestCase {
 
-    public static final String TEST_LOCATION_NORTH = "99705";
-    public static final String TEST_LOCATION_SOUTH = "12345";
+    public static final String TEST_LOCATION_NORTH = "North Pole";
+    public static final String TEST_LOCATION_SOUTH = "South Pole";
     public static final long TEST_DATE = 1419033600L; // December 20th, 2014
 
     public static ContentValues createNorthPoleLocationValues() {
         ContentValues northPoleLocationValues = new ContentValues();
-        northPoleLocationValues.put(WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING, TEST_LOCATION_NORTH);
-        northPoleLocationValues.put(WeatherContract.LocationEntry.COLUMN_CITY_NAME, "North Pole");
-        northPoleLocationValues.put(WeatherContract.LocationEntry.COLUMN_COORD_LAT, 64.7488);
-        northPoleLocationValues.put(WeatherContract.LocationEntry.COLUMN_COORD_LNG, -147.353);
+        northPoleLocationValues.put(WeatherContract.CityEntry.COLUMN_CITY_NAME, TEST_LOCATION_NORTH);
+        northPoleLocationValues.put(WeatherContract.CityEntry.COLUMN_COORD_LAT, 64.7488);
+        northPoleLocationValues.put(WeatherContract.CityEntry.COLUMN_COORD_LNG, -147.353);
+        northPoleLocationValues.put(WeatherContract.CityEntry.COLUMN_COUNTRY, "ABC");
+        northPoleLocationValues.put(WeatherContract.CityEntry.COLUMN_POPULATION, 11223344);
 
         return northPoleLocationValues;
     }
 
     public static ContentValues createSouthPoleLocationValues() {
         ContentValues southPoleLocationValues = new ContentValues();
-        southPoleLocationValues.put(WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING, TEST_LOCATION_SOUTH);
-        southPoleLocationValues.put(WeatherContract.LocationEntry.COLUMN_CITY_NAME, "South Pole");
-        southPoleLocationValues.put(WeatherContract.LocationEntry.COLUMN_COORD_LAT, 4.7488);
-        southPoleLocationValues.put(WeatherContract.LocationEntry.COLUMN_COORD_LNG, -7.353);
+        southPoleLocationValues.put(WeatherContract.CityEntry.COLUMN_CITY_NAME, TEST_LOCATION_SOUTH);
+        southPoleLocationValues.put(WeatherContract.CityEntry.COLUMN_COORD_LAT, 4.7488);
+        southPoleLocationValues.put(WeatherContract.CityEntry.COLUMN_COORD_LNG, -7.353);
+        southPoleLocationValues.put(WeatherContract.CityEntry.COLUMN_COUNTRY, "DEF");
+        southPoleLocationValues.put(WeatherContract.CityEntry.COLUMN_POPULATION, 55667788);
 
         return southPoleLocationValues;
     }

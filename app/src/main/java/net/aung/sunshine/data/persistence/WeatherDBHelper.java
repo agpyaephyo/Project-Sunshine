@@ -9,16 +9,17 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class WeatherDBHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2; /* manually update every time you release a new apk with updated database schema. */
+    private static final int DATABASE_VERSION = 3; /* manually update every time you release a new apk with updated database schema. */
 
     public static final String DATABASE_NAME = "weather.db"; /* actual database file on the file system */
 
-    private static final String SQL_CREATE_LOCATION_TABLE = "CREATE TABLE " + WeatherContract.LocationEntry.TABLE_NAME + " (" +
-            WeatherContract.LocationEntry._ID + " INTEGER PRIMARY KEY, "+
-            WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING + " TEXT UNIQUE NOT NULL, "+ //prevent same location settings having multiple ids.
-            WeatherContract.LocationEntry.COLUMN_CITY_NAME + " TEXT NOT NULL, "+
-            WeatherContract.LocationEntry.COLUMN_COORD_LAT + " REAL NOT NULL, "+
-            WeatherContract.LocationEntry.COLUMN_COORD_LNG + " REAL NOT NULL "+
+    private static final String SQL_CREATE_CITY_TABLE = "CREATE TABLE " + WeatherContract.CityEntry.TABLE_NAME + " (" +
+            WeatherContract.CityEntry._ID + " INTEGER PRIMARY KEY, "+
+            WeatherContract.CityEntry.COLUMN_CITY_NAME + " TEXT UNIQUE NOT NULL, "+
+            WeatherContract.CityEntry.COLUMN_COORD_LAT + " REAL NOT NULL, "+
+            WeatherContract.CityEntry.COLUMN_COORD_LNG + " REAL NOT NULL, "+
+            WeatherContract.CityEntry.COLUMN_COUNTRY + " TEXT NOT NULL, "+
+            WeatherContract.CityEntry.COLUMN_POPULATION + " INTEGER NOT NULL "+
             " );";
 
     private static final String SQL_CREATE_WEATHER_TABLE = "CREATE TABLE " + WeatherContract.WeatherEntry.TABLE_NAME + " (" +
@@ -41,7 +42,7 @@ public class WeatherDBHelper extends SQLiteOpenHelper {
 
             /* make reference for FK */
             " FOREIGN KEY ("+ WeatherContract.WeatherEntry.COLUMN_LOCATION_ID+") REFERENCES " +
-            WeatherContract.LocationEntry.TABLE_NAME + " (" + WeatherContract.LocationEntry._ID+"), "+
+            WeatherContract.CityEntry.TABLE_NAME + " (" + WeatherContract.CityEntry._ID+"), "+
 
             /* To assure the application have just one weather entry per day per location, created UNIQUE constraint with REPLACE strategy. */
             " UNIQUE (" + WeatherContract.WeatherEntry.COLUMN_DATE + ", " +
@@ -54,7 +55,7 @@ public class WeatherDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(SQL_CREATE_LOCATION_TABLE);
+        db.execSQL(SQL_CREATE_CITY_TABLE);
         db.execSQL(SQL_CREATE_WEATHER_TABLE);
     }
 
@@ -63,7 +64,7 @@ public class WeatherDBHelper extends SQLiteOpenHelper {
         //This database is only a cache for online data, so its upgrade policy is simply to discard the data and start over.
         //Will only fire if you change the version number of your db.
 
-        db.execSQL("DROP TABLE IF EXISTS "+ WeatherContract.LocationEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS "+ WeatherContract.CityEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS "+ WeatherContract.WeatherEntry.TABLE_NAME);
         onCreate(db);
     }

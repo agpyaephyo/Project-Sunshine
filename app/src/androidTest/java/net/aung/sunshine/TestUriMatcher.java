@@ -25,7 +25,7 @@ public class TestUriMatcher extends AndroidTestCase {
     private static final Uri TEST_WEATHER_WITH_LOCATION_STARTDATE_DIR = WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(TEST_LOCATION, TEST_DATE);
 
     //content://net.aung.sunshine/location
-    private static final Uri TEST_LOCATION_DIR = WeatherContract.LocationEntry.CONTENT_URI;
+    private static final Uri TEST_LOCATION_DIR = WeatherContract.CityEntry.CONTENT_URI;
 
     public void testUriMatcher() {
         UriMatcher uriMatcher = WeatherProvider.buildUriMatcher();
@@ -35,15 +35,15 @@ public class TestUriMatcher extends AndroidTestCase {
         Log.d(SunshineApplication.TAG, "Correct : WEATHER URI - " + TEST_WEATHER_DIR);
 
         assertEquals("Error : The WEATHER WITH LOCATION URI was matched incorrectly.",
-                uriMatcher.match(TEST_WEATHER_WITH_LOCATION_DIR), WeatherProvider.WEATHER_WITH_LOCATION);
+                uriMatcher.match(TEST_WEATHER_WITH_LOCATION_DIR), WeatherProvider.WEATHER_WITH_CITY);
         Log.d(SunshineApplication.TAG, "Correct : WEATHER WITH LOCATION URI - " + TEST_WEATHER_WITH_LOCATION_DIR);
 
         assertEquals("Error : The WEATHER WITH LOCATION AND DATE URI was matched incorrectly.",
-                uriMatcher.match(TEST_WEATHER_WITH_LOCATION_DATE_ITEM), WeatherProvider.WEATHER_WITH_LOCATION_AND_DATE);
+                uriMatcher.match(TEST_WEATHER_WITH_LOCATION_DATE_ITEM), WeatherProvider.WEATHER_WITH_CITY_AND_DATE);
         Log.d(SunshineApplication.TAG, "Correct : WEATHER WITH LOCATION DATE URI - " + TEST_WEATHER_WITH_LOCATION_DATE_ITEM);
 
         assertEquals("Error : The WEATHER WITH LOCATION AND START DATE URI was matched incorrectly.",
-                uriMatcher.match(TEST_WEATHER_WITH_LOCATION_STARTDATE_DIR), WeatherProvider.WEATHER_WITH_LOCATION);
+                uriMatcher.match(TEST_WEATHER_WITH_LOCATION_STARTDATE_DIR), WeatherProvider.WEATHER_WITH_CITY);
         Log.d(SunshineApplication.TAG, "Correct : WEATHER WITH LOCATION STARTDATE URI - " + TEST_WEATHER_WITH_LOCATION_STARTDATE_DIR);
 
         assertEquals("Error : The WEATHER WITH DATE URI was matched incorrectly.",

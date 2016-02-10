@@ -15,7 +15,7 @@ public class WeatherContract {
     public static final String CONTENT_AUTHORITY = SunshineApplication.class.getPackage().getName();
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
 
-    public static final String PATH_LOCATION = "location";
+    public static final String PATH_CITY = "city";
     public static final String PATH_WEATHER = "weather";
 
     public static final class WeatherEntry implements BaseColumns {
@@ -46,17 +46,17 @@ public class WeatherContract {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-        public static Uri buildWeatherUri(String locationSetting) {
+        public static Uri buildWeatherUri(String city) {
             //content://net.aung.sunshine/weather/London
             return CONTENT_URI.buildUpon()
-                    .appendPath(locationSetting)
+                    .appendPath(city)
                     .build();
         }
 
-        public static Uri buildWeatherUri(String locationSetting, long date) {
+        public static Uri buildWeatherUri(String city, long date) {
             //content://net.aung.sunshine/weather/London/12345678
             return CONTENT_URI.buildUpon()
-                    .appendPath(locationSetting)
+                    .appendPath(city)
                     .appendPath(Long.toString(date))
                     .build();
         }
@@ -68,10 +68,10 @@ public class WeatherContract {
                     .build();
         }
 
-        public static Uri buildWeatherUriWithStartDate(String locationSetting, long startDate) {
+        public static Uri buildWeatherUriWithStartDate(String city, long startDate) {
             //content://net.aung.sunshine/weather/London?date=12345678
             return CONTENT_URI.buildUpon()
-                    .appendPath(locationSetting)
+                    .appendPath(city)
                     .appendQueryParameter(COLUMN_DATE, Long.toString(startDate))
                     .build();
         }
@@ -98,26 +98,27 @@ public class WeatherContract {
         }
     }
 
-    public static final class LocationEntry implements BaseColumns {
+    public static final class CityEntry implements BaseColumns {
 
         public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOCATION).build();
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_CITY).build();
 
         public static final String DIR_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
+                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_CITY;
 
         public static final String ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
+                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_CITY;
 
         public static final String TABLE_NAME = "location";
 
-        public static final String COLUMN_LOCATION_SETTING = "location_setting";
         public static final String COLUMN_CITY_NAME = "city_name";
         public static final String COLUMN_COORD_LAT = "coord_lat";
         public static final String COLUMN_COORD_LNG = "coord_lng";
+        public static final String COLUMN_COUNTRY = "country";
+        public static final String COLUMN_POPULATION = "population";
 
-        public static Uri buildLocationUri(long id) {
-            //content://net.aung.sunshine/location/1
+        public static Uri buildCityUri(long id) {
+            //content://net.aung.sunshine/city/1
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
     }

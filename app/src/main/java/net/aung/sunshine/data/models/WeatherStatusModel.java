@@ -1,8 +1,16 @@
 package net.aung.sunshine.data.models;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 
+import net.aung.sunshine.SunshineApplication;
+import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.responses.WeatherStatusListResponse;
+import net.aung.sunshine.data.vos.CityVO;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.network.WeatherDataSource;
@@ -14,6 +22,8 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +43,7 @@ public class WeatherStatusModel {
 
     private WeatherDataSource weatherDataSource;
     private Map<String, WeatherStatusListResponse> weatherStatusListResponseMap;
+
     private String currentCity;
     private long currentDateForWeatherDetail;
 
@@ -60,7 +71,11 @@ public class WeatherStatusModel {
         WeatherStatusListResponse weatherStatusListResponse = weatherStatusListResponseMap.get(key);
         if (weatherStatusListResponse == null || isForce) {
             weatherDataSource.getWeatherForecastList(city, LOADING_TYPE_LIST);
-            return new ArrayList<>();
+
+            //TODO load from db.
+            WeatherStatusListResponse cacheResposne = loadWeatherDataFromCache(city);
+            weatherStatusListResponseMap.put(key, cacheResposne);
+            return cacheResposne.getWeatherStatusList();
         } else {
             return weatherStatusListResponse.getWeatherStatusList();
         }
@@ -92,7 +107,7 @@ public class WeatherStatusModel {
 
     private WeatherStatusVO findWeatherStatusByDate(WeatherStatusListResponse weatherStatusListResponse, long dateForWeatherDetail) {
         ArrayList<WeatherStatusVO> weatherStatusList = weatherStatusListResponse.getWeatherStatusList();
-        for(WeatherStatusVO weatherStatus : weatherStatusList) {
+        for (WeatherStatusVO weatherStatus : weatherStatusList) {
             if (weatherStatus.getDateTime() == dateForWeatherDetail)
                 return weatherStatus;
         }
@@ -102,11 +117,13 @@ public class WeatherStatusModel {
 
     public void onEventMainThread(DataEvent.LoadedWeatherStatusListEvent event) {
         WeatherStatusListResponse response = event.getResponse();
-        String city = response.getCity().getName();
-        String key = getKeyForWeatherStatus(city);
+        String cityName = response.getCity().getName();
+        String key = getKeyForWeatherStatus(cityName);
         weatherStatusListResponseMap.put(key, response);
 
-        if(event.getLoadingType() == LOADING_TYPE_LIST) {
+        cacheWeatherData(response);
+
+        if (event.getLoadingType() == LOADING_TYPE_LIST) {
             DataEvent.NewWeatherStatusList eventToUI = new DataEvent.NewWeatherStatusList(response.getWeatherStatusList());
             EventBus.getDefault().post(eventToUI);
         } else if (event.getLoadingType() == LOADING_TYPE_DETAIL) {
@@ -150,10 +167,67 @@ public class WeatherStatusModel {
 
     /**
      * Dummy key generation for weather status hash map.
+     *
      * @param city
      * @return
      */
     private String getKeyForWeatherStatus(String city) {
         return city;
+    }
+
+    private void cacheWeatherData(WeatherStatusListResponse response) {
+        CityVO cityVO = response.getCity();
+        ContentValues cityCV = cityVO.getContentValues();
+        Context context = SunshineApplication.getContext();
+
+        Cursor cursorCity = context.getContentResolver().query(WeatherContract.CityEntry.CONTENT_URI,
+                null,
+                WeatherContract.CityEntry.COLUMN_CITY_NAME + " = ?",
+                new String[]{cityVO.getName()},
+                null);
+
+        long cityRowId;
+        if (!cursorCity.moveToFirst()) {
+            //no city with this name yet. proceed to insert.
+            Uri insertedCityUri = context.getContentResolver().insert(WeatherContract.CityEntry.CONTENT_URI, cityCV);
+            cityRowId = ContentUris.parseId(insertedCityUri);
+        } else {
+            cityRowId = cursorCity.getLong(cursorCity.getColumnIndex(WeatherContract.CityEntry._ID));
+        }
+        cursorCity.close();
+
+        ContentValues[] weatherCVArray = WeatherStatusVO.parseToContentValuesArray(response.getWeatherStatusList(), cityRowId);
+        context.getContentResolver().bulkInsert(WeatherContract.WeatherEntry.CONTENT_URI, weatherCVArray);
+    }
+
+    private WeatherStatusListResponse loadWeatherDataFromCache(String city) {
+        ArrayList<WeatherStatusVO> weatherStatusList = new ArrayList<>();
+
+        Context context = SunshineApplication.getContext();
+        long today = new Date().getTime() / 1000 - (24 * 60 * 60); //to make sure we are showing for today also.
+        Cursor cursorWeather = context.getContentResolver().query(WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, today),
+                null, null, null, WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry.COLUMN_DATE + " ASC");
+
+        if (cursorWeather.moveToFirst()) {
+            do {
+                weatherStatusList.add(WeatherStatusVO.parseFromCursor(cursorWeather));
+            } while (cursorWeather.moveToNext());
+
+            Cursor cursorCity = context.getContentResolver().query(WeatherContract.CityEntry.CONTENT_URI,
+                    null,
+                    WeatherContract.CityEntry.COLUMN_CITY_NAME + " = ?",
+                    new String[]{city},
+                    null);
+
+            if(cursorCity.moveToFirst()) {
+                CityVO cachedCity = CityVO.parseFromCursor(cursorCity);
+                return WeatherStatusListResponse.createFromCache(weatherStatusList, cachedCity);
+            }
+
+            cursorCity.close();
+        }
+        cursorWeather.close();
+
+        return WeatherStatusListResponse.createFromCache(new ArrayList<WeatherStatusVO>(), null);
     }
 }
