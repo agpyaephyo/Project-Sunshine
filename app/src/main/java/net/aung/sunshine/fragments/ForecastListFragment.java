@@ -114,6 +114,7 @@ public class ForecastListFragment extends BaseFragment
     public void onStart() {
         super.onStart();
         presenter.onStart();
+        swipeContainer.setRefreshing(true);
     }
 
     @Override
@@ -141,6 +142,7 @@ public class ForecastListFragment extends BaseFragment
     public void displayWeatherList(List<WeatherStatusVO> weatherStatusList) {
         adapter.setStatusList(weatherStatusList);
 
+        //won't display when the data is coming back from db.
         if (swipeContainer.isRefreshing()) {
             swipeContainer.setRefreshing(false);
             Snackbar.make(rootView, "New weather data has been refreshed.", Snackbar.LENGTH_SHORT)
