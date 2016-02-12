@@ -4,12 +4,9 @@ import android.util.Log;
 
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.data.models.WeatherStatusModel;
-import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.mvp.views.ForecastListView;
 import net.aung.sunshine.utils.SettingsUtils;
-
-import java.util.List;
 
 /**
  * Created by aung on 12/14/15.
@@ -24,11 +21,7 @@ public class ForecastListPresenter extends BasePresenter {
 
     @Override
     public void onStart() {
-        String userLocation = SettingsUtils.retrieveUserLocation();
-        Log.d(SunshineApplication.TAG, "Retrieving weather data for city : " + userLocation);
 
-        List<WeatherStatusVO> weatherStatusList = WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, false);
-        forecastListView.displayWeatherList(weatherStatusList);
     }
 
     @Override
@@ -36,8 +29,8 @@ public class ForecastListPresenter extends BasePresenter {
 
     }
 
-    public void onEventMainThread(DataEvent.NewWeatherStatusList event) {
-        forecastListView.displayWeatherList(event.getWeatherStatusList());
+    public void onEventMainThread(DataEvent.RefreshNewWeatherDataEvent event) {
+        forecastListView.refreshNewWeatherData();
     }
 
     public void onEventMainThread(DataEvent.LoadedWeatherStatusListErrorEvent event) {
@@ -51,6 +44,5 @@ public class ForecastListPresenter extends BasePresenter {
 
         WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, true);
     }
-
 
 }

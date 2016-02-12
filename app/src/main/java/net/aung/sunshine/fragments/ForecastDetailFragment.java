@@ -1,13 +1,18 @@
 package net.aung.sunshine.fragments;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,17 +22,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import net.aung.sunshine.R;
+import net.aung.sunshine.SunshineApplication;
+import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.databinding.FragmentForecastDetailBinding;
 import net.aung.sunshine.mvp.presenters.ForecastDetailPresenter;
 import net.aung.sunshine.mvp.views.ForecastDetailView;
+import net.aung.sunshine.utils.SettingsUtils;
+import net.aung.sunshine.utils.SunshineConstants;
 import net.aung.sunshine.utils.WeatherIconUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ForecastDetailFragment extends BaseFragment
-        implements ForecastDetailView {
+        implements ForecastDetailView,
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String ARG_DT = "ARG_DT";
 
@@ -77,6 +87,12 @@ public class ForecastDetailFragment extends BaseFragment
         binding = DataBindingUtil.bind(rootView);
 
         return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getLoaderManager().initLoader(SunshineConstants.FORECAST_DETAIL_LOADER, null, this);
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -134,19 +150,42 @@ public class ForecastDetailFragment extends BaseFragment
         presenter.onDestroy();
     }
 
-    @Override
-    public void displayWeatherDetail(WeatherStatusVO weatherStatus) {
-        binding.setWeatherStatus(weatherStatus);
-
-        int weatherArtResourceId = WeatherIconUtils.getArtResourceForWeatherCondition(weatherStatus.getWeather().getId());
-        ivStatusArt.setImageResource(weatherArtResourceId);
-    }
-
     private Intent createShareIntent() {
         Intent myShareIntent = new Intent(Intent.ACTION_SEND);
         myShareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         myShareIntent.setType("text/plain");
         myShareIntent.putExtra(Intent.EXTRA_TEXT, "Hi, my name is Sunshine.");
         return myShareIntent;
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String city = SettingsUtils.retrieveUserLocation();
+        Log.d(SunshineApplication.TAG, "Retrieving weather detail data for city (from db) : " + city);
+
+        return new CursorLoader(getActivity(),
+                WeatherContract.WeatherEntry.buildWeatherUri(city, dateTime),
+                null, //projections
+                null, //selection
+                null, //selectionArgs
+                null); //sort
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursorWeather) {
+        WeatherStatusVO weatherStatusDetail = null;
+        if (cursorWeather.moveToFirst()) {
+            weatherStatusDetail = WeatherStatusVO.parseFromCursor(cursorWeather);
+
+            binding.setWeatherStatus(weatherStatusDetail);
+
+            int weatherArtResourceId = WeatherIconUtils.getArtResourceForWeatherCondition(weatherStatusDetail.getWeather().getId());
+            ivStatusArt.setImageResource(weatherArtResourceId);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        //what to show in detail when the cursor to uri got reset ?
     }
 }

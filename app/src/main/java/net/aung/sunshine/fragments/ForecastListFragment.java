@@ -1,13 +1,19 @@
 package net.aung.sunshine.fragments;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,13 +22,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.aung.sunshine.R;
+import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.adapters.ForecastListAdapter;
 import net.aung.sunshine.controllers.ForecastListScreenController;
+import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.mvp.presenters.ForecastListPresenter;
 import net.aung.sunshine.mvp.views.ForecastListView;
 import net.aung.sunshine.utils.SettingsUtils;
+import net.aung.sunshine.utils.SunshineConstants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -30,7 +40,8 @@ import butterknife.ButterKnife;
 
 public class ForecastListFragment extends BaseFragment
         implements ForecastListView,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener,
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     @Bind(R.id.rv_forecasts)
     RecyclerView rvForecasts;
@@ -88,6 +99,12 @@ public class ForecastListFragment extends BaseFragment
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getLoaderManager().initLoader(SunshineConstants.FORECAST_LIST_LOADER, null, this);
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_forecast_list, menu);
     }
@@ -139,9 +156,7 @@ public class ForecastListFragment extends BaseFragment
     }
 
     @Override
-    public void displayWeatherList(List<WeatherStatusVO> weatherStatusList) {
-        adapter.setStatusList(weatherStatusList);
-
+    public void refreshNewWeatherData() {
         //won't display when the data is coming back from db.
         if (swipeContainer.isRefreshing()) {
             swipeContainer.setRefreshing(false);
@@ -163,5 +178,36 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public void onRefresh() {
         presenter.forceRefresh();
+    }
+
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        String city = SettingsUtils.retrieveUserLocation();
+        Log.d(SunshineApplication.TAG, "Retrieving weather data for city (from db) : " + city);
+
+        return new CursorLoader(getActivity(),
+                WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
+                null, //projections
+                null, //selection
+                null, //selectionArgs
+                WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry.COLUMN_DATE + " ASC");
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursorWeather) {
+        List<WeatherStatusVO> weatherStatusList = new ArrayList<>();
+        if (cursorWeather.moveToFirst()) {
+            do {
+                weatherStatusList.add(WeatherStatusVO.parseFromCursor(cursorWeather));
+            } while (cursorWeather.moveToNext());
+        }
+
+        adapter.setStatusList(weatherStatusList);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        adapter.setStatusList(new ArrayList<WeatherStatusVO>());
     }
 }

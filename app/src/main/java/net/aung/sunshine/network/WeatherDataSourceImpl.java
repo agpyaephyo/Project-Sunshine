@@ -39,7 +39,7 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
     }
 
     @Override
-    public void getWeatherForecastList(final String city, final int loadingType) {
+    public void getWeatherForecastList(final String city) {
         Call<WeatherStatusListResponse> weatherForecastListCall = owmApi.getDailyForecast(
                 city,
                 BuildConfig.OPEN_WEATHER_MAP_API_KEY,
@@ -55,7 +55,7 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
                     DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(response.message());
                     EventBus.getDefault().post(event);
                 } else {
-                    DataEvent.LoadedWeatherStatusListEvent event = new DataEvent.LoadedWeatherStatusListEvent(response.body(), loadingType);
+                    DataEvent.LoadedWeatherStatusListEvent event = new DataEvent.LoadedWeatherStatusListEvent(response.body());
                     EventBus.getDefault().post(event);
                 }
             }

@@ -10,16 +10,8 @@ import java.util.List;
  */
 public class DataEvent {
 
-    public static class NewWeatherStatusList {
-        private List<WeatherStatusVO> weatherStatusList;
+    public static class RefreshNewWeatherDataEvent {
 
-        public NewWeatherStatusList(List<WeatherStatusVO> weatherStatusList) {
-            this.weatherStatusList = weatherStatusList;
-        }
-
-        public List<WeatherStatusVO> getWeatherStatusList() {
-            return weatherStatusList;
-        }
     }
 
     public static class NewWeatherStatusDetail {
@@ -38,19 +30,13 @@ public class DataEvent {
         private WeatherStatusListResponse response;
         private int loadingType;
 
-        public LoadedWeatherStatusListEvent(WeatherStatusListResponse response, int loadingType) {
+        public LoadedWeatherStatusListEvent(WeatherStatusListResponse response) {
             this.response = response;
-            this.loadingType = loadingType;
         }
 
         public WeatherStatusListResponse getResponse() {
             return response;
         }
-
-        public int getLoadingType() {
-            return loadingType;
-        }
-
     }
 
     public static class LoadedWeatherStatusListErrorEvent {

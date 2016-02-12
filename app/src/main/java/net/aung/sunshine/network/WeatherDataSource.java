@@ -4,5 +4,5 @@ package net.aung.sunshine.network;
  * Created by aung on 12/14/15.
  */
 public interface WeatherDataSource {
-    void getWeatherForecastList(String cityName, int loadingType);
+    void getWeatherForecastList(String cityName);
 }
