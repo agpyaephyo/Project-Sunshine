@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">Sunshine</string>
 
     <!-- Content Provider Related -->
@@ -29,5 +29,8 @@
     <string name="pref_unit_label">Pick degree unit</string>
     <string name="pref_unit_metric">Celsius</string>
     <string name="pref_unit_imperial">Fahrenheit</string>
+
+    <!-- Temperature format -->
+    <string name="format_temperature"><xliff:g id="temperature">%1$d</xliff:g>\u00B0</string> <!-- &#x00B0; -->
 
 </resources>

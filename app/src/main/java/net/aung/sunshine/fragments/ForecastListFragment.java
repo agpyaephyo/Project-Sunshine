@@ -25,8 +25,10 @@ import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.adapters.ForecastListAdapter;
 import net.aung.sunshine.controllers.ForecastListScreenController;
+import net.aung.sunshine.data.models.WeatherStatusModel;
 import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
+import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.mvp.presenters.ForecastListPresenter;
 import net.aung.sunshine.mvp.views.ForecastListView;
 import net.aung.sunshine.utils.SettingsUtils;
@@ -95,6 +97,8 @@ public class ForecastListFragment extends BaseFragment
                 android.R.color.holo_orange_dark,
                 android.R.color.holo_red_dark);
 
+        swipeContainer.setRefreshing(true);
+
         return rootView;
     }
 
@@ -131,7 +135,6 @@ public class ForecastListFragment extends BaseFragment
     public void onStart() {
         super.onStart();
         presenter.onStart();
-        swipeContainer.setRefreshing(true);
     }
 
     @Override
@@ -209,5 +212,9 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.setStatusList(new ArrayList<WeatherStatusVO>());
+    }
+
+    public void onEventMainThread(DataEvent.PreferenceCityChangeEvent event) {
+        getLoaderManager().restartLoader(SunshineConstants.FORECAST_LIST_LOADER, null, this);
     }
 }

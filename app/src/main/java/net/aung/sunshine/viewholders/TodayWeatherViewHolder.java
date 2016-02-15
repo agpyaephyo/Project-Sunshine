@@ -1,8 +1,10 @@
 package net.aung.sunshine.viewholders;
 
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.controllers.ForecastListScreenController;
@@ -21,6 +23,9 @@ public class TodayWeatherViewHolder extends WeatherViewHolder {
     @Bind(R.id.iv_status_art)
     ImageView ivStatusArt;
 
+    @Bind(R.id.rl_list_forecast_today_root)
+    RelativeLayout rlListForecastTodayRoot;
+
     private ListItemForecastTodayBinding binding;
 
     public TodayWeatherViewHolder(View itemView, ForecastListScreenController controller) {
@@ -29,6 +34,10 @@ public class TodayWeatherViewHolder extends WeatherViewHolder {
         itemView.setOnClickListener(this);
 
         binding = DataBindingUtil.bind(itemView);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            rlListForecastTodayRoot.setElevation(rlListForecastTodayRoot.getContext().getResources().getDimension(R.dimen.toolbar_elevation));
+        }
     }
 
     @Override

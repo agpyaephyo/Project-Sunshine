@@ -42,12 +42,17 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        if (viewType == VIEW_TYPE_TODAY) {
-            View statusContainer = inflater.inflate(R.layout.list_item_forecast_today, parent, false);
-            return new TodayWeatherViewHolder(statusContainer, controller);
-        } else if (viewType == VIEW_TYPE_OTHER_THAN_TODAY) {
+        if (parent.getResources().getBoolean(R.bool.isTablet)) {
             View statusContainer = inflater.inflate(R.layout.list_item_forecast, parent, false);
             return new DailyWeatherViewHolder(statusContainer, controller);
+        } else {
+            if (viewType == VIEW_TYPE_TODAY) {
+                View statusContainer = inflater.inflate(R.layout.list_item_forecast_today, parent, false);
+                return new TodayWeatherViewHolder(statusContainer, controller);
+            } else if (viewType == VIEW_TYPE_OTHER_THAN_TODAY) {
+                View statusContainer = inflater.inflate(R.layout.list_item_forecast, parent, false);
+                return new DailyWeatherViewHolder(statusContainer, controller);
+            }
         }
 
         return null;

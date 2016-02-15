@@ -39,4 +39,10 @@ public class SettingsUtils {
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         return defaultSharedPref.getString(context.getString(R.string.pref_unit_key), context.getString(R.string.pref_unit_metric)); //return "metrics" if user hasn't pick any unit yet.
     }
+
+    public static void saveUserLocation(String newCity) {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        defaultSharedPref.edit().putString(context.getString(R.string.pref_location_key), newCity).commit();
+    }
 }

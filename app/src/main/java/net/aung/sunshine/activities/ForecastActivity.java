@@ -12,16 +12,19 @@ import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.fragments.ForecastDetailFragment;
 import net.aung.sunshine.fragments.ForecastListFragment;
+import net.aung.sunshine.utils.SunshineConstants;
 
 public class ForecastActivity extends BaseActivity
         implements ForecastListScreenController {
 
     private FloatingActionButton fab;
 
+    private ForecastDetailFragment mForecastDetailFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forecast_list);
+        setContentView(R.layout.activity_forecast);
 
         /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -41,6 +44,17 @@ public class ForecastActivity extends BaseActivity
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fl_container, ForecastListFragment.newInstance())
                     .commit();
+        }
+
+        if (getResources().getBoolean(R.bool.isTablet)) {
+            //two panes tablets.
+
+            if (savedInstanceState == null) {
+                mForecastDetailFragment = ForecastDetailFragment.newInstance(SunshineConstants.TODAY);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fl_detail_container, mForecastDetailFragment)
+                        .commit();
+            }
         }
     }
 
@@ -79,12 +93,18 @@ public class ForecastActivity extends BaseActivity
 
     @Override
     public void onNavigateToForecastDetail(WeatherStatusVO weatherStatus) {
-        getSupportFragmentManager().beginTransaction()
-                //.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .setCustomAnimations(R.anim.screen_enter_horizontal, R.anim.screen_exit_horizontal, R.anim.screen_pop_enter_horizontal, R.anim.screen_pop_exit_horizontal)
-                .replace(R.id.fl_container, ForecastDetailFragment.newInstance(weatherStatus.getDateTime()))
-                .addToBackStack(null)
-                .commit();
+        if (!getResources().getBoolean(R.bool.isTablet)) {
+            getSupportFragmentManager().beginTransaction()
+                    //.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setCustomAnimations(R.anim.screen_enter_horizontal, R.anim.screen_exit_horizontal, R.anim.screen_pop_enter_horizontal, R.anim.screen_pop_exit_horizontal)
+                    .replace(R.id.fl_container, ForecastDetailFragment.newInstance(weatherStatus.getDateTime()))
+                    .addToBackStack(null)
+                    .commit();
+        } else {
+            if (mForecastDetailFragment != null) {
+                mForecastDetailFragment.updateForecastDetail(weatherStatus);
+            }
+        }
     }
 
     @Override

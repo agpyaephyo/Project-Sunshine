@@ -50,4 +50,17 @@ public class DataEvent {
             return error;
         }
     }
+
+    public static class PreferenceCityChangeEvent {
+
+        private String newCity;
+
+        public PreferenceCityChangeEvent(String newCity) {
+            this.newCity = newCity;
+        }
+
+        public String getNewCity() {
+            return newCity;
+        }
+    }
 }

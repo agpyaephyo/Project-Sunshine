@@ -10,6 +10,10 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
 import net.aung.sunshine.R;
+import net.aung.sunshine.events.DataEvent;
+import net.aung.sunshine.utils.SettingsUtils;
+
+import de.greenrobot.event.EventBus;
 
 /**
  * Created by aung on 2/7/16.
@@ -74,8 +78,14 @@ public class SettingsActivity extends PreferenceActivity
             preference.setSummary(stringValue);
         }
 
+        if (preference.getKey().equals(getString(R.string.pref_location_key))) {
+            String oldCity = SettingsUtils.retrieveUserLocation();
+            if (!oldCity.equalsIgnoreCase(stringValue)) {
+                SettingsUtils.saveUserLocation(stringValue);
+                EventBus.getDefault().post(new DataEvent.PreferenceCityChangeEvent(stringValue));
+            }
+        }
+
         return true;
     }
-
-
 }

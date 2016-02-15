@@ -28,4 +28,6 @@
     <dimen name="toolbar_elevation">4dp</dimen>
 
     <dimen name="loader_dimen">55dp</dimen>
+
+    <dimen name="weather_detail_body_padding">16dp</dimen>
 </resources>

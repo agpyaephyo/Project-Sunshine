@@ -26,6 +26,7 @@ import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.databinding.FragmentForecastDetailBinding;
+import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.mvp.presenters.ForecastDetailPresenter;
 import net.aung.sunshine.mvp.views.ForecastDetailView;
 import net.aung.sunshine.utils.SettingsUtils;
@@ -132,10 +133,12 @@ public class ForecastDetailFragment extends BaseFragment
     @Override
     public void onResume() {
         super.onResume();
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
-        actionBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
+        if (!getResources().getBoolean(R.bool.isTablet)) {
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            ActionBar actionBar = activity.getSupportActionBar();
+            actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+            actionBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
+        }
     }
 
     @Override
@@ -163,12 +166,21 @@ public class ForecastDetailFragment extends BaseFragment
         String city = SettingsUtils.retrieveUserLocation();
         Log.d(SunshineApplication.TAG, "Retrieving weather detail data for city (from db) : " + city);
 
-        return new CursorLoader(getActivity(),
-                WeatherContract.WeatherEntry.buildWeatherUri(city, dateTime),
-                null, //projections
-                null, //selection
-                null, //selectionArgs
-                null); //sort
+        if (dateTime == SunshineConstants.TODAY) {
+            return new CursorLoader(getActivity(),
+                    WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
+                    null, //projections
+                    null, //selection
+                    null, //selectionArgs
+                    WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry.COLUMN_DATE + " ASC");
+        } else {
+            return new CursorLoader(getActivity(),
+                    WeatherContract.WeatherEntry.buildWeatherUri(city, dateTime),
+                    null, //projections
+                    null, //selection
+                    null, //selectionArgs
+                    null); //sort
+        }
     }
 
     @Override
@@ -187,5 +199,18 @@ public class ForecastDetailFragment extends BaseFragment
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         //what to show in detail when the cursor to uri got reset ?
+    }
+
+    public void updateForecastDetail(WeatherStatusVO newWeatherStatus) {
+        if (newWeatherStatus != null) {
+            binding.setWeatherStatus(newWeatherStatus);
+
+            int weatherArtResourceId = WeatherIconUtils.getArtResourceForWeatherCondition(newWeatherStatus.getWeather().getId());
+            ivStatusArt.setImageResource(weatherArtResourceId);
+        }
+    }
+
+    public void onEventMainThread(DataEvent.PreferenceCityChangeEvent event) {
+        getLoaderManager().restartLoader(SunshineConstants.FORECAST_DETAIL_LOADER, null, this);
     }
 }

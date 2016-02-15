@@ -34,53 +34,57 @@ public class TemperatureVO {
     private double eveningTemperature;
 
     public String getDayTemperatureDisplay() {
-        return String.valueOf((int)dayTemperature) + (char) 0x00B0;
+        double temperature = getTemperatureBySelectedUnit(dayTemperature);
+        return formatTemperature(temperature);
     }
 
     public String getNightTemperatureDisplay() {
-        return String.valueOf((int)nightTemperature) + (char) 0x00B0;
+        double temperature = getTemperatureBySelectedUnit(nightTemperature);
+        return formatTemperature(temperature);
     }
 
     public String getMinTemperatureDisplay() {
         double temperature = getTemperatureBySelectedUnit(minTemperature);
-        return String.valueOf((int)temperature) + (char) 0x00B0;
+        return formatTemperature(temperature);
     }
 
     public String getMaxTemperatureDisplay() {
         double temperature = getTemperatureBySelectedUnit(maxTemperature);
-        return String.valueOf((int)temperature) + (char) 0x00B0;
+        return formatTemperature(temperature);
     }
 
     public String getMorningTemperatureDisplay() {
-        return String.valueOf((int)morningTemperature) + (char) 0x00B0;
+        double temperature = getTemperatureBySelectedUnit(morningTemperature);
+        return formatTemperature(temperature);
     }
 
     public String getEveningTemperatureDisplay() {
-        return String.valueOf((int)eveningTemperature) + (char) 0x00B0;
+        double temperature = getTemperatureBySelectedUnit(eveningTemperature);
+        return formatTemperature(temperature);
     }
 
     public double getDayTemperature() {
-        return dayTemperature;
+        return getTemperatureBySelectedUnit(dayTemperature);
     }
 
     public double getNightTemperature() {
-        return nightTemperature;
+        return getTemperatureBySelectedUnit(nightTemperature);
     }
 
     public double getMinTemperature() {
-        return minTemperature;
+        return getTemperatureBySelectedUnit(minTemperature);
     }
 
     public double getMaxTemperature() {
-        return maxTemperature;
+        return getTemperatureBySelectedUnit(maxTemperature);
     }
 
     public double getMorningTemperature() {
-        return morningTemperature;
+        return getTemperatureBySelectedUnit(morningTemperature);
     }
 
     public double getEveningTemperature() {
-        return eveningTemperature;
+        return getTemperatureBySelectedUnit(eveningTemperature);
     }
 
     private double getTemperatureBySelectedUnit(double temperature) {
@@ -98,5 +102,10 @@ public class TemperatureVO {
         temperature.minTemperature = cursor.getDouble(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MIN_TEMPERATURE));
         temperature.maxTemperature = cursor.getDouble(cursor.getColumnIndex(WeatherContract.WeatherEntry.COLUMN_MAX_TEMPERATURE));
         return temperature;
+    }
+
+    private String formatTemperature(double temperature) {
+        Context context = SunshineApplication.getContext();
+        return context.getString(R.string.format_temperature, (int) temperature);
     }
 }
