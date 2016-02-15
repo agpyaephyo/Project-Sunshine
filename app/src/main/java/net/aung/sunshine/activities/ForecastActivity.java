@@ -3,6 +3,7 @@ package net.aung.sunshine.activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,8 +19,6 @@ public class ForecastActivity extends BaseActivity
         implements ForecastListScreenController {
 
     private FloatingActionButton fab;
-
-    private ForecastDetailFragment mForecastDetailFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +49,8 @@ public class ForecastActivity extends BaseActivity
             //two panes tablets.
 
             if (savedInstanceState == null) {
-                mForecastDetailFragment = ForecastDetailFragment.newInstance(SunshineConstants.TODAY);
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fl_detail_container, mForecastDetailFragment)
+                        .replace(R.id.fl_detail_container, ForecastDetailFragment.newInstance(SunshineConstants.TODAY), ForecastDetailFragment.TAG)
                         .commit();
             }
         }
@@ -79,7 +77,7 @@ public class ForecastActivity extends BaseActivity
                 break;
             case R.id.action_about:
                 Snackbar.make(fab, "About this Project Sunshine is coming soon", Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                         .setAction("Action", null).show();
                 break;
             case R.id.action_help:
                 Snackbar.make(fab, "The help that you gonna need to use this App is coming soon", Snackbar.LENGTH_SHORT)
@@ -101,9 +99,8 @@ public class ForecastActivity extends BaseActivity
                     .addToBackStack(null)
                     .commit();
         } else {
-            if (mForecastDetailFragment != null) {
-                mForecastDetailFragment.updateForecastDetail(weatherStatus);
-            }
+            ForecastDetailFragment detailFragment = (ForecastDetailFragment) getSupportFragmentManager().findFragmentByTag(ForecastDetailFragment.TAG);
+            detailFragment.updateForecastDetail(weatherStatus);
         }
     }
 

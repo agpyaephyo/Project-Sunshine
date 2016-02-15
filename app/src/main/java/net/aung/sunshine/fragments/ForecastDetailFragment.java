@@ -42,6 +42,8 @@ public class ForecastDetailFragment extends BaseFragment
 
     private static final String ARG_DT = "ARG_DT";
 
+    public static final String TAG = ForecastDetailFragment.class.getSimpleName();
+
     private long dateTime;
     private FragmentForecastDetailBinding binding;
     private ForecastDetailPresenter presenter;
@@ -59,9 +61,12 @@ public class ForecastDetailFragment extends BaseFragment
 
     public static ForecastDetailFragment newInstance(long dateTime) {
         ForecastDetailFragment fragment = new ForecastDetailFragment();
+        fragment.dateTime = dateTime;
+
         Bundle args = new Bundle();
         args.putLong(ARG_DT, dateTime);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -153,14 +158,6 @@ public class ForecastDetailFragment extends BaseFragment
         presenter.onDestroy();
     }
 
-    private Intent createShareIntent() {
-        Intent myShareIntent = new Intent(Intent.ACTION_SEND);
-        myShareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        myShareIntent.setType("text/plain");
-        myShareIntent.putExtra(Intent.EXTRA_TEXT, "Hi, my name is Sunshine.");
-        return myShareIntent;
-    }
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String city = SettingsUtils.retrieveUserLocation();
@@ -201,8 +198,24 @@ public class ForecastDetailFragment extends BaseFragment
         //what to show in detail when the cursor to uri got reset ?
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong(ARG_DT, dateTime);
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            dateTime = savedInstanceState.getLong(ARG_DT, SunshineConstants.TODAY);
+            getLoaderManager().restartLoader(SunshineConstants.FORECAST_DETAIL_LOADER, null, this);
+        }
+    }
+
     public void updateForecastDetail(WeatherStatusVO newWeatherStatus) {
         if (newWeatherStatus != null) {
+            dateTime = newWeatherStatus.getDateTime();
             binding.setWeatherStatus(newWeatherStatus);
 
             int weatherArtResourceId = WeatherIconUtils.getArtResourceForWeatherCondition(newWeatherStatus.getWeather().getId());
@@ -212,5 +225,13 @@ public class ForecastDetailFragment extends BaseFragment
 
     public void onEventMainThread(DataEvent.PreferenceCityChangeEvent event) {
         getLoaderManager().restartLoader(SunshineConstants.FORECAST_DETAIL_LOADER, null, this);
+    }
+
+    private Intent createShareIntent() {
+        Intent myShareIntent = new Intent(Intent.ACTION_SEND);
+        myShareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        myShareIntent.setType("text/plain");
+        myShareIntent.putExtra(Intent.EXTRA_TEXT, "Hi, my name is Sunshine.");
+        return myShareIntent;
     }
 }
