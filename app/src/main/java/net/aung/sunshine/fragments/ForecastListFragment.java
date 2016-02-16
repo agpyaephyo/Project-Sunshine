@@ -2,7 +2,6 @@ package net.aung.sunshine.fragments;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
@@ -25,7 +24,6 @@ import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.adapters.ForecastListAdapter;
 import net.aung.sunshine.controllers.ForecastListScreenController;
-import net.aung.sunshine.data.models.WeatherStatusModel;
 import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
@@ -44,6 +42,8 @@ public class ForecastListFragment extends BaseFragment
         implements ForecastListView,
         SwipeRefreshLayout.OnRefreshListener,
         LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static final String ARG_SELECTED_ROW = "ARG_SELECTED_ROW";
 
     @Bind(R.id.rv_forecasts)
     RecyclerView rvForecasts;
@@ -77,8 +77,6 @@ public class ForecastListFragment extends BaseFragment
         presenter = new ForecastListPresenter(this);
         presenter.onCreate();
 
-        adapter = ForecastListAdapter.newInstance(controller);
-
         setHasOptionsMenu(true);
     }
 
@@ -87,6 +85,8 @@ public class ForecastListFragment extends BaseFragment
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_forecast_list, container, false);
         ButterKnife.bind(this, rootView);
+
+        adapter = ForecastListAdapter.newInstance(controller, rvForecasts);
 
         rvForecasts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvForecasts.setAdapter(adapter);
@@ -212,6 +212,24 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.setStatusList(new ArrayList<WeatherStatusVO>());
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(ARG_SELECTED_ROW, adapter.getSelectedRow());
+    }
+
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            int selectedRow = savedInstanceState.getInt(ARG_SELECTED_ROW, RecyclerView.NO_POSITION);
+            if (selectedRow != RecyclerView.NO_POSITION) {
+                adapter.setSelectedRow(selectedRow);
+                rvForecasts.smoothScrollToPosition(selectedRow);
+            }
+        }
     }
 
     public void onEventMainThread(DataEvent.PreferenceCityChangeEvent event) {

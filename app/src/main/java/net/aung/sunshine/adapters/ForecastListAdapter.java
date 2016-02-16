@@ -19,7 +19,8 @@ import java.util.List;
 /**
  * Created by aung on 12/10/15.
  */
-public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder> {
+public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
+        implements WeatherViewHolder.WeatherViewHolderController {
 
     private static final int VIEW_TYPE_TODAY = 0;
     private static final int VIEW_TYPE_OTHER_THAN_TODAY = 1;
@@ -27,14 +28,18 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
     private List<WeatherStatusVO> statusList;
     private ForecastListScreenController controller;
 
-    public static ForecastListAdapter newInstance(ForecastListScreenController controller) {
+    private int mPreviousSelectedRow = RecyclerView.NO_POSITION;
+    private RecyclerView mRv;
+
+    public static ForecastListAdapter newInstance(ForecastListScreenController controller, RecyclerView rv) {
         List<WeatherStatusVO> statusList = new ArrayList<>();
-        return new ForecastListAdapter(statusList, controller);
+        return new ForecastListAdapter(statusList, controller, rv);
     }
 
-    public ForecastListAdapter(List<WeatherStatusVO> statusList, ForecastListScreenController controller) {
+    public ForecastListAdapter(List<WeatherStatusVO> statusList, ForecastListScreenController controller, RecyclerView rv) {
         this.statusList = statusList;
         this.controller = controller;
+        this.mRv = rv;
     }
 
     @Override
@@ -44,14 +49,14 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
 
         if (parent.getResources().getBoolean(R.bool.isTablet)) {
             View statusContainer = inflater.inflate(R.layout.list_item_forecast, parent, false);
-            return new DailyWeatherViewHolder(statusContainer, controller);
+            return new DailyWeatherViewHolder(statusContainer, controller, this);
         } else {
             if (viewType == VIEW_TYPE_TODAY) {
                 View statusContainer = inflater.inflate(R.layout.list_item_forecast_today, parent, false);
-                return new TodayWeatherViewHolder(statusContainer, controller);
+                return new TodayWeatherViewHolder(statusContainer, controller, this);
             } else if (viewType == VIEW_TYPE_OTHER_THAN_TODAY) {
                 View statusContainer = inflater.inflate(R.layout.list_item_forecast, parent, false);
-                return new DailyWeatherViewHolder(statusContainer, controller);
+                return new DailyWeatherViewHolder(statusContainer, controller, this);
             }
         }
 
@@ -61,7 +66,7 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
     @Override
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
         WeatherStatusVO status = statusList.get(position);
-        holder.bind(status);
+        holder.bind(status, mPreviousSelectedRow);
     }
 
     @Override
@@ -77,6 +82,28 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
     public void setStatusList(List<WeatherStatusVO> newStatusList) {
         this.statusList.clear();
         this.statusList.addAll(newStatusList);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResetSelectedItem(int newlySelectedItemIndex) {
+        if (newlySelectedItemIndex != RecyclerView.NO_POSITION) {
+            if (mPreviousSelectedRow != RecyclerView.NO_POSITION && mPreviousSelectedRow != newlySelectedItemIndex) {
+                WeatherViewHolder weatherVH = (WeatherViewHolder) mRv.findViewHolderForAdapterPosition(mPreviousSelectedRow);
+                if(weatherVH != null) {
+                    weatherVH.setSelection(false);
+                }
+            }
+            mPreviousSelectedRow = newlySelectedItemIndex;
+        }
+    }
+
+    public int getSelectedRow() {
+        return mPreviousSelectedRow;
+    }
+
+    public void setSelectedRow(int selectedRow) {
+        mPreviousSelectedRow = selectedRow;
         notifyDataSetChanged();
     }
 }

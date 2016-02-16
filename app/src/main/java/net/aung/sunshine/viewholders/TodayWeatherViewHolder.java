@@ -28,8 +28,8 @@ public class TodayWeatherViewHolder extends WeatherViewHolder {
 
     private ListItemForecastTodayBinding binding;
 
-    public TodayWeatherViewHolder(View itemView, ForecastListScreenController controller) {
-        super(itemView, controller);
+    public TodayWeatherViewHolder(View itemView, ForecastListScreenController controller, WeatherViewHolderController weatherVHController) {
+        super(itemView, controller, weatherVHController);
         ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
 
@@ -41,8 +41,8 @@ public class TodayWeatherViewHolder extends WeatherViewHolder {
     }
 
     @Override
-    public void bind(WeatherStatusVO status) {
-        super.bind(status);
+    public void bind(WeatherStatusVO status, int selectedRow) {
+        super.bind(status, selectedRow);
         binding.setWeatherStatus(status);
 
         int weatherArtResourceId = WeatherIconUtils.getArtResourceForWeatherCondition(status.getWeather().getId());
