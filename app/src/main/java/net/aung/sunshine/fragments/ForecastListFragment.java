@@ -57,6 +57,8 @@ public class ForecastListFragment extends BaseFragment
     private ForecastListPresenter presenter;
     private ForecastListScreenController controller;
 
+    private int mSelectedRow = RecyclerView.NO_POSITION;
+
     public static ForecastListFragment newInstance() {
         ForecastListFragment fragment = new ForecastListFragment();
         return fragment;
@@ -207,6 +209,17 @@ public class ForecastListFragment extends BaseFragment
         }
 
         adapter.setStatusList(weatherStatusList);
+
+        if (mSelectedRow != RecyclerView.NO_POSITION) {
+            if(getResources().getBoolean(R.bool.isTwoPane)) {
+                adapter.setSelectedRow(mSelectedRow);
+            }
+            rvForecasts.smoothScrollToPosition(mSelectedRow);
+        } else {
+            if(getResources().getBoolean(R.bool.isTwoPane)) {
+                adapter.setSelectedRow(0);
+            }
+        }
     }
 
     @Override
@@ -217,18 +230,22 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(ARG_SELECTED_ROW, adapter.getSelectedRow());
+        if (adapter != null) {
+            outState.putInt(ARG_SELECTED_ROW, adapter.getSelectedRow());
+        } else {
+            if (mSelectedRow != RecyclerView.NO_POSITION) {
+                outState.putInt(ARG_SELECTED_ROW, mSelectedRow);
+            }
+        }
     }
 
     @Override
     public void onViewStateRestored(Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
+
+        //all of the following could also be done by reading the bundle inside onCreateView.
         if (savedInstanceState != null) {
-            int selectedRow = savedInstanceState.getInt(ARG_SELECTED_ROW, RecyclerView.NO_POSITION);
-            if (selectedRow != RecyclerView.NO_POSITION) {
-                adapter.setSelectedRow(selectedRow);
-                rvForecasts.smoothScrollToPosition(selectedRow);
-            }
+            mSelectedRow = savedInstanceState.getInt(ARG_SELECTED_ROW, RecyclerView.NO_POSITION);
         }
     }
 

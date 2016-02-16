@@ -26,7 +26,7 @@
     </style>
 
     <style name="DailyWeatherDay">
-        <item name="android:textSize">@dimen/text_regular_3x</item>
+        <item name="android:textAppearance">?android:textAppearanceLarge</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
 

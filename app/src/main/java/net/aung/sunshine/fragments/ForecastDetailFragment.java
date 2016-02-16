@@ -138,7 +138,7 @@ public class ForecastDetailFragment extends BaseFragment
     @Override
     public void onResume() {
         super.onResume();
-        if (!getResources().getBoolean(R.bool.isTablet)) {
+        if (!getResources().getBoolean(R.bool.isTwoPane)) {
             AppCompatActivity activity = (AppCompatActivity) getActivity();
             ActionBar actionBar = activity.getSupportActionBar();
             actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);

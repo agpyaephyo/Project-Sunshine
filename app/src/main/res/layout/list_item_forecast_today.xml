@@ -38,7 +38,7 @@
             android:fontFamily="sans-serif-condensed"
             android:gravity="center_horizontal"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_regular_3x"
+            android:textAppearance="?android:textAppearanceLarge"
             tools:text="Clouds"
             android:text="@{weatherStatus.weather.description}"
             />
@@ -50,7 +50,7 @@
             android:layout_centerVertical="true"
             android:fontFamily="sans-serif-light"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_big_2x"
+            android:textSize="@dimen/text_max_temperature"
             android:text="@{weatherStatus.temperature.maxTemperatureDisplay}"
             tools:text="21" />
 
@@ -61,7 +61,7 @@
             android:layout_marginTop="@dimen/margin_medium"
             android:fontFamily="sans-serif-condensed"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_regular_3x"
+            android:textAppearance="?android:textAppearanceLarge"
             tools:text="Today, December 13"
             android:text="@{weatherStatus.dateDisplay}"
             />
@@ -73,7 +73,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/margin_medium_2"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_heading_2x"
+            android:textSize="@dimen/text_min_temperature"
             android:text="@{weatherStatus.temperature.minTemperatureDisplay}"
             tools:text="13" />
 

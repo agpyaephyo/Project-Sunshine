@@ -23,6 +23,11 @@
     <dimen name="text_big_2x">60sp</dimen>
     <dimen name="text_big_3x">80sp</dimen>
 
+    <dimen name="text_max_temperature">72sp</dimen>
+    <dimen name="text_max_temperature_detail">96sp</dimen>
+    <dimen name="text_min_temperature">36sp</dimen>
+    <dimen name="text_min_temperature_detail">48sp</dimen>
+
     <dimen name="icon_medium">60dp</dimen>
 
     <dimen name="toolbar_elevation">4dp</dimen>

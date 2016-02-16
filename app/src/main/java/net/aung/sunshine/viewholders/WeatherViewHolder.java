@@ -39,7 +39,7 @@ public abstract class WeatherViewHolder extends RecyclerView.ViewHolder implemen
     @Override
     public void onClick(View view) {
         Context context = SunshineApplication.getContext();
-        if (context.getResources().getBoolean(R.bool.isTablet)) {
+        if (context.getResources().getBoolean(R.bool.isTwoPane)) {
             view.setSelected(true);
         }
 

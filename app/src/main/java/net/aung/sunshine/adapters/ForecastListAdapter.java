@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.aung.sunshine.R;
+import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.viewholders.DailyWeatherViewHolder;
@@ -47,17 +48,12 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        if (parent.getResources().getBoolean(R.bool.isTablet)) {
+        if (viewType == VIEW_TYPE_TODAY) {
+            View statusContainer = inflater.inflate(R.layout.list_item_forecast_today, parent, false);
+            return new TodayWeatherViewHolder(statusContainer, controller, this);
+        } else if (viewType == VIEW_TYPE_OTHER_THAN_TODAY) {
             View statusContainer = inflater.inflate(R.layout.list_item_forecast, parent, false);
             return new DailyWeatherViewHolder(statusContainer, controller, this);
-        } else {
-            if (viewType == VIEW_TYPE_TODAY) {
-                View statusContainer = inflater.inflate(R.layout.list_item_forecast_today, parent, false);
-                return new TodayWeatherViewHolder(statusContainer, controller, this);
-            } else if (viewType == VIEW_TYPE_OTHER_THAN_TODAY) {
-                View statusContainer = inflater.inflate(R.layout.list_item_forecast, parent, false);
-                return new DailyWeatherViewHolder(statusContainer, controller, this);
-            }
         }
 
         return null;
@@ -76,7 +72,12 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
 
     @Override
     public int getItemViewType(int position) {
-        return position == 0 ? VIEW_TYPE_TODAY : VIEW_TYPE_OTHER_THAN_TODAY;
+        Context context = SunshineApplication.getContext();
+        if(context.getResources().getBoolean(R.bool.isTwoPane)){
+            return VIEW_TYPE_OTHER_THAN_TODAY;
+        } else {
+            return position == 0 ? VIEW_TYPE_TODAY : VIEW_TYPE_OTHER_THAN_TODAY;
+        }
     }
 
     public void setStatusList(List<WeatherStatusVO> newStatusList) {
@@ -104,6 +105,7 @@ public class ForecastListAdapter extends RecyclerView.Adapter<WeatherViewHolder>
 
     public void setSelectedRow(int selectedRow) {
         mPreviousSelectedRow = selectedRow;
-        notifyDataSetChanged();
+        notifyItemChanged(mPreviousSelectedRow);
+        //notifyDataSetChanged();
     }
 }

@@ -42,7 +42,7 @@ public class TodayWeatherViewHolder extends WeatherViewHolder {
 
     @Override
     public void bind(WeatherStatusVO status, int selectedRow) {
-        super.bind(status, selectedRow);
+        super.bind(status, selectedRow );
         binding.setWeatherStatus(status);
 
         int weatherArtResourceId = WeatherIconUtils.getArtResourceForWeatherCondition(status.getWeather().getId());
