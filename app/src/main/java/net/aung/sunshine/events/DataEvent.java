@@ -63,4 +63,17 @@ public class DataEvent {
             return newCity;
         }
     }
+
+    public static class PreferenceNotificationChangeEvent {
+
+        private boolean newPref;
+
+        public PreferenceNotificationChangeEvent(boolean newPref) {
+            this.newPref = newPref;
+        }
+
+        public boolean getNewPref() {
+            return newPref;
+        }
+    }
 }

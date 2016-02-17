@@ -1,5 +1,9 @@
 package net.aung.sunshine.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +17,9 @@ import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.fragments.ForecastDetailFragment;
 import net.aung.sunshine.fragments.ForecastListFragment;
+import net.aung.sunshine.receivers.internal.DataSyncAlarmReceiver;
+import net.aung.sunshine.services.SunshineService;
+import net.aung.sunshine.sync.SunshineSyncAdapter;
 import net.aung.sunshine.utils.SunshineConstants;
 
 public class ForecastActivity extends BaseActivity
@@ -34,8 +41,17 @@ public class ForecastActivity extends BaseActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                        */
+
+                /* Calling the service with PendingIntent.
+                PendingIntent intentToAlarmManager = DataSyncAlarmReceiver.newPendingIntent(getApplicationContext());
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000, intentToAlarmManager);
+                */
+
             }
         });
 
@@ -54,6 +70,8 @@ public class ForecastActivity extends BaseActivity
                         .commit();
             }
         }
+
+
     }
 
     @Override

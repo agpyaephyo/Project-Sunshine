@@ -14,6 +14,7 @@ import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.network.WeatherDataSource;
 import net.aung.sunshine.network.WeatherDataSourceImpl;
+import net.aung.sunshine.utils.SunshineConstants;
 
 import de.greenrobot.event.EventBus;
 
@@ -80,5 +81,9 @@ public class WeatherStatusModel {
 
         ContentValues[] weatherCVArray = WeatherStatusVO.parseToContentValuesArray(response.getWeatherStatusList(), cityRowId);
         context.getContentResolver().bulkInsert(WeatherContract.WeatherEntry.CONTENT_URI, weatherCVArray);
+
+        int deletedCount = context.getContentResolver().delete(WeatherContract.WeatherEntry.CONTENT_URI,
+                WeatherContract.WeatherEntry.COLUMN_DATE + " < ?",
+                new String[]{Long.toString(SunshineConstants.TODAY)});
     }
 }

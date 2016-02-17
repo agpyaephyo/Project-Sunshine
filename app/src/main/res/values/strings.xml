@@ -33,4 +33,20 @@
     <!-- Temperature format -->
     <string name="format_temperature"><xliff:g id="temperature">%1$d</xliff:g>\u00B0</string> <!-- &#x00B0; -->
 
+    <!-- Account Type -->
+    <string name="sync_account_type">sunshine.aung.net</string> <!-- just reverse of package name -->
+
+    <!-- Notification Preferences -->
+    <string name="pref_last_notification">last_notification</string>
+    <string name="pref_enable_notification_label">Weather Notifications</string>
+    <string name="pref_enable_notification_key" translatable="false">pref_enable_notification</string>
+    <string name="pref_enable_notifications_true">Enabled</string>
+    <string name="pref_enable_notifications_false">Not Enabled</string>
+    <string name="pref_enable_notifications_default" translatable="false">true</string>
+
+    <!-- Notification Format -->
+    <string name="format_notification">
+        Forecast : <xliff:g id="weather_condition">%1$s</xliff:g> - High: <xliff:g id="high_temp">%2$s</xliff:g>, Low: <xliff:g id="low_temp">%3$s</xliff:g>
+    </string>
+
 </resources>

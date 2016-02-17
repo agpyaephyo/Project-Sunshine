@@ -2,7 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.aung.sunshine">
 
+    <!-- perform network access -->
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- permissions required by SyncAdapter -->
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
 
     <application
         android:name=".SunshineApplication"
@@ -27,21 +33,55 @@
             android:label="@string/action_settings"
             android:parentActivityName=".activities.ForecastActivity"/>
 
-        <receiver android:name=".recievers.system.PowerConnectedReceiver">
+        <service
+            android:name=".services.SunshineService" />
+
+        <!-- SyncAdapter's dummy authentication service -->
+        <service
+            android:name=".sync.SunshineAuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator"
+                />
+        </service>
+
+        <!-- The SyncAdapter service -->
+        <service
+            android:name=".sync.SunshineSyncService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter"
+                />
+        </service>
+
+        <receiver android:name=".receivers.system.PowerConnectedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".recievers.system.PowerDisconnectedReceiver">
+        <receiver android:name=".receivers.system.PowerDisconnectedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".receivers.internal.DataSyncAlarmReceiver" />
+
         <provider
             android:authorities="@string/content_authority"
-            android:name=".data.persistence.WeatherProvider" />
+            android:name=".data.persistence.WeatherProvider"
+            android:syncable="true"
+            android:exported="false"
+            />
 
     </application>
 

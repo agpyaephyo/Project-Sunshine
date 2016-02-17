@@ -45,4 +45,16 @@ public class SettingsUtils {
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         defaultSharedPref.edit().putString(context.getString(R.string.pref_location_key), newCity).commit();
     }
+
+    public static boolean retrieveNotificationPref() {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        return defaultSharedPref.getBoolean(context.getString(R.string.pref_enable_notification_key), true);
+    }
+
+    public static void saveNotificationPref(boolean newPref) {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        defaultSharedPref.edit().putBoolean(context.getString(R.string.pref_enable_notification_key), newPref).commit();
+    }
 }

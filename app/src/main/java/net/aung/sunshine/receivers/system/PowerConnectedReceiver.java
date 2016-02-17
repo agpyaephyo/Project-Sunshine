@@ -1,4 +1,4 @@
-package net.aung.sunshine.recievers.system;
+package net.aung.sunshine.receivers.system;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
