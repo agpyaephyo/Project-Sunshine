@@ -85,7 +85,7 @@ public class SettingsActivity extends PreferenceActivity
 
         if (preference.getKey().equals(getString(R.string.pref_location_key))) {
             String stringValue = value.toString();
-            String oldCity = SettingsUtils.retrieveUserLocation();
+            String oldCity = SettingsUtils.retrieveUserCity();
             if (!oldCity.equalsIgnoreCase(stringValue)) {
                 SettingsUtils.saveUserLocation(stringValue);
                 EventBus.getDefault().post(new DataEvent.PreferenceCityChangeEvent(stringValue));

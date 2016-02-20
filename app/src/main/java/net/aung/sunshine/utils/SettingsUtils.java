@@ -17,7 +17,7 @@ public class SettingsUtils {
      * Retrieve the city name that user set in Settings
      * @return city name
      */
-    public static String retrieveUserLocation() {
+    public static String retrieveUserCity() {
         Context context = SunshineApplication.getContext();
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         String defaultLocation = context.getString(R.string.pref_location_default);

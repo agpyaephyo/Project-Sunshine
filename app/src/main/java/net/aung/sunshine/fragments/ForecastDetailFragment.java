@@ -160,7 +160,7 @@ public class ForecastDetailFragment extends BaseFragment
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String city = SettingsUtils.retrieveUserLocation();
+        String city = SettingsUtils.retrieveUserCity();
         Log.d(SunshineApplication.TAG, "Retrieving weather detail data for city (from db) : " + city);
 
         if (dateTime == SunshineConstants.TODAY) {

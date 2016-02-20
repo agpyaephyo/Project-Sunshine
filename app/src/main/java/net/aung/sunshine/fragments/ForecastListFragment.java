@@ -19,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
@@ -50,6 +51,9 @@ public class ForecastListFragment extends BaseFragment
 
     @Bind(R.id.swipe_container)
     SwipeRefreshLayout swipeContainer;
+
+    @Bind(R.id.tv_current_city)
+    TextView tvCurrentCity;
 
     private View rootView;
 
@@ -119,13 +123,14 @@ public class ForecastListFragment extends BaseFragment
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            /*
             case R.id.action_filter:
                 Snackbar.make(rootView, "Later, you will be able to filter the list of dates that has specific weathers", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
                 break;
-
+            */
             case R.id.action_show_city:
-                String city = SettingsUtils.retrieveUserLocation();
+                String city = SettingsUtils.retrieveUserCity();
                 controller.showCityInGoogleMap(city);
                 break;
         }
@@ -188,7 +193,7 @@ public class ForecastListFragment extends BaseFragment
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String city = SettingsUtils.retrieveUserLocation();
+        String city = SettingsUtils.retrieveUserCity();
         Log.d(SunshineApplication.TAG, "Retrieving weather data for city (from db) : " + city);
 
         return new CursorLoader(getActivity(),
@@ -220,6 +225,8 @@ public class ForecastListFragment extends BaseFragment
                 adapter.setSelectedRow(0);
             }
         }
+
+        tvCurrentCity.setText(SettingsUtils.retrieveUserCity());
     }
 
     @Override

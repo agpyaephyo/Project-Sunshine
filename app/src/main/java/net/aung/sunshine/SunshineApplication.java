@@ -60,7 +60,7 @@ public class SunshineApplication extends Application {
     public void onEventMainThread(DataEvent.PreferenceNotificationChangeEvent event) {
         if(event.getNewPref()) { //new pref is enable notification
 
-            String city = SettingsUtils.retrieveUserLocation();
+            String city = SettingsUtils.retrieveUserCity();
             Cursor cursorWeather = context.getContentResolver().query(WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
                     null, null, null, null);
 
@@ -75,7 +75,7 @@ public class SunshineApplication extends Application {
     }
 
     private void loadWeatherFromNetwork() {
-        String userLocation = SettingsUtils.retrieveUserLocation();
+        String userLocation = SettingsUtils.retrieveUserCity();
         Log.d(SunshineApplication.TAG, "Retrieving weather data for city : " + userLocation);
 
         WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, true);
