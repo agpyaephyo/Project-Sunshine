@@ -54,20 +54,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7948ceb8-b879-4f56-a461-1f38fc2fdc13" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/ForecastActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/ForecastActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastDetailFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastDetailFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/mvp/presenters/ForecastListPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/mvp/presenters/ForecastListPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/SettingsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/SettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/SettingsUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/SettingsUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/SunshineApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/SunshineApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/sync/SunshineSyncAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/sync/SunshineSyncAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_list.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_forecast.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_forecast.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_forecast_list.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_forecast_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Project-Sunshine.iws" />
@@ -108,12 +96,9 @@
       <file leaf-file-name="fragment_forecast_list.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_list.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.258064">
-              <caret line="19" column="44" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="44" />
-              <folding>
-                <element signature="e#877#899#0" expanded="true" />
-                <element signature="e#1136#1159#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-5.16129">
+              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
           <provider editor-type-id="android-designer">
@@ -121,21 +106,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ForecastListFragment.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ForecastListFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="228" column="58" selection-start-line="228" selection-start-column="58" selection-end-line="228" selection-end-column="58" />
+            <state vertical-scroll-proportion="0.6703297">
+              <caret line="223" column="9" selection-start-line="223" selection-start-column="9" selection-end-line="223" selection-end-column="9" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingsUtils.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SettingsUtils.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/SettingsUtils.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30769232">
-              <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="33" column="6" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -1885,9 +1870,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/ForecastActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/SettingsUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/SettingsUtils.java" />
       </list>
     </option>
   </component>
@@ -3535,7 +3520,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
           <folding>
-            <element signature="e#586#612#0" expanded="true" />
+            <element signature="e#586#612#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3610,14 +3595,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/SettingsUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="6" selection-start-line="33" selection-start-column="6" selection-end-line="33" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_list.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.258064">
-          <caret line="19" column="44" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="44" />
-          <folding>
-            <element signature="e#877#899#0" expanded="true" />
-            <element signature="e#1136#1159#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="-5.16129">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer">
@@ -3626,16 +3616,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="228" column="58" selection-start-line="228" selection-start-column="58" selection-end-line="228" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/SettingsUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30769232">
-          <caret line="19" column="41" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.6703297">
+          <caret line="223" column="9" selection-start-line="223" selection-start-column="9" selection-end-line="223" selection-end-column="9" />
           <folding />
         </state>
       </provider>

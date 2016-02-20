@@ -52,9 +52,6 @@ public class ForecastListFragment extends BaseFragment
     @Bind(R.id.swipe_container)
     SwipeRefreshLayout swipeContainer;
 
-    @Bind(R.id.tv_current_city)
-    TextView tvCurrentCity;
-
     private View rootView;
 
     private ForecastListAdapter adapter;
@@ -225,8 +222,6 @@ public class ForecastListFragment extends BaseFragment
                 adapter.setSelectedRow(0);
             }
         }
-
-        tvCurrentCity.setText(SettingsUtils.retrieveUserCity());
     }
 
     @Override
