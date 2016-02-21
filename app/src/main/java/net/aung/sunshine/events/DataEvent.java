@@ -53,7 +53,7 @@ public class DataEvent {
             return error;
         }
 
-        public int getStatus() {
+        public @SunshineConstants.ServerStatus int getStatus() {
             return status;
         }
     }

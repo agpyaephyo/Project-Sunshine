@@ -44,6 +44,8 @@
     <string name="pref_enable_notifications_false">Not Enabled</string>
     <string name="pref_enable_notifications_default" translatable="false">true</string>
 
+    <string name="pref_server_response_status_key" translatable="false">pref_server_response_status_key</string>
+
     <!-- Notification Format -->
     <string name="format_notification">
         Forecast : <xliff:g id="weather_condition">%1$s</xliff:g> - High: <xliff:g id="high_temp">%2$s</xliff:g>, Low: <xliff:g id="low_temp">%3$s</xliff:g>
@@ -53,6 +55,7 @@
     <string name="error_no_city_has_put">No city has put yet in the Settings.</string>
     <string name="error_no_network">Your device doesn\'t have internet connectivity.</string>
     <string name="error_invalid_server">The server the App is trying to reach is not valid. Please update the App to its latest version.</string>
-    <string name="error_city_not_found">The city name, <xliff:g id="invalid_city_name">%1$s</xliff:g>, is not valid.</string>
+    <string name="error_city_not_found">The city name, <xliff:g id="invalid_city_name">%1$s</xliff:g> is not valid.</string>
+    <string name="error_city_shared_pref_status">Invalid city (<xliff:g id="invalid_city_name">%1$s</xliff:g>)</string>
 
 </resources>

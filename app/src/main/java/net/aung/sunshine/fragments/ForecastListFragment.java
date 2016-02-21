@@ -193,7 +193,6 @@ public class ForecastListFragment extends BaseFragment
             case SunshineConstants.STATUS_SERVER_DOWN:
                 break;
             case SunshineConstants.STATUS_SERVER_CITY_NOT_FOUND:
-                SettingsUtils.saveUserCity(SunshineConstants.UNKNOWN_CITY);
                 break;
         }
 
