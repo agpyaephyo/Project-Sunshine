@@ -14,6 +14,7 @@ import net.aung.sunshine.data.models.WeatherStatusModel;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.utils.NetworkUtils;
 import net.aung.sunshine.utils.SettingsUtils;
+import net.aung.sunshine.utils.SunshineConstants;
 
 import de.greenrobot.event.EventBus;
 
@@ -32,7 +33,7 @@ public class InternetConnectivityStateReceiver extends BroadcastReceiver {
                 Log.d(SunshineApplication.TAG, "Retrieving weather data for city : " + userCity);
                 WeatherStatusModel.getInstance().loadWeatherStatusList(userCity, true);
             } else {
-                EventBus.getDefault().post(new DataEvent.LoadedWeatherStatusListErrorEvent(context.getString(R.string.error_no_city_has_put)));
+                EventBus.getDefault().post(new DataEvent.LoadedWeatherStatusListErrorEvent(context.getString(R.string.error_no_city_has_put), SunshineConstants.STATUS_SERVER_UNKNOWN));
             }
 
         } else {

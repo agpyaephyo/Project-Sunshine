@@ -6,5 +6,5 @@
     android:text="@string/no_weather_information"
     android:gravity="center"
     android:fontFamily="sans-serif-condensed"
-    android:padding="@dimen/margin_medium_2"
+    android:padding="@dimen/margin_large"
     android:textAppearance="?android:textAppearanceLarge"/>

@@ -5,6 +5,7 @@ import net.aung.sunshine.data.models.WeatherStatusModel;
 import net.aung.sunshine.data.responses.WeatherStatusListResponse;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.utils.CommonInstances;
+import net.aung.sunshine.utils.SunshineConstants;
 
 import de.greenrobot.event.EventBus;
 import retrofit.Call;
@@ -52,7 +53,7 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
             public void onResponse(Response<WeatherStatusListResponse> response, Retrofit retrofit) {
                 WeatherStatusListResponse weatherStatusListResponse = response.body();
                 if (weatherStatusListResponse == null) {
-                    DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(response.message()); //Error loading data. Show user with snackbar msg.
+                    DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(response.message(), SunshineConstants.STATUS_SERVER_UNKNOWN); //Error loading data. Show user with snackbar msg.
                     EventBus.getDefault().post(event);
                 } else {
                     DataEvent.LoadedWeatherStatusListEvent event = new DataEvent.LoadedWeatherStatusListEvent(response.body());
@@ -62,7 +63,7 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
 
             @Override
             public void onFailure(Throwable throwable) {
-                DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(throwable.getMessage()); //Error loading data. Show user with snackbar msg.
+                DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(throwable.getMessage(), SunshineConstants.STATUS_SERVER_INVALID); //Error loading data. Show user with snackbar msg.
                 EventBus.getDefault().post(event);
             }
         });

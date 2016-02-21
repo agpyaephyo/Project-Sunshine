@@ -2,6 +2,7 @@ package net.aung.sunshine.events;
 
 import net.aung.sunshine.data.responses.WeatherStatusListResponse;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
+import net.aung.sunshine.utils.SunshineConstants;
 
 import java.util.List;
 
@@ -40,19 +41,24 @@ public class DataEvent {
     }
 
     public static class LoadedWeatherStatusListErrorEvent {
+        private @SunshineConstants.ServerStatus int status;
         private String error;
 
-        public LoadedWeatherStatusListErrorEvent(String error) {
+        public LoadedWeatherStatusListErrorEvent(String error, @SunshineConstants.ServerStatus int status) {
             this.error = error;
+            this.status = status;
         }
 
         public String getError() {
             return error;
         }
+
+        public int getStatus() {
+            return status;
+        }
     }
 
     public static class PreferenceCityChangeEvent {
-
         private String newCity;
 
         public PreferenceCityChangeEvent(String newCity) {

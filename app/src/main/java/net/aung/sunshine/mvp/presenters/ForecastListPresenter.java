@@ -34,8 +34,7 @@ public class ForecastListPresenter extends BasePresenter {
     }
 
     public void onEventMainThread(DataEvent.LoadedWeatherStatusListErrorEvent event) {
-        String errorMessage = event.getError();
-        forecastListView.displayErrorMessage(errorMessage);
+        forecastListView.displayErrorMessage(event);
     }
 
     public void forceRefresh() {

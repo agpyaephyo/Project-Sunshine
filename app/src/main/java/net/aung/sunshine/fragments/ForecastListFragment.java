@@ -175,15 +175,29 @@ public class ForecastListFragment extends BaseFragment
     }
 
     @Override
-    public void displayErrorMessage(String message) {
+    public void displayErrorMessage(DataEvent.LoadedWeatherStatusListErrorEvent event) {
         if (swipeContainer.isRefreshing()) {
             swipeContainer.setRefreshing(false);
         }
 
-        Snackbar.make(rootView, "Failed to load weather status list (" + message + ")", Snackbar.LENGTH_LONG)
+        //will show the error message from server directly. mostly because api server is 3rd party.
+        String errorMsg = getString(R.string.format_no_weather_information, event.getError());
+
+        Snackbar.make(rootView, errorMsg, Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
 
-        setActionBarElevation(true);
+        /* if we own the api server (or know every error response), will show tailored error message based on the error type.
+        switch (event.getStatus()) {
+            case SunshineConstants.STATUS_SERVER_INVALID:
+                tvEmptyForecasts.setText(getString(R.string.error_invalid_server));
+                break;
+            case SunshineConstants.STATUS_SERVER_DOWN:
+                break;
+        }
+        */
+
+        tvEmptyForecasts.setText(errorMsg);
+        setActionBarElevation(tvEmptyForecasts.getVisibility() == View.VISIBLE);
     }
 
     @Override

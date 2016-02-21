@@ -80,7 +80,7 @@ public class SunshineApplication extends Application {
             Log.d(SunshineApplication.TAG, "Retrieving weather data for city : " + userLocation);
             WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, true);
         } else {
-            EventBus.getDefault().post(new DataEvent.LoadedWeatherStatusListErrorEvent(getString(R.string.error_no_city_has_put)));
+            EventBus.getDefault().post(new DataEvent.LoadedWeatherStatusListErrorEvent(getString(R.string.error_no_city_has_put), SunshineConstants.STATUS_SERVER_UNKNOWN));
         }
     }
 }
