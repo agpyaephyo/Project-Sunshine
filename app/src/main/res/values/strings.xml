@@ -48,5 +48,8 @@
     <string name="format_notification">
         Forecast : <xliff:g id="weather_condition">%1$s</xliff:g> - High: <xliff:g id="high_temp">%2$s</xliff:g>, Low: <xliff:g id="low_temp">%3$s</xliff:g>
     </string>
+    <string name="no_weather_information">No Weather Information Available</string>
+    <string name="error_no_city_has_put">No city has put yet in the Settings.</string>
+    <string name="error_no_network">Your device doesn\'t have internect connectivity.</string>
 
 </resources>

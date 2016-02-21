@@ -24,12 +24,14 @@ import android.widget.TextView;
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.adapters.ForecastListAdapter;
+import net.aung.sunshine.components.RecyclerViewWithEmptyView;
 import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.mvp.presenters.ForecastListPresenter;
 import net.aung.sunshine.mvp.views.ForecastListView;
+import net.aung.sunshine.utils.NetworkUtils;
 import net.aung.sunshine.utils.SettingsUtils;
 import net.aung.sunshine.utils.SunshineConstants;
 
@@ -47,10 +49,13 @@ public class ForecastListFragment extends BaseFragment
     private static final String ARG_SELECTED_ROW = "ARG_SELECTED_ROW";
 
     @Bind(R.id.rv_forecasts)
-    RecyclerView rvForecasts;
+    RecyclerViewWithEmptyView rvForecasts;
 
     @Bind(R.id.swipe_container)
     SwipeRefreshLayout swipeContainer;
+
+    @Bind(R.id.vp_empty_forecasts)
+    TextView tvEmptyForecasts;
 
     private View rootView;
 
@@ -93,6 +98,7 @@ public class ForecastListFragment extends BaseFragment
 
         rvForecasts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvForecasts.setAdapter(adapter);
+        rvForecasts.setEmptyView(tvEmptyForecasts);
 
         swipeContainer.setOnRefreshListener(this);
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_dark,
@@ -144,10 +150,6 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public void onResume() {
         super.onResume();
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
-        actionBar.setElevation(0f);
     }
 
     @Override
@@ -178,8 +180,10 @@ public class ForecastListFragment extends BaseFragment
             swipeContainer.setRefreshing(false);
         }
 
-        Snackbar.make(rootView, "Failed to load weather status list (" + message + ")", Snackbar.LENGTH_INDEFINITE)
+        Snackbar.make(rootView, "Failed to load weather status list (" + message + ")", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+
+        setActionBarElevation(true);
     }
 
     @Override
@@ -191,14 +195,18 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String city = SettingsUtils.retrieveUserCity();
-        Log.d(SunshineApplication.TAG, "Retrieving weather data for city (from db) : " + city);
+        if (city != null) {
+            Log.d(SunshineApplication.TAG, "Retrieving weather data for city (from db) : " + city);
 
-        return new CursorLoader(getActivity(),
-                WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
-                null, //projections
-                null, //selection
-                null, //selectionArgs
-                WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry.COLUMN_DATE + " ASC");
+            return new CursorLoader(getActivity(),
+                    WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
+                    null, //projections
+                    null, //selection
+                    null, //selectionArgs
+                    WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry.COLUMN_DATE + " ASC");
+        }
+
+        return null;
     }
 
     @Override
@@ -211,17 +219,23 @@ public class ForecastListFragment extends BaseFragment
         }
 
         adapter.setStatusList(weatherStatusList);
+        setActionBarElevation(weatherStatusList.size() == 0);
+
+        if(weatherStatusList.size() == 0 && !NetworkUtils.isOnline(getContext())) {
+            tvEmptyForecasts.setText(getString(R.string.error_no_network));
+        }
 
         if (mSelectedRow != RecyclerView.NO_POSITION) {
-            if(getResources().getBoolean(R.bool.isTwoPane)) {
+            if (getResources().getBoolean(R.bool.isTwoPane)) {
                 adapter.setSelectedRow(mSelectedRow);
             }
             rvForecasts.smoothScrollToPosition(mSelectedRow);
         } else {
-            if(getResources().getBoolean(R.bool.isTwoPane)) {
+            if (getResources().getBoolean(R.bool.isTwoPane)) {
                 adapter.setSelectedRow(0);
             }
         }
+
     }
 
     @Override
@@ -253,5 +267,16 @@ public class ForecastListFragment extends BaseFragment
 
     public void onEventMainThread(DataEvent.PreferenceCityChangeEvent event) {
         getLoaderManager().restartLoader(SunshineConstants.FORECAST_LIST_LOADER, null, this);
+    }
+
+    private void setActionBarElevation(boolean isElevationSet) {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = activity.getSupportActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
+        if (isElevationSet) {
+            actionBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
+        } else {
+            actionBar.setElevation(0f);
+        }
     }
 }

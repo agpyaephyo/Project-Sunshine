@@ -35,7 +35,7 @@ public class SunshineApplication extends Application {
             eventBus.register(this);
         }
 
-        loadWeatherFromNetwork();
+        loadWeatherDataFromNetwork();
 
         SunshineSyncAdapter.initializeSyncAdapter(getApplicationContext());
     }
@@ -58,7 +58,7 @@ public class SunshineApplication extends Application {
     }
 
     public void onEventMainThread(DataEvent.PreferenceNotificationChangeEvent event) {
-        if(event.getNewPref()) { //new pref is enable notification
+        if (event.getNewPref()) { //new pref is enable notification
 
             String city = SettingsUtils.retrieveUserCity();
             Cursor cursorWeather = context.getContentResolver().query(WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
@@ -74,10 +74,13 @@ public class SunshineApplication extends Application {
         }
     }
 
-    private void loadWeatherFromNetwork() {
+    private void loadWeatherDataFromNetwork() {
         String userLocation = SettingsUtils.retrieveUserCity();
-        Log.d(SunshineApplication.TAG, "Retrieving weather data for city : " + userLocation);
-
-        WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, true);
+        if (userLocation != null) {
+            Log.d(SunshineApplication.TAG, "Retrieving weather data for city : " + userLocation);
+            WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, true);
+        } else {
+            EventBus.getDefault().post(new DataEvent.LoadedWeatherStatusListErrorEvent(getString(R.string.error_no_city_has_put)));
+        }
     }
 }

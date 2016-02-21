@@ -52,7 +52,7 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
             public void onResponse(Response<WeatherStatusListResponse> response, Retrofit retrofit) {
                 WeatherStatusListResponse weatherStatusListResponse = response.body();
                 if (weatherStatusListResponse == null) {
-                    DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(response.message());
+                    DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(response.message()); //Error loading data. Show user with snackbar msg.
                     EventBus.getDefault().post(event);
                 } else {
                     DataEvent.LoadedWeatherStatusListEvent event = new DataEvent.LoadedWeatherStatusListEvent(response.body());
@@ -62,7 +62,7 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
 
             @Override
             public void onFailure(Throwable throwable) {
-                DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(throwable.getMessage());
+                DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(throwable.getMessage()); //Error loading data. Show user with snackbar msg.
                 EventBus.getDefault().post(event);
             }
         });

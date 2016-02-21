@@ -12,7 +12,6 @@ import net.aung.sunshine.SunshineApplication;
  */
 public class SettingsUtils {
 
-    private static final String DUMMY_CITY_NAME = "Singapore"; //ABCDEFG
     /**
      * Retrieve the city name that user set in Settings
      * @return city name
@@ -20,12 +19,7 @@ public class SettingsUtils {
     public static String retrieveUserCity() {
         Context context = SunshineApplication.getContext();
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        String defaultLocation = context.getString(R.string.pref_location_default);
-        String userLocation = defaultSharedPref.getString(context.getString(R.string.pref_location_key), defaultLocation);
-
-        if (userLocation.equalsIgnoreCase(defaultLocation)) {
-            userLocation = DUMMY_CITY_NAME;
-        }
+        String userLocation = defaultSharedPref.getString(context.getString(R.string.pref_location_key), "Rangoon"); //TODO remove Rangoon & set null.
 
         return userLocation;
     }
