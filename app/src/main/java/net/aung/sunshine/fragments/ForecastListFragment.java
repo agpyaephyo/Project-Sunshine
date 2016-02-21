@@ -186,15 +186,16 @@ public class ForecastListFragment extends BaseFragment
         Snackbar.make(rootView, errorMsg, Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
 
-        /* if we own the api server (or know every error response), will show tailored error message based on the error type.
+        // if we own the api server (or know every error response), will show tailored error message based on the error type.
         switch (event.getStatus()) {
             case SunshineConstants.STATUS_SERVER_INVALID:
-                tvEmptyForecasts.setText(getString(R.string.error_invalid_server));
                 break;
             case SunshineConstants.STATUS_SERVER_DOWN:
                 break;
+            case SunshineConstants.STATUS_SERVER_CITY_NOT_FOUND:
+                SettingsUtils.saveUserCity(SunshineConstants.UNKNOWN_CITY);
+                break;
         }
-        */
 
         tvEmptyForecasts.setText(errorMsg);
         setActionBarElevation(tvEmptyForecasts.getVisibility() == View.VISIBLE);

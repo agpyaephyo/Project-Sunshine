@@ -19,7 +19,7 @@ public class SettingsUtils {
     public static String retrieveUserCity() {
         Context context = SunshineApplication.getContext();
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        String userLocation = defaultSharedPref.getString(context.getString(R.string.pref_location_key), "Rangoon"); //TODO remove Rangoon & set null.
+        String userLocation = defaultSharedPref.getString(context.getString(R.string.pref_location_key), "your current city"); //TODO remove Rangoon & set null.
 
         return userLocation;
     }
