@@ -8,7 +8,7 @@ import net.aung.sunshine.R;
 import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.databinding.ListItemForecastBinding;
-import net.aung.sunshine.utils.WeatherIconUtils;
+import net.aung.sunshine.utils.WeatherDataUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,7 +37,7 @@ public class DailyWeatherViewHolder extends WeatherViewHolder {
         super.bind(status, selectedRow);
         binding.setWeatherStatus(status);
 
-        int weatherIconResourceId = WeatherIconUtils.getIconResourceForWeatherCondition(status.getWeather().getId());
+        int weatherIconResourceId = WeatherDataUtils.getIconResourceForWeatherCondition(status.getWeather().getId());
         ivStatus.setImageResource(weatherIconResourceId);
     }
 }

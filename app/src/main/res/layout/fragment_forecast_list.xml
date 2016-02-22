@@ -1,21 +1,28 @@
-<FrameLayout
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipe_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.ForecastListFragment">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_container"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <net.aung.sunshine.components.RecyclerViewWithEmptyView
             android:id="@+id/rv_forecasts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+        <include
+            android:id="@+id/vp_empty_forecasts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            layout="@layout/view_pod_empty_weather_list"
+            />
 
-</FrameLayout>
+    </FrameLayout>
+
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -93,6 +93,7 @@ public class ForecastActivity extends BaseActivity
             case R.id.action_settings:
                 startSettingActivity();
                 break;
+            /*
             case R.id.action_about:
                 Snackbar.make(fab, "About this Project Sunshine is coming soon", Snackbar.LENGTH_SHORT)
                          .setAction("Action", null).show();
@@ -101,6 +102,7 @@ public class ForecastActivity extends BaseActivity
                 Snackbar.make(fab, "The help that you gonna need to use this App is coming soon", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
                 break;
+            */
         }
 
         return super.onOptionsItemSelected(item);

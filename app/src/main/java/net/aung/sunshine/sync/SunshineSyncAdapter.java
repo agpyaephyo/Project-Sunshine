@@ -46,7 +46,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void notifyWeather() {
         Context context = getContext();
-        String city = SettingsUtils.retrieveUserLocation();
+        String city = SettingsUtils.retrieveUserCity();
         Cursor cursorWeather = context.getContentResolver().query(WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
                 null, null, null, null);
 

@@ -7,6 +7,7 @@ import net.aung.sunshine.data.models.WeatherStatusModel;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.mvp.views.ForecastListView;
 import net.aung.sunshine.utils.SettingsUtils;
+import net.aung.sunshine.utils.SunshineConstants;
 
 /**
  * Created by aung on 12/14/15.
@@ -30,16 +31,17 @@ public class ForecastListPresenter extends BasePresenter {
     }
 
     public void onEventMainThread(DataEvent.RefreshNewWeatherDataEvent event) {
+        SettingsUtils.saveServerResponseStatus(SunshineConstants.STATUS_SERVER_OK);
         forecastListView.refreshNewWeatherData();
     }
 
     public void onEventMainThread(DataEvent.LoadedWeatherStatusListErrorEvent event) {
-        String errorMessage = event.getError();
-        forecastListView.displayErrorMessage(errorMessage);
+        SettingsUtils.saveServerResponseStatus(event.getStatus());
+        forecastListView.displayErrorMessage(event);
     }
 
     public void forceRefresh() {
-        String userLocation = SettingsUtils.retrieveUserLocation();
+        String userLocation = SettingsUtils.retrieveUserCity();
         Log.d(SunshineApplication.TAG, "Force refresh weather data for city : " + userLocation);
 
         WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, true);

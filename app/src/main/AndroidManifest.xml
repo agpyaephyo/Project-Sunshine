@@ -10,6 +10,9 @@
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
 
+    <!--Check internet connectivity state in InternetConnectivityStateReceiver -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".SunshineApplication"
         android:allowBackup="true"
@@ -70,6 +73,12 @@
         <receiver android:name=".receivers.system.PowerDisconnectedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".receivers.system.InternetConnectivityStateReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
 

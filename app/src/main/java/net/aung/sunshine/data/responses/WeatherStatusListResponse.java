@@ -20,7 +20,7 @@ public class WeatherStatusListResponse {
     private int cod;
 
     @SerializedName("message")
-    private double message;
+    private String message;
 
     @SerializedName("cnt")
     private int count;
@@ -36,7 +36,7 @@ public class WeatherStatusListResponse {
         return cod;
     }
 
-    public double getMessage() {
+    public String getMessage() {
         return message;
     }
 

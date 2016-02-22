@@ -5,6 +5,7 @@ import android.database.Cursor;
 import com.google.gson.annotations.SerializedName;
 
 import net.aung.sunshine.data.persistence.WeatherContract;
+import net.aung.sunshine.utils.WeatherDataUtils;
 
 /**
  * Created by aung on 12/14/15.
@@ -32,7 +33,7 @@ public class WeatherVO {
     }
 
     public String getDescription() {
-        return description;
+        return WeatherDataUtils.getWeatherDescription(id);
     }
 
     public String getIcon() {

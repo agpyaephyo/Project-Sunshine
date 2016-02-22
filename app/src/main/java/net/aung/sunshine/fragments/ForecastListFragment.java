@@ -19,16 +19,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.adapters.ForecastListAdapter;
+import net.aung.sunshine.components.RecyclerViewWithEmptyView;
 import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.mvp.presenters.ForecastListPresenter;
 import net.aung.sunshine.mvp.views.ForecastListView;
+import net.aung.sunshine.utils.NetworkUtils;
 import net.aung.sunshine.utils.SettingsUtils;
 import net.aung.sunshine.utils.SunshineConstants;
 
@@ -46,10 +49,13 @@ public class ForecastListFragment extends BaseFragment
     private static final String ARG_SELECTED_ROW = "ARG_SELECTED_ROW";
 
     @Bind(R.id.rv_forecasts)
-    RecyclerView rvForecasts;
+    RecyclerViewWithEmptyView rvForecasts;
 
     @Bind(R.id.swipe_container)
     SwipeRefreshLayout swipeContainer;
+
+    @Bind(R.id.vp_empty_forecasts)
+    TextView tvEmptyForecasts;
 
     private View rootView;
 
@@ -92,6 +98,7 @@ public class ForecastListFragment extends BaseFragment
 
         rvForecasts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         rvForecasts.setAdapter(adapter);
+        rvForecasts.setEmptyView(tvEmptyForecasts);
 
         swipeContainer.setOnRefreshListener(this);
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_dark,
@@ -119,13 +126,14 @@ public class ForecastListFragment extends BaseFragment
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            /*
             case R.id.action_filter:
                 Snackbar.make(rootView, "Later, you will be able to filter the list of dates that has specific weathers", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
                 break;
-
+            */
             case R.id.action_show_city:
-                String city = SettingsUtils.retrieveUserLocation();
+                String city = SettingsUtils.retrieveUserCity();
                 controller.showCityInGoogleMap(city);
                 break;
         }
@@ -142,10 +150,6 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public void onResume() {
         super.onResume();
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
-        actionBar.setElevation(0f);
     }
 
     @Override
@@ -165,19 +169,35 @@ public class ForecastListFragment extends BaseFragment
         //won't display when the data is coming back from db.
         if (swipeContainer.isRefreshing()) {
             swipeContainer.setRefreshing(false);
-            Snackbar.make(rootView, "New weather data has been refreshed.", Snackbar.LENGTH_SHORT)
+            Snackbar.make(rootView, getString(R.string.msg_new_data_has_refreshed), Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
         }
     }
 
     @Override
-    public void displayErrorMessage(String message) {
+    public void displayErrorMessage(DataEvent.LoadedWeatherStatusListErrorEvent event) {
         if (swipeContainer.isRefreshing()) {
             swipeContainer.setRefreshing(false);
         }
 
-        Snackbar.make(rootView, "Failed to load weather status list (" + message + ")", Snackbar.LENGTH_INDEFINITE)
+        //will show the error message from server directly. mostly because api server is 3rd party.
+        String errorMsg = getString(R.string.format_no_weather_information, event.getError());
+
+        Snackbar.make(rootView, errorMsg, Snackbar.LENGTH_INDEFINITE)
                 .setAction("Action", null).show();
+
+        // if we own the api server (or know every error response), will show tailored error message based on the error type.
+        switch (event.getStatus()) {
+            case SunshineConstants.STATUS_SERVER_INVALID:
+                break;
+            case SunshineConstants.STATUS_SERVER_DOWN:
+                break;
+            case SunshineConstants.STATUS_SERVER_CITY_NOT_FOUND:
+                break;
+        }
+
+        tvEmptyForecasts.setText(errorMsg);
+        setActionBarElevation(tvEmptyForecasts.getVisibility() == View.VISIBLE);
     }
 
     @Override
@@ -188,15 +208,19 @@ public class ForecastListFragment extends BaseFragment
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String city = SettingsUtils.retrieveUserLocation();
-        Log.d(SunshineApplication.TAG, "Retrieving weather data for city (from db) : " + city);
+        String city = SettingsUtils.retrieveUserCity();
+        if (city != null) {
+            Log.d(SunshineApplication.TAG, "Retrieving weather data for city (from db) : " + city);
 
-        return new CursorLoader(getActivity(),
-                WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
-                null, //projections
-                null, //selection
-                null, //selectionArgs
-                WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry.COLUMN_DATE + " ASC");
+            return new CursorLoader(getActivity(),
+                    WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
+                    null, //projections
+                    null, //selection
+                    null, //selectionArgs
+                    WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry.COLUMN_DATE + " ASC");
+        }
+
+        return null;
     }
 
     @Override
@@ -209,17 +233,23 @@ public class ForecastListFragment extends BaseFragment
         }
 
         adapter.setStatusList(weatherStatusList);
+        setActionBarElevation(weatherStatusList.size() == 0);
+
+        if(weatherStatusList.size() == 0 && !NetworkUtils.isOnline(getContext())) {
+            tvEmptyForecasts.setText(getString(R.string.error_no_network));
+        }
 
         if (mSelectedRow != RecyclerView.NO_POSITION) {
-            if(getResources().getBoolean(R.bool.isTwoPane)) {
+            if (getResources().getBoolean(R.bool.isTwoPane)) {
                 adapter.setSelectedRow(mSelectedRow);
             }
             rvForecasts.smoothScrollToPosition(mSelectedRow);
         } else {
-            if(getResources().getBoolean(R.bool.isTwoPane)) {
+            if (getResources().getBoolean(R.bool.isTwoPane)) {
                 adapter.setSelectedRow(0);
             }
         }
+
     }
 
     @Override
@@ -251,5 +281,16 @@ public class ForecastListFragment extends BaseFragment
 
     public void onEventMainThread(DataEvent.PreferenceCityChangeEvent event) {
         getLoaderManager().restartLoader(SunshineConstants.FORECAST_LIST_LOADER, null, this);
+    }
+
+    private void setActionBarElevation(boolean isElevationSet) {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        ActionBar actionBar = activity.getSupportActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
+        if (isElevationSet) {
+            actionBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
+        } else {
+            actionBar.setElevation(0f);
+        }
     }
 }

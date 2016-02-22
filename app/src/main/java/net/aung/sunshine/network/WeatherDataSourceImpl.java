@@ -1,10 +1,14 @@
 package net.aung.sunshine.network;
 
+import android.content.Context;
+
 import net.aung.sunshine.BuildConfig;
-import net.aung.sunshine.data.models.WeatherStatusModel;
+import net.aung.sunshine.R;
+import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.data.responses.WeatherStatusListResponse;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.utils.CommonInstances;
+import net.aung.sunshine.utils.SunshineConstants;
 
 import de.greenrobot.event.EventBus;
 import retrofit.Call;
@@ -52,17 +56,30 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
             public void onResponse(Response<WeatherStatusListResponse> response, Retrofit retrofit) {
                 WeatherStatusListResponse weatherStatusListResponse = response.body();
                 if (weatherStatusListResponse == null) {
-                    DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(response.message());
+                    DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(response.message(), SunshineConstants.STATUS_SERVER_UNKNOWN);
                     EventBus.getDefault().post(event);
                 } else {
-                    DataEvent.LoadedWeatherStatusListEvent event = new DataEvent.LoadedWeatherStatusListEvent(response.body());
-                    EventBus.getDefault().post(event);
+                    int serverResponseCode = weatherStatusListResponse.getCod();
+                    if (serverResponseCode == NetworkConstants.SERVER_RESPONSE_OK) {
+                        if (city.equalsIgnoreCase(weatherStatusListResponse.getCity().getName())) {
+                            DataEvent.LoadedWeatherStatusListEvent event = new DataEvent.LoadedWeatherStatusListEvent(response.body());
+                            EventBus.getDefault().post(event);
+                        } else {
+                            Context context = SunshineApplication.getContext();
+                            DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(context.getString(R.string.error_city_not_found, city), SunshineConstants.STATUS_SERVER_CITY_NOT_FOUND);
+                            EventBus.getDefault().post(event);
+                        }
+
+                    } else if (serverResponseCode == NetworkConstants.SERVER_RESPONSE_CITY_NOT_FOUND) {
+                        DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(weatherStatusListResponse.getMessage(), SunshineConstants.STATUS_SERVER_CITY_NOT_FOUND);
+                        EventBus.getDefault().post(event);
+                    }
                 }
             }
 
             @Override
             public void onFailure(Throwable throwable) {
-                DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(throwable.getMessage());
+                DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(throwable.getMessage(), SunshineConstants.STATUS_SERVER_INVALID);
                 EventBus.getDefault().post(event);
             }
         });

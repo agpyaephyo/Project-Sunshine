@@ -31,7 +31,7 @@ import net.aung.sunshine.mvp.presenters.ForecastDetailPresenter;
 import net.aung.sunshine.mvp.views.ForecastDetailView;
 import net.aung.sunshine.utils.SettingsUtils;
 import net.aung.sunshine.utils.SunshineConstants;
-import net.aung.sunshine.utils.WeatherIconUtils;
+import net.aung.sunshine.utils.WeatherDataUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -160,7 +160,7 @@ public class ForecastDetailFragment extends BaseFragment
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        String city = SettingsUtils.retrieveUserLocation();
+        String city = SettingsUtils.retrieveUserCity();
         Log.d(SunshineApplication.TAG, "Retrieving weather detail data for city (from db) : " + city);
 
         if (dateTime == SunshineConstants.TODAY) {
@@ -188,7 +188,7 @@ public class ForecastDetailFragment extends BaseFragment
 
             binding.setWeatherStatus(weatherStatusDetail);
 
-            int weatherArtResourceId = WeatherIconUtils.getArtResourceForWeatherCondition(weatherStatusDetail.getWeather().getId());
+            int weatherArtResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(weatherStatusDetail.getWeather().getId());
             ivStatusArt.setImageResource(weatherArtResourceId);
         }
     }
@@ -218,7 +218,7 @@ public class ForecastDetailFragment extends BaseFragment
             dateTime = newWeatherStatus.getDateTime();
             binding.setWeatherStatus(newWeatherStatus);
 
-            int weatherArtResourceId = WeatherIconUtils.getArtResourceForWeatherCondition(newWeatherStatus.getWeather().getId());
+            int weatherArtResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(newWeatherStatus.getWeather().getId());
             ivStatusArt.setImageResource(weatherArtResourceId);
         }
     }

@@ -25,7 +25,7 @@ public class NotificationUtils {
         Context context = SunshineApplication.getContext();
 
         //Notification Icon
-        int weatherArtResourceId = WeatherIconUtils.getArtResourceForWeatherCondition(weather.getWeather().getId());
+        int weatherArtResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(weather.getWeather().getId());
         Bitmap weatherArtBitmap = BitmapFactory.decodeResource(context.getResources(), weatherArtResourceId);
 
         //Notification Title
@@ -42,7 +42,8 @@ public class NotificationUtils {
                 .setSmallIcon(weatherArtResourceId)
                 .setLargeIcon(weatherArtBitmap)
                 .setContentTitle(title)
-                .setContentText(text);
+                .setContentText(text)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(text));
 
         //Open the app when user tap on notification
         Intent resultIntent = new Intent(context, ForecastActivity.class);

@@ -82,7 +82,7 @@ public class WeatherStatusModel {
         ContentValues[] weatherCVArray = WeatherStatusVO.parseToContentValuesArray(response.getWeatherStatusList(), cityRowId);
         context.getContentResolver().bulkInsert(WeatherContract.WeatherEntry.CONTENT_URI, weatherCVArray);
 
-        int deletedCount = context.getContentResolver().delete(WeatherContract.WeatherEntry.CONTENT_URI,
+        context.getContentResolver().delete(WeatherContract.WeatherEntry.CONTENT_URI,
                 WeatherContract.WeatherEntry.COLUMN_DATE + " < ?",
                 new String[]{Long.toString(SunshineConstants.TODAY)});
     }

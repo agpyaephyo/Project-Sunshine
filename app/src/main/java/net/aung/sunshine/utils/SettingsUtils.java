@@ -12,20 +12,14 @@ import net.aung.sunshine.SunshineApplication;
  */
 public class SettingsUtils {
 
-    private static final String DUMMY_CITY_NAME = "Singapore"; //ABCDEFG
     /**
      * Retrieve the city name that user set in Settings
      * @return city name
      */
-    public static String retrieveUserLocation() {
+    public static String retrieveUserCity() {
         Context context = SunshineApplication.getContext();
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        String defaultLocation = context.getString(R.string.pref_location_default);
-        String userLocation = defaultSharedPref.getString(context.getString(R.string.pref_location_key), defaultLocation);
-
-        if (userLocation.equalsIgnoreCase(defaultLocation)) {
-            userLocation = DUMMY_CITY_NAME;
-        }
+        String userLocation = defaultSharedPref.getString(context.getString(R.string.pref_location_key), "your current city"); //TODO remove Rangoon & set null.
 
         return userLocation;
     }
@@ -40,10 +34,10 @@ public class SettingsUtils {
         return defaultSharedPref.getString(context.getString(R.string.pref_unit_key), context.getString(R.string.pref_unit_metric)); //return "metrics" if user hasn't pick any unit yet.
     }
 
-    public static void saveUserLocation(String newCity) {
+    public static void saveUserCity(String newCity) {
         Context context = SunshineApplication.getContext();
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        defaultSharedPref.edit().putString(context.getString(R.string.pref_location_key), newCity).commit();
+        defaultSharedPref.edit().putString(context.getString(R.string.pref_location_key), newCity).apply();
     }
 
     public static boolean retrieveNotificationPref() {
@@ -55,6 +49,18 @@ public class SettingsUtils {
     public static void saveNotificationPref(boolean newPref) {
         Context context = SunshineApplication.getContext();
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        defaultSharedPref.edit().putBoolean(context.getString(R.string.pref_enable_notification_key), newPref).commit();
+        defaultSharedPref.edit().putBoolean(context.getString(R.string.pref_enable_notification_key), newPref).apply();
+    }
+
+    public static void saveServerResponseStatus(@SunshineConstants.ServerStatus int status) {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        defaultSharedPref.edit().putInt(context.getString(R.string.pref_server_response_status_key), status).apply();
+    }
+
+    public static int getServerResponseStatus() {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        return defaultSharedPref.getInt(context.getString(R.string.pref_server_response_status_key), SunshineConstants.STATUS_SERVER_UNKNOWN);
     }
 }
