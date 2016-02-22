@@ -169,7 +169,7 @@ public class ForecastListFragment extends BaseFragment
         //won't display when the data is coming back from db.
         if (swipeContainer.isRefreshing()) {
             swipeContainer.setRefreshing(false);
-            Snackbar.make(rootView, "New weather data has been refreshed.", Snackbar.LENGTH_SHORT)
+            Snackbar.make(rootView, getString(R.string.msg_new_data_has_refreshed), Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
         }
     }

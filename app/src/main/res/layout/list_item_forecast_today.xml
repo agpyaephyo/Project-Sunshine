@@ -21,27 +21,33 @@
         android:paddingRight="@dimen/margin_medium_2"
         android:paddingTop="@dimen/margin_medium_2">
 
-        <ImageView
-            android:id="@+id/iv_status_art"
+        <LinearLayout
+            android:id="@+id/ll_forecast_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            tools:src="@drawable/art_clouds" />
+            android:layout_centerVertical="true">
 
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/iv_status_art"
-            android:layout_below="@id/iv_status_art"
-            android:fontFamily="sans-serif-condensed"
-            android:gravity="center_horizontal"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:textAppearanceLarge"
-            tools:text="Clouds"
-            android:text="@{weatherStatus.weather.description}"
-            />
+            <ImageView
+                android:id="@+id/iv_status_art"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:src="@drawable/art_clouds" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:textAppearance="?android:textAppearanceLarge"
+                tools:text="Clouds"
+                android:text="@{weatherStatus.weather.description}"
+                />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_max_temperature"
