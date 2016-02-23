@@ -14,12 +14,94 @@ import java.util.Map;
  */
 public class WeatherDataUtils {
 
-    private static final Map<Integer, String> weatherDescMap;
+    private static Map<Integer, String> weatherDescMap;
     private static final String ICON_BASE_URL_COLORED = "http://www.aungpyaephyo.xyz/sunshine_icons-master/Archive/Colored/";
 
     private static final String ICON_BASE_URL_MONO = "http://www.aungpyaephyo.xyz/sunshine_icons-master/Archive/Mono/";
 
-    static {
+    /**
+     * Helper method to provide the icon resource id according to the weather condition id returned
+     * by the OpenWeatherMap call.
+     * @param weatherId from OpenWeatherMap API response
+     * @return resource id for the corresponding icon. -1 if no relation is found.
+     */
+    public static int getIconResourceForWeatherCondition(int weatherId) {
+        // Based on weather code data found at:
+        // http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
+        if (weatherId >= 200 && weatherId <= 232) {
+            return R.drawable.ic_storm;
+        } else if (weatherId >= 300 && weatherId <= 321) {
+            return R.drawable.ic_light_rain;
+        } else if (weatherId >= 500 && weatherId <= 504) {
+            return R.drawable.ic_rain;
+        } else if (weatherId == 511) {
+            return R.drawable.ic_snow;
+        } else if (weatherId >= 520 && weatherId <= 531) {
+            return R.drawable.ic_rain;
+        } else if (weatherId >= 600 && weatherId <= 622) {
+            return R.drawable.ic_snow;
+        } else if (weatherId >= 701 && weatherId <= 761) {
+            return R.drawable.ic_fog;
+        } else if (weatherId == 761 || weatherId == 781) {
+            return R.drawable.ic_storm;
+        } else if (weatherId == 800) {
+            return R.drawable.ic_clear;
+        } else if (weatherId == 801) {
+            return R.drawable.ic_light_clouds;
+        } else if (weatherId >= 802 && weatherId <= 804) {
+            return R.drawable.ic_cloudy;
+        }
+        return -1;
+    }
+
+    /**
+     * Helper method to provide the art resource id according to the weather condition id returned
+     * by the OpenWeatherMap call.
+     * @param weatherId from OpenWeatherMap API response
+     * @return resource id for the corresponding icon. -1 if no relation is found.
+     */
+    public static int getArtResourceForWeatherCondition(int weatherId) {
+        // Based on weather code data found at:
+        // http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
+        if (weatherId >= 200 && weatherId <= 232) {
+            return R.drawable.art_storm;
+        } else if (weatherId >= 300 && weatherId <= 321) {
+            return R.drawable.art_light_rain;
+        } else if (weatherId >= 500 && weatherId <= 504) {
+            return R.drawable.art_rain;
+        } else if (weatherId == 511) {
+            return R.drawable.art_snow;
+        } else if (weatherId >= 520 && weatherId <= 531) {
+            return R.drawable.art_rain;
+        } else if (weatherId >= 600 && weatherId <= 622) {
+            return R.drawable.art_snow;
+        } else if (weatherId >= 701 && weatherId <= 761) {
+            return R.drawable.art_fog;
+        } else if (weatherId == 761 || weatherId == 781) {
+            return R.drawable.art_storm;
+        } else if (weatherId == 800) {
+            return R.drawable.art_clear;
+        } else if (weatherId == 801) {
+            return R.drawable.art_light_clouds;
+        } else if (weatherId >= 802 && weatherId <= 804) {
+            return R.drawable.art_clouds;
+        }
+        return -1;
+    }
+
+    /**
+     *
+     * @param weatherId
+     * @return
+     */
+    public static String getWeatherDescription(int weatherId) {
+        if(weatherDescMap == null){
+            loadWeatherDescMap();
+        }
+        return weatherDescMap.get(weatherId);
+    }
+
+    public static void loadWeatherDescMap() {
         Context context = SunshineApplication.getContext();
         weatherDescMap = new HashMap<>();
         weatherDescMap.put(200, context.getString(R.string.wd_200));
@@ -102,86 +184,6 @@ public class WeatherDataUtils {
         weatherDescMap.put(960, context.getString(R.string.wd_960));
         weatherDescMap.put(961, context.getString(R.string.wd_961));
         weatherDescMap.put(962, context.getString(R.string.wd_962));
-
-    }
-
-    /**
-     * Helper method to provide the icon resource id according to the weather condition id returned
-     * by the OpenWeatherMap call.
-     * @param weatherId from OpenWeatherMap API response
-     * @return resource id for the corresponding icon. -1 if no relation is found.
-     */
-    public static int getIconResourceForWeatherCondition(int weatherId) {
-        // Based on weather code data found at:
-        // http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
-        if (weatherId >= 200 && weatherId <= 232) {
-            return R.drawable.ic_storm;
-        } else if (weatherId >= 300 && weatherId <= 321) {
-            return R.drawable.ic_light_rain;
-        } else if (weatherId >= 500 && weatherId <= 504) {
-            return R.drawable.ic_rain;
-        } else if (weatherId == 511) {
-            return R.drawable.ic_snow;
-        } else if (weatherId >= 520 && weatherId <= 531) {
-            return R.drawable.ic_rain;
-        } else if (weatherId >= 600 && weatherId <= 622) {
-            return R.drawable.ic_snow;
-        } else if (weatherId >= 701 && weatherId <= 761) {
-            return R.drawable.ic_fog;
-        } else if (weatherId == 761 || weatherId == 781) {
-            return R.drawable.ic_storm;
-        } else if (weatherId == 800) {
-            return R.drawable.ic_clear;
-        } else if (weatherId == 801) {
-            return R.drawable.ic_light_clouds;
-        } else if (weatherId >= 802 && weatherId <= 804) {
-            return R.drawable.ic_cloudy;
-        }
-        return -1;
-    }
-
-    /**
-     * Helper method to provide the art resource id according to the weather condition id returned
-     * by the OpenWeatherMap call.
-     * @param weatherId from OpenWeatherMap API response
-     * @return resource id for the corresponding icon. -1 if no relation is found.
-     */
-    public static int getArtResourceForWeatherCondition(int weatherId) {
-        // Based on weather code data found at:
-        // http://bugs.openweathermap.org/projects/api/wiki/Weather_Condition_Codes
-        if (weatherId >= 200 && weatherId <= 232) {
-            return R.drawable.art_storm;
-        } else if (weatherId >= 300 && weatherId <= 321) {
-            return R.drawable.art_light_rain;
-        } else if (weatherId >= 500 && weatherId <= 504) {
-            return R.drawable.art_rain;
-        } else if (weatherId == 511) {
-            return R.drawable.art_snow;
-        } else if (weatherId >= 520 && weatherId <= 531) {
-            return R.drawable.art_rain;
-        } else if (weatherId >= 600 && weatherId <= 622) {
-            return R.drawable.art_snow;
-        } else if (weatherId >= 701 && weatherId <= 761) {
-            return R.drawable.art_fog;
-        } else if (weatherId == 761 || weatherId == 781) {
-            return R.drawable.art_storm;
-        } else if (weatherId == 800) {
-            return R.drawable.art_clear;
-        } else if (weatherId == 801) {
-            return R.drawable.art_light_clouds;
-        } else if (weatherId >= 802 && weatherId <= 804) {
-            return R.drawable.art_clouds;
-        }
-        return -1;
-    }
-
-    /**
-     *
-     * @param weatherId
-     * @return
-     */
-    public static String getWeatherDescription(int weatherId) {
-        return weatherDescMap.get(weatherId);
     }
 
     /**

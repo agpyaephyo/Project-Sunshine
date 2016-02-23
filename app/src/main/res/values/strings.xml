@@ -32,6 +32,12 @@
     <string name="pref_icon_pack_default" translatable="false">Default</string>
     <string name="pref_icon_pack_udacity" translatable="false">Udacity</string>
 
+    <!-- Preferences : Language -->
+    <string name="pref_language_key" translatable="false">pref_language_key</string>
+    <string name="pref_language_label">Pick desire language</string>
+    <string name="pref_language_english" translatable="false">English</string>
+    <string name="pref_language_myanmar" translatable="false">မြန်မာ</string>
+
     <!-- Temperature format -->
     <string name="format_temperature" translatable="false"><xliff:g id="temperature">%1$d</xliff:g>\u00B0</string> <!-- &#x00B0; -->
 

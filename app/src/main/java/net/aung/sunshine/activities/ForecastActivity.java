@@ -1,13 +1,7 @@
 package net.aung.sunshine.activities;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,15 +11,12 @@ import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.fragments.ForecastDetailFragment;
 import net.aung.sunshine.fragments.ForecastListFragment;
-import net.aung.sunshine.receivers.internal.DataSyncAlarmReceiver;
-import net.aung.sunshine.services.SunshineService;
-import net.aung.sunshine.sync.SunshineSyncAdapter;
 import net.aung.sunshine.utils.SunshineConstants;
 
 public class ForecastActivity extends BaseActivity
         implements ForecastListScreenController {
 
-    private FloatingActionButton fab;
+    private FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +28,8 @@ public class ForecastActivity extends BaseActivity
         setSupportActionBar(toolbar);
         */
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*
@@ -57,7 +48,7 @@ public class ForecastActivity extends BaseActivity
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fl_container, ForecastListFragment.newInstance())
+                    .replace(R.id.fl_container, ForecastListFragment.newInstance(), ForecastListFragment.TAG)
                     .commit();
         }
 
@@ -70,8 +61,6 @@ public class ForecastActivity extends BaseActivity
                         .commit();
             }
         }
-
-
     }
 
     @Override
@@ -95,11 +84,11 @@ public class ForecastActivity extends BaseActivity
                 break;
             /*
             case R.id.action_about:
-                Snackbar.make(fab, "About this Project Sunshine is coming soon", Snackbar.LENGTH_SHORT)
+                Snackbar.make(mFab, "About this Project Sunshine is coming soon", Snackbar.LENGTH_SHORT)
                          .setAction("Action", null).show();
                 break;
             case R.id.action_help:
-                Snackbar.make(fab, "The help that you gonna need to use this App is coming soon", Snackbar.LENGTH_SHORT)
+                Snackbar.make(mFab, "The help that you gonna need to use this App is coming soon", Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
                 break;
             */
@@ -126,6 +115,6 @@ public class ForecastActivity extends BaseActivity
 
     @Override
     public void showCityInGoogleMap(String city) {
-        showCityInGoogleMap(city, fab);
+        showCityInGoogleMap(city, mFab);
     }
 }

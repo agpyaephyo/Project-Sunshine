@@ -57,8 +57,13 @@ public class SettingsActivity extends PreferenceActivity
 
         Preference iconPref = findPreference(getString(R.string.pref_icon_key));
         iconPref.setOnPreferenceChangeListener(this);
-        onPreferenceChange(iconPref, PreferenceManager.getDefaultSharedPreferences(notificationPref.getContext())
+        onPreferenceChange(iconPref, PreferenceManager.getDefaultSharedPreferences(iconPref.getContext())
                 .getString(iconPref.getKey(), ""));
+
+        Preference languagePref = findPreference(getString(R.string.pref_language_key));
+        languagePref.setOnPreferenceChangeListener(this);
+        onPreferenceChange(languagePref, PreferenceManager.getDefaultSharedPreferences(languagePref.getContext())
+                .getString(languagePref.getKey(), ""));
     }
 
     @Override

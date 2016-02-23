@@ -1,15 +1,44 @@
 package net.aung.sunshine.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
+
+import net.aung.sunshine.R;
+import net.aung.sunshine.utils.DateFormatUtils;
+import net.aung.sunshine.utils.SettingsUtils;
+import net.aung.sunshine.utils.WeatherDataUtils;
+
+import java.util.Locale;
 
 /**
  * Created by aung on 12/10/15.
  */
-public class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity
+        implements SharedPreferences.OnSharedPreferenceChangeListener{
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
 
     /**
      * Use this method to start Settings Activity for Sunshine App.
@@ -35,4 +64,11 @@ public class BaseActivity extends AppCompatActivity {
                     .setAction("Action", null).show();
         }
     }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+    }
+
+
 }

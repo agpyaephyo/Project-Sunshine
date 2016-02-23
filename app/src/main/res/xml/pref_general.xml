@@ -38,4 +38,12 @@
         android:defaultValue="@string/pref_icon_pack_default"
         />
 
+    <ListPreference
+        android:key="@string/pref_language_key"
+        android:title="@string/pref_language_label"
+        android:entries="@array/SupportLanguage"
+        android:entryValues="@array/SupportLanguage"
+        android:defaultValue="@string/pref_language_english"
+        />
+
 </PreferenceScreen>

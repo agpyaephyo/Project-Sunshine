@@ -86,7 +86,7 @@
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    android:textSize="@dimen/text_heading_2x"
+                    android:textSize="@dimen/text_weather_status_detail"
                     android:text="@{weatherStatus.weather.description}"
                     android:gravity="right"
                     android:layout_gravity="right"

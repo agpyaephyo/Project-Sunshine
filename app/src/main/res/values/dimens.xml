@@ -13,6 +13,7 @@
     <dimen name="margin_xlarge">32dp</dimen>
     <dimen name="margin_xxlarge">60dp</dimen>
 
+    <!-- Font size generic -->
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_regular">14sp</dimen>
     <dimen name="text_regular_2x">16sp</dimen>
@@ -23,10 +24,13 @@
     <dimen name="text_big_2x">60sp</dimen>
     <dimen name="text_big_3x">80sp</dimen>
 
+    <!-- Font size specific -->
     <dimen name="text_max_temperature">72sp</dimen>
     <dimen name="text_max_temperature_detail">96sp</dimen>
     <dimen name="text_min_temperature">36sp</dimen>
     <dimen name="text_min_temperature_detail">48sp</dimen>
+
+    <dimen name="text_weather_status_detail">@dimen/text_heading_2x</dimen>
 
     <dimen name="icon_medium">60dp</dimen>
 

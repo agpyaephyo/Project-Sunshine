@@ -7,6 +7,8 @@ import android.preference.PreferenceManager;
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 
+import java.util.Locale;
+
 /**
  * Created by aung on 2/7/16.
  */
@@ -14,6 +16,9 @@ public class SettingsUtils {
 
     public static final int ICON_PACK_DEFAULT = 0;
     public static final int ICON_PACK_UDACITY = 1;
+
+    public static final int LANG_ENG = 0;
+    public static final int LANG_MM = 1;
 
     /**
      * Retrieve the city name that user set in Settings
@@ -77,5 +82,29 @@ public class SettingsUtils {
         }
 
         return ICON_PACK_DEFAULT;
+    }
+
+    public static int retrieveLanguagePref() {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        String langPref = defaultSharedPref.getString(context.getString(R.string.pref_language_key), "");
+
+        if (langPref.equals(context.getString(R.string.pref_language_myanmar))) {
+            return LANG_MM;
+        }
+
+        return LANG_ENG;
+    }
+
+    public static Locale getLocale() {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        String langPref = defaultSharedPref.getString(context.getString(R.string.pref_language_key), "");
+
+        if (langPref.equals(context.getString(R.string.pref_language_myanmar))) {
+            return new Locale("my");
+        }
+
+        return new Locale("en");
     }
 }

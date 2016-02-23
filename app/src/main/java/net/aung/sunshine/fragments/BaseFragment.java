@@ -1,6 +1,8 @@
 package net.aung.sunshine.fragments;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 
 import de.greenrobot.event.EventBus;
@@ -8,7 +10,8 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by aung on 12/10/15.
  */
-public class BaseFragment extends Fragment {
+public class BaseFragment extends Fragment
+        implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,9 @@ public class BaseFragment extends Fragment {
         if (!eventBus.isRegistered(this)) {
             eventBus.register(this);
         }
+
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -30,6 +36,9 @@ public class BaseFragment extends Fragment {
 
         EventBus eventBus = EventBus.getDefault();
         eventBus.unregister(this);
+
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     //Overwrite this if your fragment is expecting arguments being set from static builder method.
@@ -39,6 +48,11 @@ public class BaseFragment extends Fragment {
 
     //This method is for those child fragment which doesn't need to use EventBus.
     public void onEventMainThread(Object event) {
+
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
     }
 }

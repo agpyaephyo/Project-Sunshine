@@ -20,6 +20,8 @@
 
     <string name="pref_icon_label">နှစ်သက်ရာ Icon Pack အား ရွေးချယ်ပါ</string>
 
+    <string name="pref_language_label">နှစ်သက်ရာ ဘာသာစကား အား ရွေးချယ်ပါ</string>
+
     <string name="format_notification">
         ရာသီဥတု ခန့်မှန်းချက် : <xliff:g id="weather_condition">%1$s</xliff:g> - အမြင့်ဆုံး အပူချိန်: <xliff:g id="high_temp">%2$s</xliff:g>, အနိမ့်ဆုံး အပူချိန်: <xliff:g id="low_temp">%3$s</xliff:g>
     </string>

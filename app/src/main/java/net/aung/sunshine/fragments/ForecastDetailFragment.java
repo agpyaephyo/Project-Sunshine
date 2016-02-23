@@ -42,8 +42,7 @@ import butterknife.ButterKnife;
 
 public class ForecastDetailFragment extends BaseFragment
         implements ForecastDetailView,
-        LoaderManager.LoaderCallbacks<Cursor>,
-        SharedPreferences.OnSharedPreferenceChangeListener{
+        LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String ARG_DT = "ARG_DT";
 
@@ -139,9 +138,6 @@ public class ForecastDetailFragment extends BaseFragment
     public void onStart() {
         super.onStart();
         presenter.onStart();
-
-        PreferenceManager.getDefaultSharedPreferences(getContext())
-                .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -159,9 +155,6 @@ public class ForecastDetailFragment extends BaseFragment
     public void onStop() {
         super.onStop();
         presenter.onStop();
-
-        PreferenceManager.getDefaultSharedPreferences(getContext())
-                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -260,6 +253,7 @@ public class ForecastDetailFragment extends BaseFragment
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        super.onSharedPreferenceChanged(sharedPreferences, key);
         if (key.equals(getString(R.string.pref_icon_key))) {
             setArtForWeather(mStatus);
         }

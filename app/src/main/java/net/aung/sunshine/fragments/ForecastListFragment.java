@@ -1,6 +1,7 @@
 package net.aung.sunshine.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -47,6 +48,7 @@ public class ForecastListFragment extends BaseFragment
         LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String ARG_SELECTED_ROW = "ARG_SELECTED_ROW";
+    public static final String TAG = ForecastListFragment.class.getSimpleName();
 
     @Bind(R.id.rv_forecasts)
     RecyclerViewWithEmptyView rvForecasts;
@@ -64,6 +66,8 @@ public class ForecastListFragment extends BaseFragment
     private ForecastListScreenController controller;
 
     private int mSelectedRow = RecyclerView.NO_POSITION;
+    private boolean mLanguageSettingChange = false;
+    private List<WeatherStatusVO> mWeatherStatusList = null;
 
     public static ForecastListFragment newInstance() {
         ForecastListFragment fragment = new ForecastListFragment();
@@ -150,6 +154,12 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public void onResume() {
         super.onResume();
+        if(mLanguageSettingChange) {
+            mLanguageSettingChange = false;
+            adapter = ForecastListAdapter.newInstance(controller, rvForecasts);
+            rvForecasts.setAdapter(adapter);
+            adapter.setStatusList(mWeatherStatusList);
+        }
     }
 
     @Override
@@ -162,6 +172,8 @@ public class ForecastListFragment extends BaseFragment
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
+
+
     }
 
     @Override
@@ -225,17 +237,17 @@ public class ForecastListFragment extends BaseFragment
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursorWeather) {
-        List<WeatherStatusVO> weatherStatusList = new ArrayList<>();
+        mWeatherStatusList = new ArrayList<>();
         if (cursorWeather.moveToFirst()) {
             do {
-                weatherStatusList.add(WeatherStatusVO.parseFromCursor(cursorWeather));
+                mWeatherStatusList.add(WeatherStatusVO.parseFromCursor(cursorWeather));
             } while (cursorWeather.moveToNext());
         }
 
-        adapter.setStatusList(weatherStatusList);
-        setActionBarElevation(weatherStatusList.size() == 0);
+        adapter.setStatusList(mWeatherStatusList);
+        setActionBarElevation(mWeatherStatusList.size() == 0);
 
-        if(weatherStatusList.size() == 0 && !NetworkUtils.isOnline(getContext())) {
+        if(mWeatherStatusList.size() == 0 && !NetworkUtils.isOnline(getContext())) {
             tvEmptyForecasts.setText(getString(R.string.error_no_network));
         }
 
@@ -276,6 +288,14 @@ public class ForecastListFragment extends BaseFragment
         //all of the following could also be done by reading the bundle inside onCreateView.
         if (savedInstanceState != null) {
             mSelectedRow = savedInstanceState.getInt(ARG_SELECTED_ROW, RecyclerView.NO_POSITION);
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        super.onSharedPreferenceChanged(sharedPreferences, key);
+        if (key.equals(getString(R.string.pref_language_key))) {
+            mLanguageSettingChange = true;
         }
     }
 

@@ -9,4 +9,9 @@
         <item>@string/pref_icon_pack_default</item>
         <item>@string/pref_icon_pack_udacity</item>
     </string-array>
+
+    <string-array name="SupportLanguage">
+        <item>@string/pref_language_english</item>
+        <item>@string/pref_language_myanmar</item>
+    </string-array>
 </resources>
