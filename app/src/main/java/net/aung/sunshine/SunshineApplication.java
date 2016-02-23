@@ -2,7 +2,11 @@ package net.aung.sunshine;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import net.aung.sunshine.data.models.WeatherStatusModel;
@@ -19,7 +23,8 @@ import de.greenrobot.event.EventBus;
 /**
  * Created by aung on 12/9/15.
  */
-public class SunshineApplication extends Application {
+public class SunshineApplication extends Application
+        implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     public static final String TAG = SunshineApplication.class.getSimpleName(); // all the logging should have this as Log Tag.
 
@@ -38,6 +43,10 @@ public class SunshineApplication extends Application {
         loadWeatherDataFromNetwork();
 
         SunshineSyncAdapter.initializeSyncAdapter(getApplicationContext());
+
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .registerOnSharedPreferenceChangeListener(this);
+
     }
 
     @Override
@@ -46,6 +55,9 @@ public class SunshineApplication extends Application {
 
         EventBus eventBus = EventBus.getDefault();
         eventBus.unregister(this);
+
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     public static Context getContext() {
@@ -59,15 +71,7 @@ public class SunshineApplication extends Application {
 
     public void onEventMainThread(DataEvent.PreferenceNotificationChangeEvent event) {
         if (event.getNewPref()) { //new pref is enable notification
-
-            String city = SettingsUtils.retrieveUserCity();
-            Cursor cursorWeather = context.getContentResolver().query(WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
-                    null, null, null, null);
-
-            if (cursorWeather.moveToFirst()) {
-                WeatherStatusVO weatherStatusDetail = WeatherStatusVO.parseFromCursor(cursorWeather);
-                NotificationUtils.showWeatherNotification(weatherStatusDetail);
-            }
+            showUpdatedWeatherNotification();
 
         } else { //new pref is enable notification
             NotificationUtils.hideWeatherNotification();
@@ -82,5 +86,28 @@ public class SunshineApplication extends Application {
         } else {
             EventBus.getDefault().post(new DataEvent.LoadedWeatherStatusListErrorEvent(getString(R.string.error_no_city_has_put), SunshineConstants.STATUS_SERVER_UNKNOWN));
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(context.getString(R.string.pref_icon_key))) {
+            showUpdatedWeatherNotification();
+        }
+    }
+
+    private void showUpdatedWeatherNotification() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String city = SettingsUtils.retrieveUserCity();
+                Cursor cursorWeather = context.getContentResolver().query(WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
+                        null, null, null, null);
+
+                if (cursorWeather.moveToFirst()) {
+                    WeatherStatusVO weatherStatusDetail = WeatherStatusVO.parseFromCursor(cursorWeather);
+                    NotificationUtils.showWeatherNotification(weatherStatusDetail);
+                }
+            }
+        }).start();
     }
 }

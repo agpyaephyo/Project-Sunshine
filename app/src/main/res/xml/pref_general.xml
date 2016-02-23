@@ -30,4 +30,12 @@
         android:defaultValue="@string/pref_enable_notifications_default"
         />
 
+    <ListPreference
+        android:key="@string/pref_icon_key"
+        android:title="@string/pref_icon_label"
+        android:entries="@array/IconPacks"
+        android:entryValues="@array/IconPacks"
+        android:defaultValue="@string/pref_icon_pack_default"
+        />
+
 </PreferenceScreen>

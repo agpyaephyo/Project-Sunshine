@@ -3,11 +3,16 @@ package net.aung.sunshine.viewholders;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.controllers.ForecastListScreenController;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
+import net.aung.sunshine.utils.SettingsUtils;
+import net.aung.sunshine.utils.WeatherDataUtils;
 
 /**
  * Created by aung on 12/13/15.

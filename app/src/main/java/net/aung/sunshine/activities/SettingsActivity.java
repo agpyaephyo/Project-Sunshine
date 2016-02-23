@@ -54,6 +54,11 @@ public class SettingsActivity extends PreferenceActivity
         notificationPref.setOnPreferenceChangeListener(this);
         onPreferenceChange(notificationPref, PreferenceManager.getDefaultSharedPreferences(notificationPref.getContext())
                 .getBoolean(notificationPref.getKey(), true));
+
+        Preference iconPref = findPreference(getString(R.string.pref_icon_key));
+        iconPref.setOnPreferenceChangeListener(this);
+        onPreferenceChange(iconPref, PreferenceManager.getDefaultSharedPreferences(notificationPref.getContext())
+                .getString(iconPref.getKey(), ""));
     }
 
     @Override

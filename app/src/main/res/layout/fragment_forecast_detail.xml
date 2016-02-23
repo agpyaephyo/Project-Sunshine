@@ -65,9 +65,9 @@
 
                 <ImageView
                     android:id="@+id/iv_status_art"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/art_snow"
+                    android:layout_width="@dimen/today_weather_icon_dimen"
+                    android:layout_height="@dimen/today_weather_icon_dimen"
+                    tools:src="@drawable/art_snow"
                     android:layout_gravity="right"
                     />
 

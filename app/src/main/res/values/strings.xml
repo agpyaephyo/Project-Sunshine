@@ -26,6 +26,12 @@
     <string name="pref_unit_metric" translatable="false">Celsius</string>
     <string name="pref_unit_imperial" translatable="false">Fahrenheit</string>
 
+    <!-- Preferences : Icon Pack -->
+    <string name="pref_icon_key" translatable="false">pref_icon_key</string>
+    <string name="pref_icon_label">Pick icon pack</string>
+    <string name="pref_icon_pack_default" translatable="false">Default</string>
+    <string name="pref_icon_pack_udacity" translatable="false">Udacity</string>
+
     <!-- Temperature format -->
     <string name="format_temperature" translatable="false"><xliff:g id="temperature">%1$d</xliff:g>\u00B0</string> <!-- &#x00B0; -->
 

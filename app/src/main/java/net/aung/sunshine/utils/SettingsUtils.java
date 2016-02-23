@@ -12,8 +12,12 @@ import net.aung.sunshine.SunshineApplication;
  */
 public class SettingsUtils {
 
+    public static final int ICON_PACK_DEFAULT = 0;
+    public static final int ICON_PACK_UDACITY = 1;
+
     /**
      * Retrieve the city name that user set in Settings
+     *
      * @return city name
      */
     public static String retrieveUserCity() {
@@ -25,7 +29,6 @@ public class SettingsUtils {
     }
 
     /**
-     *
      * @return
      */
     public static String retrieveSelectedUnit() {
@@ -62,5 +65,17 @@ public class SettingsUtils {
         Context context = SunshineApplication.getContext();
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         return defaultSharedPref.getInt(context.getString(R.string.pref_server_response_status_key), SunshineConstants.STATUS_SERVER_UNKNOWN);
+    }
+
+    public static int retrieveIconPackPref() {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        String iconPackPref = defaultSharedPref.getString(context.getString(R.string.pref_icon_key), "");
+
+        if (iconPackPref.equals(context.getString(R.string.pref_icon_pack_udacity))) {
+            return ICON_PACK_UDACITY;
+        }
+
+        return ICON_PACK_DEFAULT;
     }
 }

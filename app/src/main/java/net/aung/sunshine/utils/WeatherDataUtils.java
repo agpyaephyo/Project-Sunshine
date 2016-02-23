@@ -15,10 +15,13 @@ import java.util.Map;
 public class WeatherDataUtils {
 
     private static final Map<Integer, String> weatherDescMap;
+    private static final String ICON_BASE_URL_COLORED = "http://www.aungpyaephyo.xyz/sunshine_icons-master/Archive/Colored/";
+
+    private static final String ICON_BASE_URL_MONO = "http://www.aungpyaephyo.xyz/sunshine_icons-master/Archive/Mono/";
 
     static {
         Context context = SunshineApplication.getContext();
-        weatherDescMap = new ArrayMap<>();
+        weatherDescMap = new HashMap<>();
         weatherDescMap.put(200, context.getString(R.string.wd_200));
         weatherDescMap.put(201, context.getString(R.string.wd_201));
         weatherDescMap.put(202, context.getString(R.string.wd_202));
@@ -172,7 +175,66 @@ public class WeatherDataUtils {
         return -1;
     }
 
+    /**
+     *
+     * @param weatherId
+     * @return
+     */
     public static String getWeatherDescription(int weatherId) {
         return weatherDescMap.get(weatherId);
+    }
+
+    /**
+     *
+     * @param weatherId
+     * @return
+     */
+    public static String getArtUrlFromWeatherCondition(int weatherId) {
+        return getUrlForWeatherCondition(weatherId, true);
+    }
+
+    /**
+     *
+     * @param weatherId
+     * @return
+     */
+    public static String getIconUrlForWeatherCondition(int weatherId) {
+        return getUrlForWeatherCondition(weatherId, false);
+    }
+
+    /**
+     *
+     * @param weatherId
+     * @param isColored
+     * @return
+     */
+    private static String getUrlForWeatherCondition(int weatherId, boolean isColored) {
+        String url = isColored ? ICON_BASE_URL_COLORED : ICON_BASE_URL_MONO;
+
+        if (weatherId >= 200 && weatherId <= 232) {
+            return url + "art_storm.png";
+        } else if (weatherId >= 300 && weatherId <= 321) {
+            return url + "art_light_rain.png";
+        } else if (weatherId >= 500 && weatherId <= 504) {
+            return url + "art_rain.png";
+        } else if (weatherId == 511) {
+            return url + "art_snow.png";
+        } else if (weatherId >= 520 && weatherId <= 531) {
+            return url + "art_rain.png";
+        } else if (weatherId >= 600 && weatherId <= 622) {
+            return url + "art_snow.png";
+        } else if (weatherId >= 701 && weatherId <= 761) {
+            return url + "art_fog.png";
+        } else if (weatherId == 761 || weatherId == 781) {
+            return url + "art_storm.png";
+        } else if (weatherId == 800) {
+            return url + "art_clear.png";
+        } else if (weatherId == 801) {
+            return url + "art_light_clouds.png";
+        } else if (weatherId >= 802 && weatherId <= 804) {
+            return url + "art_clouds.png";
+        }
+
+        return null;
     }
 }

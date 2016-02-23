@@ -1,9 +1,11 @@
 package net.aung.sunshine.fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -20,6 +22,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
@@ -38,7 +42,8 @@ import butterknife.ButterKnife;
 
 public class ForecastDetailFragment extends BaseFragment
         implements ForecastDetailView,
-        LoaderManager.LoaderCallbacks<Cursor> {
+        LoaderManager.LoaderCallbacks<Cursor>,
+        SharedPreferences.OnSharedPreferenceChangeListener{
 
     private static final String ARG_DT = "ARG_DT";
 
@@ -54,6 +59,7 @@ public class ForecastDetailFragment extends BaseFragment
     private View rootView;
 
     private ShareActionProvider mShareActionProvider;
+    private WeatherStatusVO mStatus;
 
     public ForecastDetailFragment() {
 
@@ -133,6 +139,9 @@ public class ForecastDetailFragment extends BaseFragment
     public void onStart() {
         super.onStart();
         presenter.onStart();
+
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -150,6 +159,9 @@ public class ForecastDetailFragment extends BaseFragment
     public void onStop() {
         super.onStop();
         presenter.onStop();
+
+        PreferenceManager.getDefaultSharedPreferences(getContext())
+                .unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -187,9 +199,8 @@ public class ForecastDetailFragment extends BaseFragment
             weatherStatusDetail = WeatherStatusVO.parseFromCursor(cursorWeather);
 
             binding.setWeatherStatus(weatherStatusDetail);
-
-            int weatherArtResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(weatherStatusDetail.getWeather().getId());
-            ivStatusArt.setImageResource(weatherArtResourceId);
+            this.mStatus = weatherStatusDetail;
+            setArtForWeather(weatherStatusDetail);
         }
     }
 
@@ -217,9 +228,8 @@ public class ForecastDetailFragment extends BaseFragment
         if (newWeatherStatus != null) {
             dateTime = newWeatherStatus.getDateTime();
             binding.setWeatherStatus(newWeatherStatus);
-
-            int weatherArtResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(newWeatherStatus.getWeather().getId());
-            ivStatusArt.setImageResource(weatherArtResourceId);
+            this.mStatus = newWeatherStatus;
+            setArtForWeather(newWeatherStatus);
         }
     }
 
@@ -233,5 +243,25 @@ public class ForecastDetailFragment extends BaseFragment
         myShareIntent.setType("text/plain");
         myShareIntent.putExtra(Intent.EXTRA_TEXT, "Hi, my name is Sunshine.");
         return myShareIntent;
+    }
+
+    private void setArtForWeather(WeatherStatusVO status) {
+        if (SettingsUtils.retrieveIconPackPref() == SettingsUtils.ICON_PACK_UDACITY) {
+            String artUrl = WeatherDataUtils.getArtUrlFromWeatherCondition(status.getWeather().getId());
+            Glide.with(ivStatusArt.getContext())
+                    .load(artUrl)
+                    .error(WeatherDataUtils.getArtResourceForWeatherCondition(status.getWeather().getId()))
+                    .into(ivStatusArt);
+        } else {
+            int weatherArtResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(status.getWeather().getId());
+            ivStatusArt.setImageResource(weatherArtResourceId);
+        }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.pref_icon_key))) {
+            setArtForWeather(mStatus);
+        }
     }
 }
