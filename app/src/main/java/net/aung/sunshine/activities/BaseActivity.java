@@ -1,28 +1,37 @@
 package net.aung.sunshine.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 
-import net.aung.sunshine.R;
-import net.aung.sunshine.utils.DateFormatUtils;
-import net.aung.sunshine.utils.SettingsUtils;
-import net.aung.sunshine.utils.WeatherDataUtils;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.google.android.gms.iid.InstanceID;
 
-import java.util.Locale;
+import net.aung.sunshine.R;
+import net.aung.sunshine.SunshineApplication;
+import net.aung.sunshine.services.SunshineGCMRegistrationService;
+import net.aung.sunshine.utils.GcmUtils;
+import net.aung.sunshine.utils.SunshineConstants;
+
+import java.io.IOException;
 
 /**
  * Created by aung on 12/10/15.
  */
 public class BaseActivity extends AppCompatActivity
-        implements SharedPreferences.OnSharedPreferenceChangeListener{
+        implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,8 @@ public class BaseActivity extends AppCompatActivity
 
         PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
+
+        GcmUtils.setupGCM(this); //TODO think of something to compensate the SERVICE_NOT_AVAILABLE back-offs.
     }
 
     @Override
@@ -39,6 +50,17 @@ public class BaseActivity extends AppCompatActivity
         PreferenceManager.getDefaultSharedPreferences(this)
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+    }
+
+
+
+
+
+
 
     /**
      * Use this method to start Settings Activity for Sunshine App.
@@ -55,20 +77,13 @@ public class BaseActivity extends AppCompatActivity
                 .appendQueryParameter("q", city)
                 .build();
 
-        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,  mapUri);
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, mapUri);
         //intent.setPackage("com.google.android.apps.maps"); //only open with Google Map App
-        if(intent.resolveActivity(getPackageManager()) != null) {
+        if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
         } else {
             Snackbar.make(viewForErrorSnackBar, "You have no app being installed to show your selected city on the Map. Please install app like Google Map.", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
     }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-    }
-
-
 }

@@ -26,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 public class NotificationUtils {
 
     private static final int WEATHER_NOTIFICATION_ID = 3004;
+    private static final int ALERT_NOTIFICATION_ID = 3005;
 
     public static void showWeatherNotification(WeatherStatusVO weather) {
         Context context = SunshineApplication.getContext();
@@ -68,6 +69,35 @@ public class NotificationUtils {
         } catch (ExecutionException e) {
             Log.e(SunshineApplication.TAG, e.getMessage());
         }
+    }
+
+    public static void showAlertNotification(String message) {
+        Context context = SunshineApplication.getContext();
+
+        Bitmap weatherArtBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.art_storm);
+
+        //Notification Title
+        String title = context.getString(R.string.app_name);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setColor(context.getResources().getColor(R.color.primary))
+                .setSmallIcon(R.drawable.art_clear)
+                .setLargeIcon(weatherArtBitmap)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message));
+
+        //Open the app when user tap on notification
+        Intent resultIntent = new Intent(context, ForecastActivity.class);
+
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(resultPendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(ALERT_NOTIFICATION_ID, builder.build());
     }
 
     private static Bitmap getBitmapForNotification(WeatherStatusVO weather) throws ExecutionException, InterruptedException {

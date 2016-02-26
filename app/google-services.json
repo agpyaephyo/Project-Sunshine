@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_id": "sunshine-mm",
+    "project_number": "587068175212",
+    "name": "Sunshine-MM"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:587068175212:android:15acebefe7783599",
+        "client_id": "android:net.aung.sunshine",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "net.aung.sunshine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "587068175212-c0828b7vmit9la7rjnkseqajkg5nerqg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.aung.sunshine",
+            "certificate_hash": "08F3173B7FF8E85D3971085387ED01CE2E634A6B"
+          }
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "cloud_messaging_service": {
+          "status": 2,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

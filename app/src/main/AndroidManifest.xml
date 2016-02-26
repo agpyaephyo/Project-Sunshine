@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.aung.sunshine">
+    
+    <permission android:name="net.aung.sunshine.permission.C2D_MESSAGE" android:protectionLevel="signature" />
 
     <!-- perform network access -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,6 +14,15 @@
 
     <!--Check internet connectivity state in InternetConnectivityStateReceiver -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- prevent the processor from sleeping when you receive the message. Because GcmReciever is inherited from WakefulBroadcastReceiver -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- allow our App to register the receive messages from GCM -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <!-- custom permission with our package name - so that no other Android App can register to receive messages intended for our App -->
+    <uses-permission android:name="net.aung.sunshine.permission.C2D_MESSAGE" />
 
     <application
         android:name=".SunshineApplication"
@@ -64,6 +75,26 @@
                 />
         </service>
 
+        <service
+            android:name=".services.SunshineGcmListenerService"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".services.SunshineInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".services.SunshineGCMRegistrationService"
+            android:exported="false"/>
+
         <receiver android:name=".receivers.system.PowerConnectedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
@@ -84,6 +115,18 @@
 
         <receiver
             android:name=".receivers.internal.DataSyncAlarmReceiver" />
+
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.internet.RECEIVE" />
+                <action android:name="com.google.android.c2dm.internet.REGISTRATION" />
+                <category android:name="net.aung.sunshine" />
+            </intent-filter>
+
+        </receiver>
 
         <provider
             android:authorities="@string/content_authority"

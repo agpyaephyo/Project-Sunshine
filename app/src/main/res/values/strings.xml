@@ -4,6 +4,9 @@
     <!-- Content Provider Related -->
     <string name="content_authority" translatable="false">net.aung.sunshine</string>
 
+    <!-- GCM Sender Id -->
+    <string name="gcm_default_sender_id" translatable="false">587068175212</string>
+
     <!-- actions in toolbar -->
     <string name="action_show_city">Show My City on Map</string>
     <string name="action_share">Share</string>
@@ -152,5 +155,7 @@
 
     <!-- Msgs -->
     <string name="msg_new_data_has_refreshed">New weather data has been refreshed.</string>
+
+
 
 </resources>

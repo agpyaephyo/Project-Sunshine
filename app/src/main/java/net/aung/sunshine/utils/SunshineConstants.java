@@ -28,5 +28,6 @@ public class SunshineConstants {
 
     public static final String UNKNOWN_CITY = "Unknown City";
 
-
+    public static final String SHARED_PREF_GCM = "SHARED_PREF_GCM";
+    public static final String SP_KEY_GCM_ID = "SP_KEY_GCM_ID";
 }
