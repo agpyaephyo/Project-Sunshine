@@ -75,14 +75,6 @@ public class BaseActivity extends AppCompatActivity
         }
     }
 
-    /**
-     * Use this method to start Settings Activity for Sunshine App.
-     */
-    protected void startSettingActivity() {
-        Intent intentToSettings = SettingsActivity.newIntent(getApplicationContext());
-        startActivity(intentToSettings);
-    }
-
     protected void showCityInGoogleMap(String city, View viewForErrorSnackBar) {
         //String mapUrl = "http://maps.google.co.in/maps?q=" + city;
 

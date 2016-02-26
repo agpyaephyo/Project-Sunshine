@@ -76,7 +76,7 @@ public class DailyWeatherViewHolder extends WeatherViewHolder
                     .error(WeatherDataUtils.getIconResourceForWeatherCondition(status.getWeather().getId()))
                     .into(ivStatus);
         } else {
-            int weatherIconResourceId = WeatherDataUtils.getIconResourceForWeatherCondition(status.getWeather().getId());
+            int weatherIconResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(status.getWeather().getId());
             ivStatus.setImageResource(weatherIconResourceId);
         }
     }

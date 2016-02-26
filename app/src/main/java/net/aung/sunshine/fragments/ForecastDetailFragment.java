@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -144,10 +143,14 @@ public class ForecastDetailFragment extends BaseFragment
     public void onResume() {
         super.onResume();
         if (!getResources().getBoolean(R.bool.isTwoPane)) {
+
             AppCompatActivity activity = (AppCompatActivity) getActivity();
             ActionBar actionBar = activity.getSupportActionBar();
-            actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
-            actionBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
+            if (actionBar != null) {
+                actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP);
+                actionBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
+            }
+
         }
     }
 

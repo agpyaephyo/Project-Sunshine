@@ -1,6 +1,7 @@
 package net.aung.sunshine.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
+import net.aung.sunshine.activities.SettingsActivity;
 import net.aung.sunshine.adapters.ForecastListAdapter;
 import net.aung.sunshine.components.RecyclerViewWithEmptyView;
 import net.aung.sunshine.controllers.ForecastListScreenController;
@@ -136,6 +139,9 @@ public class ForecastListFragment extends BaseFragment
                         .setAction("Action", null).show();
                 break;
             */
+            case R.id.action_settings:
+                startSettingActivity();
+                break;
             case R.id.action_show_city:
                 String city = SettingsUtils.retrieveUserCity();
                 controller.showCityInGoogleMap(city);
@@ -143,6 +149,11 @@ public class ForecastListFragment extends BaseFragment
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startSettingActivity() {
+        Intent intentToSettings = SettingsActivity.newIntent(getActivity());
+        startActivity(intentToSettings);
     }
 
     @Override
@@ -154,7 +165,7 @@ public class ForecastListFragment extends BaseFragment
     @Override
     public void onResume() {
         super.onResume();
-        if(mLanguageSettingChange) {
+        if (mLanguageSettingChange) {
             mLanguageSettingChange = false;
             adapter = ForecastListAdapter.newInstance(controller, rvForecasts);
             rvForecasts.setAdapter(adapter);
@@ -247,7 +258,7 @@ public class ForecastListFragment extends BaseFragment
         adapter.setStatusList(mWeatherStatusList);
         setActionBarElevation(mWeatherStatusList.size() == 0);
 
-        if(mWeatherStatusList.size() == 0 && !NetworkUtils.isOnline(getContext())) {
+        if (mWeatherStatusList.size() == 0 && !NetworkUtils.isOnline(getContext())) {
             tvEmptyForecasts.setText(getString(R.string.error_no_network));
         }
 
@@ -306,11 +317,14 @@ public class ForecastListFragment extends BaseFragment
     private void setActionBarElevation(boolean isElevationSet) {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         ActionBar actionBar = activity.getSupportActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
-        if (isElevationSet) {
-            actionBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
-        } else {
-            actionBar.setElevation(0f);
+        if (actionBar != null) {
+            actionBar.setLogo(R.drawable.ic_logo);
+            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
+            if (isElevationSet) {
+                actionBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
+            } else {
+                actionBar.setElevation(0f);
+            }
         }
     }
 }

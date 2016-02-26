@@ -159,6 +159,10 @@ public class WeatherStatusVO {
         return DateFormatUtils.sdfWeatherStatusDateToday.format(date);
     }
 
+    public String getDateDayCombined() {
+        return getDay() + ", " + getDetailDate();
+    }
+
     private ContentValues getContentValues(long cityRowId) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(WeatherContract.WeatherEntry.COLUMN_LOCATION_ID, cityRowId);
