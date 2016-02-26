@@ -58,8 +58,6 @@
                 android:layout_height="wrap_content"
                 android:columnCount="2"
                 android:rowCount="2"
-                android:paddingLeft="@dimen/weather_detail_body_padding"
-                android:paddingRight="@dimen/weather_detail_body_padding"
                 android:layout_toRightOf="@id/ll_forecast_detail_date">
 
                 <TextView
@@ -71,15 +69,16 @@
                     android:textColor="@android:color/black"
                     android:text="@{weatherStatus.temperature.maxTemperatureDisplay}"
                     android:gravity="center"
+                    android:paddingLeft="@dimen/margin_medium_2"
                     tools:text="32"
                     />
 
                 <ImageView
                     android:id="@+id/iv_status_art"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/today_weather_icon_dimen"
+                    android:layout_height="@dimen/today_weather_icon_dimen"
                     android:src="@drawable/art_snow"
-                    android:layout_gravity="right"
+                    android:layout_gravity="center_horizontal"
                     />
 
                 <TextView
@@ -90,17 +89,18 @@
                     android:textSize="@dimen/text_big_2x"
                     android:text="@{weatherStatus.temperature.minTemperatureDisplay}"
                     android:gravity="center"
+                    android:paddingLeft="@dimen/margin_medium_2"
                     tools:text="28" />
 
                 <TextView
                     android:id="@+id/tv_status"
-                    android:layout_width="wrap_content"
+                    android:layout_width="210dp"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
-                    android:textSize="@dimen/text_heading_2x"
+                    android:textSize="@dimen/text_weather_status_detail"
                     android:text="@{weatherStatus.weather.description}"
                     android:gravity="center"
-                    android:layout_gravity="right"
+                    android:layout_gravity="center_horizontal"
                     android:textColor="@android:color/black"
                     tools:text="Snow" />
 
