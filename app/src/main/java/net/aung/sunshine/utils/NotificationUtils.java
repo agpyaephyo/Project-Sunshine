@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -16,6 +17,7 @@ import com.bumptech.glide.Glide;
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.activities.ForecastActivity;
+import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 
 import java.util.concurrent.ExecutionException;
@@ -127,5 +129,22 @@ public class NotificationUtils {
         Context context = SunshineApplication.getContext();
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.cancel(WEATHER_NOTIFICATION_ID);
+    }
+
+    public static void showUpdatedWeatherNotification() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Context context = SunshineApplication.getContext();
+                String city = SettingsUtils.retrieveUserCity();
+                Cursor cursorWeather = context.getContentResolver().query(WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
+                        null, null, null, null);
+
+                if (cursorWeather.moveToFirst()) {
+                    WeatherStatusVO weatherStatusDetail = WeatherStatusVO.parseFromCursor(cursorWeather);
+                    NotificationUtils.showWeatherNotification(weatherStatusDetail);
+                }
+            }
+        }).start();
     }
 }

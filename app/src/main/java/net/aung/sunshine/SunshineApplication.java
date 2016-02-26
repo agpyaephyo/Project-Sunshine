@@ -47,7 +47,6 @@ public class SunshineApplication extends Application
         }
 
         loadWeatherDataFromNetwork();
-        forceUpdateLocale();
 
         SunshineSyncAdapter.initializeSyncAdapter(getApplicationContext());
 
@@ -78,8 +77,7 @@ public class SunshineApplication extends Application
 
     public void onEventMainThread(DataEvent.PreferenceNotificationChangeEvent event) {
         if (event.getNewPref()) { //new pref is enable notification
-            showUpdatedWeatherNotification();
-
+            NotificationUtils.showUpdatedWeatherNotification();
         } else { //new pref is enable notification
             NotificationUtils.hideWeatherNotification();
         }
@@ -98,46 +96,11 @@ public class SunshineApplication extends Application
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(context.getString(R.string.pref_icon_key))) {
-            showUpdatedWeatherNotification();
-        } else if (key.equals(getString(R.string.pref_language_key))) {
-            forceUpdateLocale();
-            WeatherDataUtils.loadWeatherDescMap();
-            DateFormatUtils.loadDateFormat(SettingsUtils.getLocale());
-            showUpdatedWeatherNotification();
+            NotificationUtils.showUpdatedWeatherNotification();
         }
     }
 
-    private void showUpdatedWeatherNotification() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String city = SettingsUtils.retrieveUserCity();
-                Cursor cursorWeather = context.getContentResolver().query(WeatherContract.WeatherEntry.buildWeatherUriWithStartDate(city, SunshineConstants.TODAY),
-                        null, null, null, null);
 
-                if (cursorWeather.moveToFirst()) {
-                    WeatherStatusVO weatherStatusDetail = WeatherStatusVO.parseFromCursor(cursorWeather);
-                    NotificationUtils.showWeatherNotification(weatherStatusDetail);
-                }
-            }
-        }).start();
-    }
 
-    private void forceUpdateLocale() {
-        if(SettingsUtils.retrieveLanguagePref() == SettingsUtils.LANG_MM) {
-            Resources res = getResources();
-            // Change locale settings in the app.
-            DisplayMetrics dm = res.getDisplayMetrics();
-            android.content.res.Configuration conf = res.getConfiguration();
-            conf.locale = new Locale("my");
-            res.updateConfiguration(conf, dm);
-        } else {
-            Resources res = getResources();
-            // Change locale settings in the app.
-            DisplayMetrics dm = res.getDisplayMetrics();
-            android.content.res.Configuration conf = res.getConfiguration();
-            conf.locale = new Locale("en");
-            res.updateConfiguration(conf, dm);
-        }
-    }
+
 }

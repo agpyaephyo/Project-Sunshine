@@ -59,9 +59,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7948ceb8-b879-4f56-a461-1f38fc2fdc13" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-my/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-my/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast_today.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast_today.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/BaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/BaseActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/NotificationUtils.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/NotificationUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/SunshineApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/SunshineApplication.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Project-Sunshine.iws" />
@@ -132,14 +132,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fragment_forecast_detail.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fragment_forecast_detail.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_detail.xml">
           <provider editor-type-id="android-designer">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7963595">
-              <caret line="92" column="61" selection-start-line="92" selection-start-column="61" selection-end-line="92" selection-end-column="61" />
+            <state vertical-scroll-proportion="-14.83871">
+              <caret line="80" column="44" selection-start-line="80" selection-start-column="44" selection-end-line="80" selection-end-column="44" />
               <folding>
                 <element signature="e#709#733#0" expanded="true" />
                 <element signature="e#1132#1156#0" expanded="true" />
@@ -177,21 +177,62 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-my/styles.xml">
+      <file leaf-file-name="BaseActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/BaseActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.4482758">
-              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+              <folding>
+                <element signature="e#1586#1623#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NotificationUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/NotificationUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="133" column="17" selection-start-line="133" selection-start-column="17" selection-end-line="133" selection-end-column="17" />
+              <folding>
+                <element signature="e#1368#1404#0" expanded="true" />
+                <element signature="e#1479#1526#0" expanded="true" />
+                <element signature="e#3351#3387#0" expanded="true" />
+                <element signature="e#6242#6941#0" expanded="true" />
+                <element signature="e#6940#6941#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ForecastActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/ForecastActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="46" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <file leaf-file-name="SunshineApplication.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/SunshineApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.689655">
-              <caret line="30" column="12" selection-start-line="30" selection-start-column="12" selection-end-line="30" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.5934066">
+              <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+              <folding>
+                <element signature="e#2111#2112#0" expanded="true" />
+                <element signature="e#2141#2142#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-my/styles.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-3.4482758">
+              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -1964,7 +2005,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/ForecastActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/SunshineApplication.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/SunshineConstants.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/receivers/internal/GcmBroadcastReceiver.java" />
@@ -1973,10 +2013,8 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/services/SunshineInstanceIDListenerService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/GcmUtils.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/BaseActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/services/SunshineGCMRegistrationService.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/services/SunshineGcmListenerService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/NotificationUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-my/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
@@ -1984,6 +2022,9 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast_today.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-my/dimens.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_detail.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/NotificationUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/SunshineApplication.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/BaseActivity.java" />
       </list>
     </option>
   </component>
@@ -2901,7 +2942,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Aleph Projs/starhub-tvbuddy-android-develop" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="04939907437defab CVH7N15B14004474" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="04939907437defab" />
     <property name="SearchEverywhereHistoryKey" value="Sett&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/utils/SettingsUtils.java&#10;networkC&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/network/NetworkConstants.java&#10;SettingU&#9;PSI&#9;JAVA://net.aung.sunshine.utils.SettingsUtils&#10;strings&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/res/values/strings.xml&#10;strin&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/res/values/strings.xml&#10;Presen&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/mvp/presenters/ForecastListPresenter.java&#10;CityV&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/data/vos/CityVO.java&#10;WeatherData&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/network/WeatherDataSourceImpl.java&#10;Model&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/data/models/WeatherStatusModel.java&#10;Today&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/viewholders/TodayWeatherViewHolder.java&#10;list&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/res/layout/list_item_forecast.xml&#10;listI&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/res/layout/list_item_forecast_today.xml&#10;WeatherStat&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/data/vos/WeatherStatusVO.java&#10;frag&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/res/layout/fragment_forecast_list.xml&#10;Pre&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/mvp/presenters/ForecastListPresenter.java&#10;Fragment&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java&#10;Present&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/mvp/presenters/ForecastListPresenter.java&#10;Forecast&#9;FILE&#9;file:///Users/aung/Repos/My Projs/Android/Project-Sunshine/app/src/main/java/net/aung/sunshine/fragments/ForecastListFragment.java" />
     <property name="device.picker.selection" value="emulator-5554" />
     <property name="android.project.structure.last.selected" value="app" />
@@ -3465,6 +3506,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="40" column="66" selection-start-line="40" selection-start-column="66" selection-end-line="40" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3494,14 +3536,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/SunshineApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="103" column="50" selection-start-line="103" selection-start-column="50" selection-end-line="103" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -3515,14 +3549,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_logo.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/ForecastActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_forecast.xml">
@@ -3691,22 +3717,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="60" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/NotificationUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="99" column="56" selection-start-line="99" selection-start-column="56" selection-end-line="99" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/components/CityEditTextPreference.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3831,8 +3841,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7963595">
-          <caret line="92" column="61" selection-start-line="92" selection-start-column="61" selection-end-line="92" selection-end-column="61" />
+        <state vertical-scroll-proportion="-14.83871">
+          <caret line="80" column="44" selection-start-line="80" selection-start-column="44" selection-end-line="80" selection-end-column="44" />
           <folding>
             <element signature="e#709#733#0" expanded="true" />
             <element signature="e#1132#1156#0" expanded="true" />
@@ -3865,6 +3875,49 @@
             <element signature="e#7475#7497#0" expanded="true" />
             <element signature="e#7544#7565#0" expanded="true" />
             <element signature="e#7665#7689#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/ForecastActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="46" selection-start-line="15" selection-start-column="46" selection-end-line="15" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/utils/NotificationUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="133" column="17" selection-start-line="133" selection-start-column="17" selection-end-line="133" selection-end-column="17" />
+          <folding>
+            <element signature="e#1368#1404#0" expanded="true" />
+            <element signature="e#1479#1526#0" expanded="true" />
+            <element signature="e#3351#3387#0" expanded="true" />
+            <element signature="e#6242#6941#0" expanded="true" />
+            <element signature="e#6940#6941#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/activities/BaseActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="13" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding>
+            <element signature="e#1586#1623#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/SunshineApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5934066">
+          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding>
+            <element signature="e#2111#2112#0" expanded="true" />
+            <element signature="e#2141#2142#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -1,36 +1,30 @@
 package net.aung.sunshine.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.View;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-import com.google.android.gms.iid.InstanceID;
-
 import net.aung.sunshine.R;
-import net.aung.sunshine.SunshineApplication;
-import net.aung.sunshine.services.SunshineGCMRegistrationService;
+import net.aung.sunshine.utils.DateFormatUtils;
 import net.aung.sunshine.utils.GcmUtils;
-import net.aung.sunshine.utils.SunshineConstants;
+import net.aung.sunshine.utils.NotificationUtils;
+import net.aung.sunshine.utils.SettingsUtils;
+import net.aung.sunshine.utils.WeatherDataUtils;
 
-import java.io.IOException;
+import java.util.Locale;
 
 /**
  * Created by aung on 12/10/15.
  */
 public class BaseActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
-
 
 
     @Override
@@ -41,6 +35,7 @@ public class BaseActivity extends AppCompatActivity
                 .registerOnSharedPreferenceChangeListener(this);
 
         GcmUtils.setupGCM(this); //TODO think of something to compensate the SERVICE_NOT_AVAILABLE back-offs.
+        forceUpdateLocale();
     }
 
     @Override
@@ -53,14 +48,32 @@ public class BaseActivity extends AppCompatActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
+        if (key.equals(getString(R.string.pref_language_key))) {
+            forceUpdateLocale();
+            WeatherDataUtils.loadWeatherDescMap();
+            DateFormatUtils.loadDateFormat(SettingsUtils.getLocale());
+            NotificationUtils.showUpdatedWeatherNotification();
+        }
     }
 
 
-
-
-
-
+    private void forceUpdateLocale() {
+        if (SettingsUtils.retrieveLanguagePref() == SettingsUtils.LANG_MM) {
+            Resources res = getResources();
+            // Change locale settings in the app.
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.locale = new Locale("my");
+            res.updateConfiguration(conf, dm);
+        } else {
+            Resources res = getResources();
+            // Change locale settings in the app.
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.locale = new Locale("en");
+            res.updateConfiguration(conf, dm);
+        }
+    }
 
     /**
      * Use this method to start Settings Activity for Sunshine App.
