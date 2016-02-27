@@ -10,11 +10,8 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -220,7 +217,6 @@ public class ForecastListFragment extends BaseFragment
         }
 
         tvEmptyForecasts.setText(errorMsg);
-        setActionBarElevation(tvEmptyForecasts.getVisibility() == View.VISIBLE);
     }
 
     @Override
@@ -256,7 +252,6 @@ public class ForecastListFragment extends BaseFragment
         }
 
         adapter.setStatusList(mWeatherStatusList);
-        setActionBarElevation(mWeatherStatusList.size() == 0);
 
         if (mWeatherStatusList.size() == 0 && !NetworkUtils.isOnline(getContext())) {
             tvEmptyForecasts.setText(getString(R.string.error_no_network));
@@ -312,19 +307,5 @@ public class ForecastListFragment extends BaseFragment
 
     public void onEventMainThread(DataEvent.PreferenceCityChangeEvent event) {
         getLoaderManager().restartLoader(SunshineConstants.FORECAST_LIST_LOADER, null, this);
-    }
-
-    private void setActionBarElevation(boolean isElevationSet) {
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-        ActionBar actionBar = activity.getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setLogo(R.drawable.ic_logo);
-            actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_USE_LOGO);
-            if (isElevationSet) {
-                actionBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
-            } else {
-                actionBar.setElevation(0f);
-            }
-        }
     }
 }

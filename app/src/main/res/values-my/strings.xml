@@ -7,9 +7,9 @@
 
     <string name="lbl_today">ယနေ့</string>
     <string name="lbl_tomorrow">မနက်ဖြန်</string>
-    <string name="lbl_humidity">လေထုတွင်\n ရေငွေ့ပါဝင်မှုပမာဏ :</string>
-    <string name="lbl_pressure">လေဖိအား :</string>
-    <string name="lbl_wind">လေတိုက်နှုံး :</string>
+    <string name="lbl_humidity">ရေငွေ့ပါဝင်မှု\nပမာဏ </string>
+    <string name="lbl_pressure">လေဖိအား</string>
+    <string name="lbl_wind">လေတိုက်နှုံး </string>
 
     <string name="pref_location_label">ကြည့်ရှုလိုသော မြို့အားရွေးချယ်ပါ</string>
     <string name="pref_location_default">အခုသင်လက်ရှိ ရောက်ရှိနေသောမြို့</string>

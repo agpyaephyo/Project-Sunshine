@@ -26,4 +26,6 @@
     <!-- Custom Color -->
     <color name="black_transparent_overlay">#8000</color>
     <color name="icon_yellow">#E4E25B</color>
+    <color name="weather_detail_bg">#4F5F68</color>
+    <color name="detail_accent_label">#929292</color>
 </resources>

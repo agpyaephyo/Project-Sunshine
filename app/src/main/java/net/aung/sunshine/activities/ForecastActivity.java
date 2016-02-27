@@ -1,5 +1,6 @@
 package net.aung.sunshine.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -101,12 +102,18 @@ public class ForecastActivity extends BaseActivity
     @Override
     public void onNavigateToForecastDetail(WeatherStatusVO weatherStatus) {
         if (!getResources().getBoolean(R.bool.isTwoPane)) {
+            /*
             getSupportFragmentManager().beginTransaction()
                     //.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .setCustomAnimations(R.anim.screen_enter_horizontal, R.anim.screen_exit_horizontal, R.anim.screen_pop_enter_horizontal, R.anim.screen_pop_exit_horizontal)
                     .replace(R.id.fl_container, ForecastDetailFragment.newInstance(weatherStatus.getDateTime()))
                     .addToBackStack(null)
                     .commit();
+                    */
+
+            Intent intentToDetail = ForecastDetailActivity.createNewIntent(this, weatherStatus);
+            startActivity(intentToDetail);
+            overridePendingTransition(R.anim.screen_enter_horizontal, R.anim.screen_exit_horizontal);
         } else {
             ForecastDetailFragment detailFragment = (ForecastDetailFragment) getSupportFragmentManager().findFragmentByTag(ForecastDetailFragment.TAG);
             detailFragment.updateForecastDetail(weatherStatus);

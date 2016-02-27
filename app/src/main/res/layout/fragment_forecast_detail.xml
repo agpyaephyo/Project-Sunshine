@@ -49,10 +49,9 @@
 
             <ImageView
                 android:id="@+id/iv_status_art"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/today_weather_icon_dimen"
+                android:layout_height="@dimen/today_weather_icon_dimen"
                 android:adjustViewBounds="true"
-                android:maxHeight="@dimen/today_weather_icon_dimen"
-                android:maxWidth="@dimen/today_weather_icon_dimen"
                 app:layout_columnWeight="1"
                 app:layout_gravity="fill_horizontal"
                 tools:src="@drawable/art_snow" />
@@ -71,7 +70,7 @@
 
             <TextView
                 android:id="@+id/tv_status"
-                android:layout_width="210dp"
+                android:layout_width="@dimen/today_weather_icon_dimen"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif"
                 android:gravity="center_horizontal"
@@ -79,15 +78,15 @@
                 android:text="@{weatherStatus.weather.description}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/secondary_text"
-                android:textSize="@dimen/text_weather_status_detail"
-                app:layout_gravity="center_horizontal"
+                app:layout_columnWeight="1"
+                app:layout_gravity="center"
                 tools:text="Snow" />
 
             <TextView
                 android:id="@+id/tv_min_temperature"
                 android:layout_width="0dp"
                 android:fontFamily="sans-serif-light"
-                android:gravity="center_horizontal"
+                android:gravity="center"
                 android:text="@{weatherStatus.temperature.minTemperatureDisplay}"
                 android:textColor="@color/secondary_text"
                 android:textSize="@dimen/text_min_temperature_detail"
@@ -105,75 +104,98 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:background="@android:color/darker_gray"
-            android:paddingLeft="@dimen/margin_medium_2"
-            android:paddingRight="@dimen/margin_medium_2"
+            android:background="@color/weather_detail_bg"
+            android:paddingLeft="@dimen/margin_xlarge"
+            android:paddingRight="@dimen/margin_xlarge"
+            android:paddingBottom="@dimen/margin_medium_2"
+            android:paddingTop="@dimen/margin_medium_2"
             app:columnCount="2"
             app:rowCount="3">
 
             <TextView
                 android:id="@+id/lbl_humidity"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:fontFamily="sans-serif-condensed"
-                android:gravity="right"
+                android:fontFamily="sans-serif"
+                android:gravity="right|center_vertical"
+                android:paddingRight="@dimen/margin_medium"
                 android:text="@string/lbl_humidity"
                 android:textSize="@dimen/text_regular_3x"
-                app:layout_rowWeight="1" />
+                android:textColor="@color/detail_accent_label"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                app:layout_gravity="fill_horizontal"
+                />
 
             <TextView
                 android:id="@+id/tv_humidity"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif"
                 android:text="@{weatherStatus.humidityDisplay}"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/text_heading_1x"
+                app:layout_gravity="center_vertical"
+                app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
                 tools:text="99 %" />
 
             <TextView
                 android:id="@+id/lbl_pressure"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif"
+                android:gravity="right|center_vertical"
+                android:paddingRight="@dimen/margin_medium"
                 android:text="@string/lbl_pressure"
                 android:textSize="@dimen/text_regular_3x"
-                app:layout_gravity="right"
-                app:layout_rowWeight="1" />
+                android:textColor="@color/detail_accent_label"
+                app:layout_gravity="fill_horizontal"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                />
 
             <TextView
                 android:id="@+id/tv_pressure"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif"
                 android:text="@{weatherStatus.pressureDisplay}"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/text_heading_1x"
+                android:gravity="center_vertical"
+                app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
                 tools:text="1023 hPa" />
 
             <TextView
                 android:id="@+id/lbl_wind"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif"
+                android:gravity="right|center_vertical"
+                android:paddingRight="@dimen/margin_medium"
                 android:text="@string/lbl_wind"
                 android:textSize="@dimen/text_regular_3x"
-                app:layout_gravity="right"
-                app:layout_rowWeight="1" />
+                android:textColor="@color/detail_accent_label"
+                app:layout_gravity="fill_horizontal"
+                app:layout_columnWeight="1"
+                app:layout_rowWeight="1"
+                />
 
             <TextView
                 android:id="@+id/tv_wind"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif"
                 android:text="@{weatherStatus.windSpeedDisplay}"
-                android:textColor="@android:color/black"
+                android:textColor="@android:color/white"
                 android:textSize="@dimen/text_heading_1x"
+                android:gravity="center_vertical"
+                app:layout_columnWeight="1"
                 app:layout_rowWeight="1"
                 tools:text="3 km/h SE" />
 

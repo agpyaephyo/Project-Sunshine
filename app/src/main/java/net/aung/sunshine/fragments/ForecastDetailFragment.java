@@ -140,21 +140,6 @@ public class ForecastDetailFragment extends BaseFragment
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (!getResources().getBoolean(R.bool.isTwoPane)) {
-
-            AppCompatActivity activity = (AppCompatActivity) getActivity();
-            ActionBar actionBar = activity.getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP);
-                actionBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
-            }
-
-        }
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
         presenter.onStop();

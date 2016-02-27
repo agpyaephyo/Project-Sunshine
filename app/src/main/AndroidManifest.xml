@@ -47,6 +47,12 @@
             android:label="@string/action_settings"
             android:parentActivityName=".activities.ForecastActivity"/>
 
+        <activity
+            android:name=".activities.ForecastDetailActivity"
+            android:parentActivityName=".activities.ForecastActivity"
+            android:theme="@style/ForecastDetailTheme"
+            />
+
         <service
             android:name=".services.SunshineService" />
 
