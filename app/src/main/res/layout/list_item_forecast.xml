@@ -44,7 +44,7 @@
                 style="@style/DailyWeatherDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif"
                 android:text="@{weatherStatus.dateDisplay}"
                 />
 
@@ -53,40 +53,36 @@
                 style="@style/DailyWeatherStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
+                android:fontFamily="sans-serif"
                 android:text="@{weatherStatus.weather.description}"
                 />
 
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_max_temperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/margin_medium"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/margin_large">
+            android:fontFamily="sans-serif"
+            android:textSize="@dimen/text_min_max_temp_weather_list"
+            android:textColor="@color/primary_text"
+            android:padding="@dimen/margin_small"
+            android:text="@{weatherStatus.temperature.maxTemperatureDisplay}"
+            />
 
-            <TextView
-                android:id="@+id/tv_max_temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed"
-
-                android:text="@{weatherStatus.temperature.maxTemperatureDisplay}"
-                />
-
-            <TextView
-                android:id="@+id/tv_min_temperature"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="sans-serif-condensed"
-                android:textAppearance="?android:textAppearanceSmall"
-                android:text="@{weatherStatus.temperature.minTemperatureDisplay}"
-                />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_min_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:fontFamily="sans-serif"
+            android:textSize="@dimen/text_min_max_temp_weather_list"
+            android:textColor="@color/secondary_text"
+            android:padding="@dimen/margin_small"
+            android:text="@{weatherStatus.temperature.minTemperatureDisplay}"
+            android:layout_marginRight="@dimen/margin_small"
+            />
 
     </LinearLayout>
 

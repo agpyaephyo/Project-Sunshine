@@ -26,11 +26,12 @@
 
     <!-- Font size specific -->
     <dimen name="text_max_temperature">72sp</dimen>
-    <dimen name="text_max_temperature_detail">96sp</dimen>
+    <dimen name="text_max_temperature_detail">80sp</dimen>
     <dimen name="text_min_temperature">36sp</dimen>
     <dimen name="text_min_temperature_detail">48sp</dimen>
-
     <dimen name="text_weather_status_detail">@dimen/text_heading_2x</dimen>
+
+    <dimen name="text_min_max_temp_weather_list">28dp</dimen>
 
     <dimen name="icon_medium">60dp</dimen>
 
@@ -41,6 +42,7 @@
 
     <dimen name="weather_detail_body_padding">16dp</dimen>
 
-    <dimen name="today_weather_icon_dimen">150dp</dimen>
-    <dimen name="weather_icon_dimen">36dp</dimen>
+    <dimen name="today_weather_icon_dimen">160dp</dimen>
+    <dimen name="today_weather_icon_list_dimen">120dp</dimen>
+    <dimen name="weather_icon_dimen">40dp</dimen>
 </resources>

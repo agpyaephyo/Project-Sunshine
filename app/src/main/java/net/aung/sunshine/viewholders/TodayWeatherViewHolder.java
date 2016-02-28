@@ -5,9 +5,9 @@ import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.GridLayout;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 
@@ -30,8 +30,8 @@ public class TodayWeatherViewHolder extends WeatherViewHolder
     @Bind(R.id.iv_status_art)
     ImageView ivStatusArt;
 
-    @Bind(R.id.rl_list_forecast_today_root)
-    RelativeLayout rlListForecastTodayRoot;
+    @Bind(R.id.gl_list_forecast_today_root)
+    GridLayout glListForecastTodayRoot;
 
     private WeatherStatusVO mStatus;
     private ListItemForecastTodayBinding binding;
@@ -44,7 +44,7 @@ public class TodayWeatherViewHolder extends WeatherViewHolder
         binding = DataBindingUtil.bind(itemView);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            rlListForecastTodayRoot.setElevation(rlListForecastTodayRoot.getContext().getResources().getDimension(R.dimen.toolbar_elevation));
+            glListForecastTodayRoot.setElevation(glListForecastTodayRoot.getContext().getResources().getDimension(R.dimen.toolbar_elevation));
         }
 
         PreferenceManager.getDefaultSharedPreferences(itemView.getContext())
