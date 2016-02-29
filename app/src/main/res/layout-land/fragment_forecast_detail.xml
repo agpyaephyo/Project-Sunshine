@@ -18,7 +18,7 @@
         tools:context="net.aung.sunshine.fragments.ForecastDetailFragment">
 
         <android.support.v7.widget.GridLayout
-            android:layout_width="400dp"
+            android:layout_width="300dp"
             android:layout_height="match_parent"
             android:background="@android:color/white"
             android:padding="@dimen/margin_medium"
