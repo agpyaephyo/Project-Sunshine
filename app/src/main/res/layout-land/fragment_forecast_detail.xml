@@ -15,13 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:weightSum="5"
         tools:context="net.aung.sunshine.fragments.ForecastDetailFragment">
 
         <android.support.v7.widget.GridLayout
-            android:layout_width="0dp"
+            android:layout_width="400dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
             android:background="@android:color/white"
             android:padding="@dimen/margin_medium"
             app:columnCount="2">
@@ -43,15 +41,14 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/secondary_text"
                 app:layout_columnSpan="2"
-                app:layout_columnWeight="1"
                 app:layout_gravity="fill_horizontal"
                 tools:text="Tomorrow, December 16" />
 
             <ImageView
                 android:id="@+id/iv_status_art"
-                android:layout_width="@dimen/today_weather_icon_dimen"
-                android:layout_height="@dimen/today_weather_icon_dimen"
-                android:adjustViewBounds="true"
+                android:layout_width="0dp"
+                android:maxWidth="@dimen/today_weather_icon_dimen"
+                android:minHeight="@dimen/today_weather_icon_dimen"
                 app:layout_columnWeight="1"
                 app:layout_gravity="fill_horizontal"
                 tools:src="@drawable/art_snow" />
@@ -70,7 +67,7 @@
 
             <TextView
                 android:id="@+id/tv_status"
-                android:layout_width="@dimen/today_weather_icon_dimen"
+                android:layout_width="0dp"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif"
                 android:gravity="center_horizontal"
@@ -79,7 +76,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/secondary_text"
                 app:layout_columnWeight="1"
-                app:layout_gravity="center"
+                app:layout_gravity="fill_horizontal"
                 tools:text="Snow" />
 
             <TextView
@@ -103,17 +100,88 @@
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@color/weather_detail_bg">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lbl_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/lbl_humidity"
+                    android:textColor="@color/detail_accent_label"
+                    android:textSize="@dimen/text_regular_3x" />
+
+                <TextView
+                    android:id="@+id/tv_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_xlarge"
+                    android:fontFamily="sans-serif"
+                    android:text="@{weatherStatus.humidityDisplay}"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_heading_1x"
+                    tools:text="99 %" />
+
+                <TextView
+                    android:id="@+id/lbl_pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/lbl_pressure"
+                    android:textColor="@color/detail_accent_label"
+                    android:textSize="@dimen/text_regular_3x" />
+
+                <TextView
+                    android:id="@+id/tv_pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_xlarge"
+                    android:fontFamily="sans-serif"
+                    android:text="@{weatherStatus.pressureDisplay}"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_heading_1x"
+                    tools:text="1023 hPa" />
+
+                <TextView
+                    android:id="@+id/lbl_wind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/lbl_wind"
+                    android:textColor="@color/detail_accent_label"
+                    android:textSize="@dimen/text_regular_3x" />
+
+                <TextView
+                    android:id="@+id/tv_wind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_xlarge"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center_vertical"
+                    android:text="@{weatherStatus.windSpeedDisplay}"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_heading_1x"
+                    tools:text="3 km/h SE" />
+
+            </LinearLayout>
+
+            <!--
             <android.support.v7.widget.GridLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:background="@color/weather_detail_bg"
-                android:paddingLeft="@dimen/margin_medium_2"
-                android:paddingRight="@dimen/margin_medium_2"
-                android:paddingBottom="@dimen/margin_medium_2"
-                android:paddingTop="@dimen/margin_medium_2"
+                android:padding="@dimen/margin_medium_2"
+                android:layout_gravity="center_vertical"
                 app:columnCount="2"
                 app:rowCount="3">
 
@@ -199,9 +267,9 @@
                     tools:text="3 km/h SE" />
 
             </android.support.v7.widget.GridLayout>
+            -->
 
         </FrameLayout>
-
 
 
     </LinearLayout>

@@ -42,7 +42,7 @@
 
     <dimen name="weather_detail_body_padding">16dp</dimen>
 
-    <dimen name="today_weather_icon_dimen">160dp</dimen>
+    <dimen name="today_weather_icon_dimen">140dp</dimen>
     <dimen name="today_weather_icon_list_dimen">120dp</dimen>
     <dimen name="weather_icon_dimen">40dp</dimen>
 </resources>

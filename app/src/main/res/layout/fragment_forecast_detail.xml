@@ -43,17 +43,17 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/secondary_text"
                 app:layout_columnSpan="2"
-                app:layout_columnWeight="1"
                 app:layout_gravity="fill_horizontal"
                 tools:text="Tomorrow, December 16" />
 
             <ImageView
                 android:id="@+id/iv_status_art"
-                android:layout_width="@dimen/today_weather_icon_dimen"
-                android:layout_height="@dimen/today_weather_icon_dimen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:maxWidth="@dimen/today_weather_icon_dimen"
+                android:maxHeight="@dimen/today_weather_icon_dimen"
                 android:adjustViewBounds="true"
                 app:layout_columnWeight="1"
-                app:layout_gravity="fill_horizontal"
                 tools:src="@drawable/art_snow" />
 
             <TextView
@@ -70,7 +70,8 @@
 
             <TextView
                 android:id="@+id/tv_status"
-                android:layout_width="@dimen/today_weather_icon_dimen"
+                android:layout_width="0dp"
+                android:maxWidth="@dimen/today_weather_icon_dimen"
                 android:ellipsize="end"
                 android:fontFamily="sans-serif"
                 android:gravity="center_horizontal"
@@ -79,7 +80,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 android:textColor="@color/secondary_text"
                 app:layout_columnWeight="1"
-                app:layout_gravity="center"
+                app:layout_gravity="fill_horizontal"
                 tools:text="Snow" />
 
             <TextView

@@ -56,11 +56,9 @@ public class ForecastActivity extends BaseActivity
         if (getResources().getBoolean(R.bool.isTwoPane)) {
             //two panes tablets.
 
-            if (savedInstanceState == null) {
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fl_detail_container, ForecastDetailFragment.newInstance(SunshineConstants.TODAY), ForecastDetailFragment.TAG)
-                        .commit();
-            }
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fl_detail_container, ForecastDetailFragment.newInstance(SunshineConstants.TODAY), ForecastDetailFragment.TAG)
+                    .commit();
         }
     }
 
