@@ -23,7 +23,6 @@ import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
-import net.aung.sunshine.databinding.FragmentForecastDetailBinding;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.mvp.presenters.ForecastDetailPresenter;
 import net.aung.sunshine.mvp.views.ForecastDetailView;
