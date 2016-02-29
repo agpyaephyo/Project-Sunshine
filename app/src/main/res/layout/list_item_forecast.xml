@@ -17,8 +17,10 @@
         android:foreground="?android:attr/selectableItemBackground"
         android:background="@drawable/touch_selector"
         android:minHeight="?android:attr/listPreferredItemHeight"
-        android:paddingLeft="@dimen/margin_medium"
-        android:paddingRight="@dimen/margin_medium"
+        android:paddingLeft="@dimen/weather_list_padding_left_right"
+        android:paddingStart="@dimen/weather_list_padding_left_right"
+        android:paddingRight="@dimen/weather_list_padding_left_right"
+        android:paddingEnd="@dimen/weather_list_padding_left_right"
         >
 
         <ImageView
@@ -67,7 +69,7 @@
             android:fontFamily="sans-serif"
             android:textSize="@dimen/text_min_max_temp_weather_list"
             android:textColor="@color/primary_text"
-            android:padding="@dimen/margin_small"
+            android:padding="@dimen/weather_min_max_padding_left_right"
             android:text="@{weatherStatus.temperature.maxTemperatureDisplay}"
             />
 
@@ -79,7 +81,7 @@
             android:fontFamily="sans-serif"
             android:textSize="@dimen/text_min_max_temp_weather_list"
             android:textColor="@color/secondary_text"
-            android:padding="@dimen/margin_small"
+            android:padding="@dimen/weather_min_max_padding_left_right"
             android:text="@{weatherStatus.temperature.minTemperatureDisplay}"
             android:layout_marginRight="@dimen/margin_small"
             />

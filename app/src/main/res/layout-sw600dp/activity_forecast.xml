@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activities.ForecastActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#EEE">
+
+        <LinearLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:background="?attr/colorPrimary"
+            android:elevation="@dimen/toolbar_elevation">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="?attr/listPreferredItemHeight"
+                    android:src="@drawable/ic_text_logo"
+                    android:scaleType="center"
+                    android:contentDescription="@string/app_name"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingBottom="@dimen/margin_medium_2"
+                    />
+
+            </android.support.v7.widget.Toolbar>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_detail_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/appbar"
+            android:layout_marginTop="@dimen/margin_medium_2_negative"
+            android:elevation="@dimen/toolbar_elevation"
+            android:paddingLeft="@dimen/margin_medium_2"
+            android:paddingRight="@dimen/margin_medium_2"
+            />
+
+        <FrameLayout
+            android:id="@+id/fl_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fl_detail_container"
+            android:layout_marginTop="@dimen/margin_medium_2"
+            />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_dialog_email" />
+
+</android.support.design.widget.CoordinatorLayout>

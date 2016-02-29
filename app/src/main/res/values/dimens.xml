@@ -7,7 +7,9 @@
     <!-- Generic with ratio -->
     <dimen name="margin_small">4dp</dimen>
     <dimen name="margin_medium">8dp</dimen>
+    <dimen name="margin_medium_negative">-8dp</dimen>
     <dimen name="margin_medium_2">16dp</dimen>
+    <dimen name="margin_medium_2_negative">-16dp</dimen>
     <dimen name="margin_medium_3">18dp</dimen>
     <dimen name="margin_large">24dp</dimen>
     <dimen name="margin_xlarge">32dp</dimen>
@@ -45,4 +47,6 @@
     <dimen name="today_weather_icon_dimen">140dp</dimen>
     <dimen name="today_weather_icon_list_dimen">120dp</dimen>
     <dimen name="weather_icon_dimen">40dp</dimen>
+    <dimen name="weather_list_padding_left_right">@dimen/margin_medium</dimen>
+    <dimen name="weather_min_max_padding_left_right">@dimen/margin_small</dimen>
 </resources>
