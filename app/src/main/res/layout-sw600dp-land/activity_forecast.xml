@@ -13,43 +13,33 @@
         android:orientation="vertical"
         android:background="#EEE">
 
-        <LinearLayout
-            android:id="@+id/appbar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentTop="true"
-            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:elevation="@dimen/toolbar_elevation">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
+            <FrameLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" >
+                android:layout_marginLeft="@dimen/weather_icon_dimen"
+                android:layout_marginStart="@dimen/weather_icon_dimen"
+                android:paddingLeft="@dimen/margin_medium_2"
+                android:paddingStart="@dimen/margin_medium_2">
 
-                <FrameLayout
+                <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/weather_icon_dimen"
-                    android:layout_marginStart="@dimen/weather_icon_dimen"
-                    android:paddingLeft="@dimen/margin_medium_2"
-                    android:paddingStart="@dimen/margin_medium_2">
+                    android:layout_height="?attr/listPreferredItemHeight"
+                    android:src="@drawable/ic_text_logo"
+                    android:scaleType="center"
+                    android:contentDescription="@string/app_name"
+                    android:layout_marginTop="?attr/actionBarSize"
+                    />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="?attr/listPreferredItemHeight"
-                        android:src="@drawable/ic_text_logo"
-                        android:scaleType="center"
-                        android:contentDescription="@string/app_name"
-                        android:layout_marginTop="?attr/actionBarSize"
-                        />
+            </FrameLayout>
 
-                </FrameLayout>
-
-            </android.support.v7.widget.Toolbar>
-
-        </LinearLayout>
+        </android.support.v7.widget.Toolbar>
 
         <android.support.v4.widget.Space
             android:id="@+id/layout_center"
@@ -66,7 +56,7 @@
             android:layout_alignEnd="@id/layout_center"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@id/appbar"
+            android:layout_below="@id/toolbar"
             />
 
         <FrameLayout

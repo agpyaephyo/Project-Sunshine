@@ -10,8 +10,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,9 +18,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import com.bumptech.glide.Glide;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
@@ -34,7 +29,8 @@ import net.aung.sunshine.mvp.presenters.ForecastDetailPresenter;
 import net.aung.sunshine.mvp.views.ForecastDetailView;
 import net.aung.sunshine.utils.SettingsUtils;
 import net.aung.sunshine.utils.SunshineConstants;
-import net.aung.sunshine.utils.WeatherDataUtils;
+import net.aung.sunshine.views.ViewPodWeatherHPW;
+import net.aung.sunshine.views.ViewPodWeatherInfo;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,13 +44,17 @@ public class ForecastDetailFragment extends BaseFragment
     public static final String TAG = ForecastDetailFragment.class.getSimpleName();
 
     private long dateTime;
-    private FragmentForecastDetailBinding binding;
     private ForecastDetailPresenter presenter;
 
-    @Bind(R.id.iv_status_art)
-    ImageView ivStatusArt;
+    @Bind(R.id.vp_weather_info)
+    View vpWeatherInfoView;
+
+    @Bind(R.id.vp_weather_hpw)
+    View vpWeatherHPWView;
 
     private View rootView;
+    private ViewPodWeatherInfo vpWeatherInfo;
+    private ViewPodWeatherHPW vpWeatherHPW;
 
     private ShareActionProvider mShareActionProvider;
     private WeatherStatusVO mStatus;
@@ -94,7 +94,9 @@ public class ForecastDetailFragment extends BaseFragment
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_forecast_detail, container, false);
         ButterKnife.bind(this, rootView);
-        binding = DataBindingUtil.bind(rootView);
+
+        vpWeatherInfo = new ViewPodWeatherInfo(vpWeatherInfoView);
+        vpWeatherHPW = new ViewPodWeatherHPW(vpWeatherHPWView);
 
         return rootView;
     }
@@ -179,9 +181,10 @@ public class ForecastDetailFragment extends BaseFragment
         if (cursorWeather.moveToFirst()) {
             weatherStatusDetail = WeatherStatusVO.parseFromCursor(cursorWeather);
 
-            binding.setWeatherStatus(weatherStatusDetail);
             this.mStatus = weatherStatusDetail;
-            setArtForWeather(weatherStatusDetail);
+
+            vpWeatherInfo.bind(weatherStatusDetail);
+            vpWeatherHPW.bind(weatherStatusDetail);
         }
     }
 
@@ -208,9 +211,10 @@ public class ForecastDetailFragment extends BaseFragment
     public void updateForecastDetail(WeatherStatusVO newWeatherStatus) {
         if (newWeatherStatus != null) {
             dateTime = newWeatherStatus.getDateTime();
-            binding.setWeatherStatus(newWeatherStatus);
             this.mStatus = newWeatherStatus;
-            setArtForWeather(newWeatherStatus);
+
+            vpWeatherInfo.bind(newWeatherStatus);
+            vpWeatherHPW.bind(newWeatherStatus);
         }
     }
 
@@ -226,24 +230,11 @@ public class ForecastDetailFragment extends BaseFragment
         return myShareIntent;
     }
 
-    private void setArtForWeather(WeatherStatusVO status) {
-        if (SettingsUtils.retrieveIconPackPref() == SettingsUtils.ICON_PACK_UDACITY) {
-            String artUrl = WeatherDataUtils.getArtUrlFromWeatherCondition(status.getWeather().getId());
-            Glide.with(ivStatusArt.getContext())
-                    .load(artUrl)
-                    .error(WeatherDataUtils.getArtResourceForWeatherCondition(status.getWeather().getId()))
-                    .into(ivStatusArt);
-        } else {
-            int weatherArtResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(status.getWeather().getId());
-            ivStatusArt.setImageResource(weatherArtResourceId);
-        }
-    }
-
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         super.onSharedPreferenceChanged(sharedPreferences, key);
         if (key.equals(getString(R.string.pref_icon_key))) {
-            setArtForWeather(mStatus);
+            vpWeatherInfo.bind(mStatus);
         }
     }
 }
