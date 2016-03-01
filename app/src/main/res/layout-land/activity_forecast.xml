@@ -7,10 +7,11 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.ForecastActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#EEE">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -36,11 +37,14 @@
 
         <FrameLayout
             android:id="@+id/fl_container"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/weather_list_phone_land_width"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="?attr/actionBarSize"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

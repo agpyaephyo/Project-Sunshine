@@ -1,89 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/weather_today_padding_left_right"
+    android:layout_marginLeft="@dimen/weather_today_padding_left_right"
+    android:layout_marginRight="@dimen/weather_today_padding_left_right"
+    android:layout_marginStart="@dimen/weather_today_padding_left_right"
+    card_view:cardElevation="@dimen/toolbar_elevation"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardUseCompatPadding="false">
 
-    <data>
-        <import type="android.view.View" />
-        <variable
-            name="weatherStatus"
-            type="net.aung.sunshine.data.vos.WeatherStatusVO" />
-    </data>
+    <include
+        android:id="@+id/vp_weather_info"
+        layout="@layout/view_pod_weather_info" />
 
-    <android.support.v7.widget.GridLayout
-        android:id="@+id/gl_list_forecast_today_root"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:padding="@dimen/margin_medium"
-        app:columnCount="2">
-
-        <TextView
-            android:id="@+id/tv_date_day_combine"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:gravity="center_horizontal"
-            android:paddingBottom="@dimen/margin_medium_2"
-            android:paddingTop="@dimen/margin_medium_2"
-            android:text="@{weatherStatus.dateDayCombined}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/secondary_text"
-            app:layout_columnSpan="2"
-            app:layout_columnWeight="1"
-            app:layout_gravity="fill_horizontal"
-            tools:text="Tomorrow, December 16" />
-
-        <ImageView
-            android:id="@+id/iv_status_art"
-            android:minWidth="@dimen/today_weather_icon_list_dimen"
-            android:minHeight="@dimen/today_weather_icon_list_dimen"
-            android:layout_width="0dp"
-            android:adjustViewBounds="true"
-            android:layout_marginLeft="@dimen/margin_xlarge"
-            app:layout_columnWeight="1"
-            app:layout_gravity="fill_horizontal"
-            tools:src="@drawable/art_snow" />
-
-        <TextView
-            android:id="@+id/tv_max_temperature"
-            android:layout_width="0dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center_horizontal"
-            android:text="@{weatherStatus.temperature.maxTemperatureDisplay}"
-            android:textColor="@color/primary_text"
-            android:textSize="@dimen/text_max_temperature_detail"
-            app:layout_columnWeight="1"
-            app:layout_gravity="fill_horizontal"
-            tools:text="32" />
-
-        <TextView
-            android:id="@+id/tv_status"
-            android:minWidth="@dimen/today_weather_icon_dimen"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif"
-            android:gravity="center_horizontal"
-            android:maxLines="2"
-            android:text="@{weatherStatus.weather.description}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/secondary_text"
-            android:layout_marginLeft="@dimen/margin_medium_2"
-            app:layout_columnWeight="1"
-            app:layout_gravity="center"
-            tools:text="Snow" />
-
-        <TextView
-            android:id="@+id/tv_min_temperature"
-            android:layout_width="0dp"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center"
-            android:text="@{weatherStatus.temperature.minTemperatureDisplay}"
-            android:textColor="@color/secondary_text"
-            android:textSize="@dimen/text_min_temperature_detail"
-            app:layout_columnWeight="1"
-            tools:text="28" />
-
-    </android.support.v7.widget.GridLayout>
-
-</layout>
+</android.support.v7.widget.CardView>

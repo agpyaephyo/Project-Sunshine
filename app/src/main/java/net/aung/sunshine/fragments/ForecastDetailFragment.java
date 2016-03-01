@@ -3,7 +3,6 @@ package net.aung.sunshine.fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;

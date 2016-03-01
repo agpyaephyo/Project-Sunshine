@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
+        android:paddingBottom="@dimen/margin_medium_2"
         app:columnCount="2">
 
         <android.support.v7.widget.Space
@@ -79,7 +80,7 @@
             android:id="@+id/tv_min_temperature"
             android:layout_width="0dp"
             android:fontFamily="sans-serif-light"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:text="@{weatherStatus.temperature.minTemperatureDisplay}"
             android:textColor="@color/secondary_text"
             android:textSize="@dimen/text_min_temperature_detail"

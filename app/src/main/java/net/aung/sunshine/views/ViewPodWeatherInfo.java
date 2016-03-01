@@ -1,6 +1,9 @@
 package net.aung.sunshine.views;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,16 +21,23 @@ import butterknife.ButterKnife;
 /**
  * Created by aung on 2/29/16.
  */
-public class ViewPodWeatherInfo {
+public class ViewPodWeatherInfo implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     @Bind(R.id.iv_status_art)
     ImageView ivStatusArt;
+
+    private View mView;
+    private WeatherStatusVO mWeatherStatus;
 
     private ViewPodWeatherInfoBinding binding;
 
     public ViewPodWeatherInfo(View view) {
         binding = DataBindingUtil.bind(view);
         ButterKnife.bind(this, view);
+        this.mView = view;
+
+        PreferenceManager.getDefaultSharedPreferences(mView.getContext())
+                .registerOnSharedPreferenceChangeListener(this);
     }
 
     public void bind(WeatherStatusVO weatherStatus) {
@@ -36,6 +46,7 @@ public class ViewPodWeatherInfo {
     }
 
     private void setArtForWeather(WeatherStatusVO status) {
+        this.mWeatherStatus = status;
         if (SettingsUtils.retrieveIconPackPref() == SettingsUtils.ICON_PACK_UDACITY) {
             String artUrl = WeatherDataUtils.getArtUrlFromWeatherCondition(status.getWeather().getId());
             Glide.with(ivStatusArt.getContext())
@@ -46,5 +57,22 @@ public class ViewPodWeatherInfo {
             int weatherArtResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(status.getWeather().getId());
             ivStatusArt.setImageResource(weatherArtResourceId);
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Context context = mView.getContext();
+        if (key.equals(context.getString(R.string.pref_icon_key))) {
+            setArtForWeather(mWeatherStatus);
+        }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        if (mView != null) {
+            PreferenceManager.getDefaultSharedPreferences(mView.getContext())
+                    .unregisterOnSharedPreferenceChangeListener(this);
+        }
+        super.finalize();
     }
 }

@@ -40,6 +40,7 @@ public class CityEditTextPreference extends EditTextPreference {
         super.showDialog(state);
 
         EditText et = getEditText();
+        et.setSelection(et.getText().toString().length());
         et.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
