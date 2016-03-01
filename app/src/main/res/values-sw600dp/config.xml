@@ -2,4 +2,5 @@
 <resources>
     <bool name="isTablet">true</bool>
     <bool name="isTwoPane">true</bool>
+    <bool name="isParallaxScrollSupport">false</bool>
 </resources>

@@ -20,14 +20,15 @@ public class ForecastActivity extends BaseActivity
         implements ForecastListScreenController {
 
     private FloatingActionButton mFab;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
@@ -121,5 +122,14 @@ public class ForecastActivity extends BaseActivity
     @Override
     public void showCityInGoogleMap(String city) {
         showCityInGoogleMap(city, mFab);
+    }
+
+    @Override
+    public Toolbar getParallaxToolbar() {
+        if (getResources().getBoolean(R.bool.isParallaxScrollSupport)) {
+            return mToolbar;
+        }
+
+        return null;
     }
 }

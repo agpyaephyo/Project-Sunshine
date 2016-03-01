@@ -7,6 +7,7 @@
     android:layout_marginLeft="@dimen/weather_today_padding_left_right"
     android:layout_marginRight="@dimen/weather_today_padding_left_right"
     android:layout_marginStart="@dimen/weather_today_padding_left_right"
+    android:layout_marginTop="@dimen/weather_today_margin_top"
     card_view:cardElevation="@dimen/toolbar_elevation"
     card_view:cardPreventCornerOverlap="false"
     card_view:cardUseCompatPadding="false">

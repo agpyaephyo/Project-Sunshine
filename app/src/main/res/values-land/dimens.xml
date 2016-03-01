@@ -7,6 +7,6 @@
     <dimen name="weather_today_padding_left_right">0dp</dimen>
     <dimen name="weather_list_margin">-90dp</dimen>
     <dimen name="weather_list_phone_land_width">400dp</dimen>
-
+    <dimen name="weather_today_margin_top">48dp</dimen>
 
 </resources>

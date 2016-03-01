@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
@@ -12,6 +13,7 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -65,6 +67,8 @@ public class ForecastListFragment extends BaseFragment
     private ForecastListPresenter presenter;
     private ForecastListScreenController controller;
 
+    private Toolbar parallaxToolbar;
+
     private int mSelectedRow = RecyclerView.NO_POSITION;
     private boolean mLanguageSettingChange = false;
     private List<WeatherStatusVO> mWeatherStatusList = null;
@@ -111,6 +115,24 @@ public class ForecastListFragment extends BaseFragment
                 android.R.color.holo_red_dark);
 
         swipeContainer.setRefreshing(true);
+
+        parallaxToolbar = controller.getParallaxToolbar();
+        if (parallaxToolbar != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            rvForecasts.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    int max = parallaxToolbar.getHeight();
+                    if (dy > 0) {
+                        parallaxToolbar.setTranslationY(Math.max(-max,
+                                parallaxToolbar.getTranslationY() - dy / 3));
+                    } else {
+                        parallaxToolbar.setTranslationY(Math.min(0,
+                                parallaxToolbar.getTranslationY() - dy / 3));
+                    }
+                }
+            });
+        }
 
         return rootView;
     }
@@ -180,8 +202,9 @@ public class ForecastListFragment extends BaseFragment
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
-
-
+        if (rvForecasts != null) {
+            rvForecasts.clearOnScrollListeners();
+        }
     }
 
     @Override
