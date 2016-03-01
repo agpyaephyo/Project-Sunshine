@@ -58,33 +58,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7948ceb8-b879-4f56-a461-1f38fc2fdc13" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/activity_forecast.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/cardview_v7_23_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values/layout.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values-sw600dp-land/layout.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_detail_ver.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_detail_linear.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_detail_hor.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/components/CityEditTextPreference.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/components/CityEditTextPreference.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastDetailFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/fragments/ForecastDetailFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/viewholders/TodayWeatherViewHolder.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/viewholders/TodayWeatherViewHolder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/views/ViewPodWeatherInfo.java" afterPath="$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/views/ViewPodWeatherInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_forecast.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_forecast.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-sw600dp-land/activity_forecast.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-sw600dp-land/activity_forecast.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout-sw600dp-port/activity_forecast.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout-sw600dp-port/activity_forecast.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-land/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-land/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-my/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-my/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-sw600dp-port/dimens.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-sw600dp-port/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_list.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_forecast_list.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-land/layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-land/layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-sw600dp-port/layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-sw600dp-port/layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast_today.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/list_item_forecast_today.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/view_pod_weather_info.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/view_pod_weather_info.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="7948ceb8-b879-4f56-a461-1f38fc2fdc13" name="Default" comment="" />
     <ignored path="Project-Sunshine.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -125,19 +99,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-5.322581">
               <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_forecast.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_forecast.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.9677419">
-              <caret line="2" column="55" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -189,13 +150,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CityEditTextPreference.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CityEditTextPreference.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/components/CityEditTextPreference.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4090909">
-              <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
+            <state vertical-scroll-proportion="-21.068966">
+              <caret line="54" column="21" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_forecast.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/activity_forecast.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.33529413">
+              <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -3069,7 +3043,7 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Fabric" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5" sideWeight="0.6212766" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5" sideWeight="0.6212766" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39787233" sideWeight="0.5021322" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
@@ -3220,7 +3194,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
           <folding>
-            <element signature="e#1985#2018#0" expanded="true" />
+            <element signature="e#1985#2018#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3243,6 +3217,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3258,6 +3233,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="60" column="8" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3325,27 +3301,27 @@
         <state vertical-scroll-proportion="-7.2580647">
           <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
           <folding>
-            <element signature="e#782#804#0" expanded="true" />
-            <element signature="e#934#956#0" expanded="true" />
-            <element signature="e#982#1004#0" expanded="true" />
-            <element signature="e#1034#1058#0" expanded="true" />
-            <element signature="e#1397#1418#0" expanded="true" />
-            <element signature="e#1456#1478#0" expanded="true" />
-            <element signature="e#1665#1689#0" expanded="true" />
-            <element signature="e#1987#2009#0" expanded="true" />
-            <element signature="e#2139#2161#0" expanded="true" />
-            <element signature="e#2187#2209#0" expanded="true" />
-            <element signature="e#2239#2263#0" expanded="true" />
-            <element signature="e#2602#2623#0" expanded="true" />
-            <element signature="e#2661#2683#0" expanded="true" />
-            <element signature="e#2870#2894#0" expanded="true" />
-            <element signature="e#3189#3211#0" expanded="true" />
-            <element signature="e#3341#3363#0" expanded="true" />
-            <element signature="e#3389#3407#0" expanded="true" />
-            <element signature="e#3437#3461#0" expanded="true" />
-            <element signature="e#3796#3817#0" expanded="true" />
-            <element signature="e#3855#3877#0" expanded="true" />
-            <element signature="e#4065#4089#0" expanded="true" />
+            <element signature="e#782#804#0" expanded="false" />
+            <element signature="e#934#956#0" expanded="false" />
+            <element signature="e#982#1004#0" expanded="false" />
+            <element signature="e#1034#1058#0" expanded="false" />
+            <element signature="e#1397#1418#0" expanded="false" />
+            <element signature="e#1456#1478#0" expanded="false" />
+            <element signature="e#1665#1689#0" expanded="false" />
+            <element signature="e#1987#2009#0" expanded="false" />
+            <element signature="e#2139#2161#0" expanded="false" />
+            <element signature="e#2187#2209#0" expanded="false" />
+            <element signature="e#2239#2263#0" expanded="false" />
+            <element signature="e#2602#2623#0" expanded="false" />
+            <element signature="e#2661#2683#0" expanded="false" />
+            <element signature="e#2870#2894#0" expanded="false" />
+            <element signature="e#3189#3211#0" expanded="false" />
+            <element signature="e#3341#3363#0" expanded="false" />
+            <element signature="e#3389#3407#0" expanded="false" />
+            <element signature="e#3437#3461#0" expanded="false" />
+            <element signature="e#3796#3817#0" expanded="false" />
+            <element signature="e#3855#3877#0" expanded="false" />
+            <element signature="e#4065#4089#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3358,21 +3334,21 @@
         <state vertical-scroll-proportion="-7.2580647">
           <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
           <folding>
-            <element signature="e#934#956#0" expanded="true" />
-            <element signature="e#1034#1056#0" expanded="true" />
-            <element signature="e#1153#1177#0" expanded="true" />
-            <element signature="e#1397#1419#0" expanded="true" />
-            <element signature="e#1622#1646#0" expanded="true" />
-            <element signature="e#1900#1922#0" expanded="true" />
-            <element signature="e#2000#2022#0" expanded="true" />
-            <element signature="e#2119#2143#0" expanded="true" />
-            <element signature="e#2363#2385#0" expanded="true" />
-            <element signature="e#2588#2612#0" expanded="true" />
-            <element signature="e#2866#2888#0" expanded="true" />
-            <element signature="e#2966#2984#0" expanded="true" />
-            <element signature="e#3081#3105#0" expanded="true" />
-            <element signature="e#3321#3343#0" expanded="true" />
-            <element signature="e#3597#3621#0" expanded="true" />
+            <element signature="e#934#956#0" expanded="false" />
+            <element signature="e#1034#1056#0" expanded="false" />
+            <element signature="e#1153#1177#0" expanded="false" />
+            <element signature="e#1397#1419#0" expanded="false" />
+            <element signature="e#1622#1646#0" expanded="false" />
+            <element signature="e#1900#1922#0" expanded="false" />
+            <element signature="e#2000#2022#0" expanded="false" />
+            <element signature="e#2119#2143#0" expanded="false" />
+            <element signature="e#2363#2385#0" expanded="false" />
+            <element signature="e#2588#2612#0" expanded="false" />
+            <element signature="e#2866#2888#0" expanded="false" />
+            <element signature="e#2966#2984#0" expanded="false" />
+            <element signature="e#3081#3105#0" expanded="false" />
+            <element signature="e#3321#3343#0" expanded="false" />
+            <element signature="e#3597#3621#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3516,7 +3492,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="33" column="42" selection-start-line="33" selection-start-column="42" selection-end-line="33" selection-end-column="42" />
           <folding>
-            <element signature="e#2265#2306#0" expanded="true" />
+            <element signature="e#2265#2306#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3545,7 +3521,7 @@
         <state vertical-scroll-proportion="-13.354838">
           <caret line="31" column="44" selection-start-line="31" selection-start-column="44" selection-end-line="31" selection-end-column="44" />
           <folding>
-            <element signature="e#1985#2018#0" expanded="true" />
+            <element signature="e#1985#2018#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3570,21 +3546,6 @@
           <caret line="8" column="53" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
           <folding />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/activity_forecast.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.9677419">
-          <caret line="2" column="55" selection-start-line="2" selection-start-column="55" selection-end-line="2" selection-end-column="55" />
-          <folding>
-            <element signature="e#1558#1596#0" expanded="true" />
-            <element signature="e#1788#1828#0" expanded="true" />
-            <element signature="e#2117#2136#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_forecast.xml">
@@ -3689,10 +3650,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/net/aung/sunshine/components/CityEditTextPreference.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4090909">
-          <caret line="41" column="8" selection-start-line="41" selection-start-column="8" selection-end-line="41" selection-end-column="8" />
+        <state vertical-scroll-proportion="-21.068966">
+          <caret line="54" column="21" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/activity_forecast.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33529413">
+          <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>
