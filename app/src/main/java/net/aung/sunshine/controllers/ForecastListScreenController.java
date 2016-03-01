@@ -1,6 +1,8 @@
 package net.aung.sunshine.controllers;
 
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 
@@ -9,9 +11,11 @@ import net.aung.sunshine.data.vos.WeatherStatusVO;
  */
 public interface ForecastListScreenController extends BaseController {
 
-    void onNavigateToForecastDetail(WeatherStatusVO weatherStatus);
+    void onNavigateToForecastDetail(ImageView ivWeatherIcon, WeatherStatusVO weatherStatus);
 
     void showCityInGoogleMap(String city);
 
     Toolbar getParallaxToolbar();
+
+    AppBarLayout getAppBar();
 }

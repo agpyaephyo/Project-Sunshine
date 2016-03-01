@@ -24,7 +24,7 @@
         >
 
         <ImageView
-            android:id="@+id/iv_status"
+            android:id="@+id/iv_status_art"
             android:layout_width="@dimen/weather_icon_dimen"
             android:layout_height="@dimen/weather_icon_dimen"
             android:layout_gravity="center_vertical"

@@ -1,13 +1,19 @@
 package net.aung.sunshine.activities;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.controllers.ForecastListScreenController;
@@ -16,23 +22,31 @@ import net.aung.sunshine.fragments.ForecastDetailFragment;
 import net.aung.sunshine.fragments.ForecastListFragment;
 import net.aung.sunshine.utils.SunshineConstants;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class ForecastActivity extends BaseActivity
         implements ForecastListScreenController {
 
-    private FloatingActionButton mFab;
-    private Toolbar mToolbar;
+    @Bind(R.id.fab)
+    FloatingActionButton mFab;
+
+    @Bind(R.id.toolbar)
+    Toolbar mToolbar;
+
+    @Bind(R.id.appbar)
+    AppBarLayout mAppBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
+        ButterKnife.bind(this, this);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mFab = (FloatingActionButton) findViewById(R.id.fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +76,8 @@ public class ForecastActivity extends BaseActivity
                     .commit();
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -99,7 +115,7 @@ public class ForecastActivity extends BaseActivity
 
 
     @Override
-    public void onNavigateToForecastDetail(WeatherStatusVO weatherStatus) {
+    public void onNavigateToForecastDetail(ImageView ivWeatherIcon, WeatherStatusVO weatherStatus) {
         if (!getResources().getBoolean(R.bool.isTwoPane)) {
             /*
             getSupportFragmentManager().beginTransaction()
@@ -111,8 +127,15 @@ public class ForecastActivity extends BaseActivity
                     */
 
             Intent intentToDetail = ForecastDetailActivity.createNewIntent(this, weatherStatus);
-            startActivity(intentToDetail);
-            overridePendingTransition(R.anim.screen_enter_horizontal, R.anim.screen_exit_horizontal);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
+                        new Pair(ivWeatherIcon, getString(R.string.detail_icon_transition_name)));
+                ActivityCompat.startActivity(this, intentToDetail, activityOptions.toBundle());
+            } else {
+                startActivity(intentToDetail);
+                overridePendingTransition(R.anim.screen_enter_horizontal, R.anim.screen_exit_horizontal);
+            }
+
         } else {
             ForecastDetailFragment detailFragment = (ForecastDetailFragment) getSupportFragmentManager().findFragmentByTag(ForecastDetailFragment.TAG);
             detailFragment.updateForecastDetail(weatherStatus);
@@ -131,5 +154,10 @@ public class ForecastActivity extends BaseActivity
         }
 
         return null;
+    }
+
+    @Override
+    public AppBarLayout getAppBar() {
+        return mAppBar;
     }
 }

@@ -1,11 +1,13 @@
 package net.aung.sunshine.fragments;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
@@ -67,8 +69,6 @@ public class ForecastListFragment extends BaseFragment
     private ForecastListPresenter presenter;
     private ForecastListScreenController controller;
 
-    private Toolbar parallaxToolbar;
-
     private int mSelectedRow = RecyclerView.NO_POSITION;
     private boolean mLanguageSettingChange = false;
     private List<WeatherStatusVO> mWeatherStatusList = null;
@@ -116,7 +116,7 @@ public class ForecastListFragment extends BaseFragment
 
         swipeContainer.setRefreshing(true);
 
-        parallaxToolbar = controller.getParallaxToolbar();
+        final Toolbar parallaxToolbar = controller.getParallaxToolbar();
         if (parallaxToolbar != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             rvForecasts.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
@@ -129,6 +129,22 @@ public class ForecastListFragment extends BaseFragment
                     } else {
                         parallaxToolbar.setTranslationY(Math.min(0,
                                 parallaxToolbar.getTranslationY() - dy / 3));
+                    }
+                }
+            });
+        }
+
+        final AppBarLayout appBar = controller.getAppBar();
+        if (appBar != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            rvForecasts.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    if (rvForecasts.computeVerticalScrollOffset() == 0) {
+                        appBar.setElevation(0);
+                    } else {
+                        appBar.setElevation(getResources().getDimension(R.dimen.toolbar_elevation));
                     }
                 }
             });

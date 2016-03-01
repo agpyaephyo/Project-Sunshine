@@ -156,6 +156,8 @@
     <!-- Msgs -->
     <string name="msg_new_data_has_refreshed">New weather data has been refreshed.</string>
 
+    <string name="detail_icon_transition_name" translatable="false">TN_DetailIcon</string>
+
 
 
 </resources>

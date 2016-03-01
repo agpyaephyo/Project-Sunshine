@@ -1,6 +1,7 @@
 package net.aung.sunshine.viewholders;
 
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +15,9 @@ import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.utils.SettingsUtils;
 import net.aung.sunshine.utils.WeatherDataUtils;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by aung on 12/13/15.
  */
@@ -23,10 +27,14 @@ public abstract class WeatherViewHolder extends RecyclerView.ViewHolder implemen
     protected WeatherStatusVO weatherStatus;
     protected WeatherViewHolderController weatherVHController;
 
+    @Bind(R.id.iv_status_art)
+    ImageView ivStatusArt;
+
     protected View mItemView;
 
     public WeatherViewHolder(View itemView, ForecastListScreenController controller, WeatherViewHolderController weatherVHController) {
         super(itemView);
+        ButterKnife.bind(this, itemView);
         this.controller = controller;
         this.weatherVHController = weatherVHController;
         this.mItemView = itemView;
@@ -49,11 +57,15 @@ public abstract class WeatherViewHolder extends RecyclerView.ViewHolder implemen
         }
 
         weatherVHController.onResetSelectedItem(getAdapterPosition());
-        controller.onNavigateToForecastDetail(weatherStatus);
+        controller.onNavigateToForecastDetail(ivStatusArt, weatherStatus);
     }
 
     public void setSelection(boolean isSetSelection) {
         mItemView.setSelected(isSetSelection);
+    }
+
+    public ImageView getStatusArt(){
+        return ivStatusArt;
     }
 
     public interface WeatherViewHolderController {

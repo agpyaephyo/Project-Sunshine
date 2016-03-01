@@ -25,9 +25,6 @@ import butterknife.ButterKnife;
 public class DailyWeatherViewHolder extends WeatherViewHolder
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    @Bind(R.id.iv_status)
-    ImageView ivStatus;
-
     private WeatherStatusVO mStatus;
     private ListItemForecastBinding binding;
 
@@ -71,13 +68,13 @@ public class DailyWeatherViewHolder extends WeatherViewHolder
 
     private void setIconForWeather(WeatherStatusVO status) {
         if(SettingsUtils.retrieveIconPackPref() == SettingsUtils.ICON_PACK_UDACITY) {
-            Glide.with(ivStatus.getContext())
+            Glide.with(ivStatusArt.getContext())
                     .load(WeatherDataUtils.getIconUrlForWeatherCondition(status.getWeather().getId()))
                     .error(WeatherDataUtils.getIconResourceForWeatherCondition(status.getWeather().getId()))
-                    .into(ivStatus);
+                    .into(ivStatusArt);
         } else {
             int weatherIconResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(status.getWeather().getId());
-            ivStatus.setImageResource(weatherIconResourceId);
+            ivStatusArt.setImageResource(weatherIconResourceId);
         }
     }
 }

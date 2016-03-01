@@ -50,6 +50,6 @@
     <dimen name="weather_min_max_padding_left_right">@dimen/margin_small</dimen>
     <dimen name="weather_today_padding_left_right">0dp</dimen>
     <dimen name="weather_list_margin">0dp</dimen>
-    <dimen name="weather_today_margin_top">108dp</dimen>
+    <dimen name="weather_today_margin_top">0dp</dimen>
 
 </resources>

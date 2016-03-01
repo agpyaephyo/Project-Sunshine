@@ -3,12 +3,14 @@ package net.aung.sunshine.fragments;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
@@ -49,6 +52,9 @@ public class ForecastDetailFragment extends BaseFragment
 
     @Bind(R.id.vp_weather_hpw)
     View vpWeatherHPWView;
+
+    @Bind(R.id.iv_status_art)
+    ImageView ivWeatherIcon;
 
     private View rootView;
     private ViewPodWeatherInfo vpWeatherInfo;
@@ -95,6 +101,10 @@ public class ForecastDetailFragment extends BaseFragment
 
         vpWeatherInfo = new ViewPodWeatherInfo(vpWeatherInfoView);
         vpWeatherHPW = new ViewPodWeatherHPW(vpWeatherHPWView);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            ivWeatherIcon.setTransitionName(getString(R.string.detail_icon_transition_name));
+        }
 
         return rootView;
     }
@@ -183,6 +193,9 @@ public class ForecastDetailFragment extends BaseFragment
 
             vpWeatherInfo.bind(weatherStatusDetail);
             vpWeatherHPW.bind(weatherStatusDetail);
+
+            AppCompatActivity activity = (AppCompatActivity) getActivity();
+            activity.supportStartPostponedEnterTransition(); //Start the shared transition only after the data is being loaded in detail screen.
         }
     }
 

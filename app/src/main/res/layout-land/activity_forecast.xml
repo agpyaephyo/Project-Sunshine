@@ -39,7 +39,7 @@
             android:id="@+id/fl_container"
             android:layout_width="@dimen/weather_list_phone_land_width"
             android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
 

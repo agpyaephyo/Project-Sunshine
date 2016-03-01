@@ -2,6 +2,7 @@ package net.aung.sunshine.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
@@ -39,12 +40,16 @@ public class ForecastDetailActivity extends BaseActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fl_container, ForecastDetailFragment.newInstance(weatherStatusDateTime), ForecastDetailFragment.TAG)
                     .commit();
+
+            supportPostponeEnterTransition(); //postpone the shared transition until the data in detail screen is being loaded.
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.screen_pop_enter_horizontal, R.anim.screen_pop_exit_horizontal);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            overridePendingTransition(R.anim.screen_pop_enter_horizontal, R.anim.screen_pop_exit_horizontal);
+        }
     }
 }
