@@ -64,6 +64,8 @@ public class ViewPodWeatherInfo implements SharedPreferences.OnSharedPreferenceC
         Context context = mView.getContext();
         if (key.equals(context.getString(R.string.pref_icon_key))) {
             setArtForWeather(mWeatherStatus);
+        } else if (key.equals(context.getString(R.string.pref_language_key))) {
+            binding.setWeatherStatus(mWeatherStatus);
         }
     }
 
