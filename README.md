@@ -1,6 +1,22 @@
 # Project-Sunshine
 This project is to reflect the Project-Sunshine from one of Google's Udacity course with the latest implementation concepts such as RecyclerView, Data Binding Logic, MVP &amp; MVvM.
 
+![01 weatherlist-phone-portrait](https://cloud.githubusercontent.com/assets/2491168/13420308/8f09c338-dfb3-11e5-957a-68d44de3b52c.png)
+
+![02 weatherdetail-phone-portrait](https://cloud.githubusercontent.com/assets/2491168/13420309/8f5450ce-dfb3-11e5-8dd1-48e327b63b1d.png)
+![03 weatherlist-phone-landscape-01](https://cloud.githubusercontent.com/assets/2491168/13420310/8f7615ec-dfb3-11e5-9c5e-fdee606cfd11.png)
+
+![04 weatherlist-phone-landscape-02](https://cloud.githubusercontent.com/assets/2491168/13420311/8f792412-dfb3-11e5-88bd-a8dc699a3c53.png)
+
+![05 weatherdetail-phone-landscape](https://cloud.githubusercontent.com/assets/2491168/13420312/8f7da104-dfb3-11e5-819d-4221dbb4558b.png)
+
+![06 twopane-tablet-landscape](https://cloud.githubusercontent.com/assets/2491168/13420313/8f807208-dfb3-11e5-883c-d7c54a3d1fbb.png)
+
+![07 twopane-tablet-portrait](https://cloud.githubusercontent.com/assets/2491168/13420314/8f8cd2f0-dfb3-11e5-8732-859e7aa2940c.png)
+
+![08 settings-tablet](https://cloud.githubusercontent.com/assets/2491168/13420315/8f909c64-dfb3-11e5-88ee-be86c31ad189.png)
+
+# Old Screens
 ![screenshot_20160217-173221](https://cloud.githubusercontent.com/assets/2491168/13107882/559c1124-d59e-11e5-907d-ab38c74f2029.png)
 
 ![screenshot_20160217-173225](https://cloud.githubusercontent.com/assets/2491168/13107883/55a45e9c-d59e-11e5-8575-8ab40b8e7131.png)
