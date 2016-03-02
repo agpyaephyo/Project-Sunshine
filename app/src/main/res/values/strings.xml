@@ -7,6 +7,9 @@
     <!-- GCM Sender Id -->
     <string name="gcm_default_sender_id" translatable="false">587068175212</string>
 
+    <!-- Android Api Key for Places Api -->
+    <string name="android_api_key" translatable="false">AIzaSyAgTi614kepNw3YVpL8XyJ7OPIfkvbRDCw</string>
+
     <!-- actions in toolbar -->
     <string name="action_show_city">Show My City on Map</string>
     <string name="action_share">Share</string>
@@ -17,6 +20,10 @@
     <string name="lbl_humidity">Humidity :</string>
     <string name="lbl_pressure">Pressure :</string>
     <string name="lbl_wind">Wind :</string>
+
+    <string name="pref_location_is_latlng" translatable="false">pref_location_is_latlng</string>
+    <string name="pref_location_lat" translatable="false">pref_location_lat</string>
+    <string name="pref_location_lng" translatable="false">pref_location_lng</string>
 
     <!-- Preferences : Location -->
     <string name="pref_location_key" translatable="false">pref_location_key</string>
@@ -157,7 +164,7 @@
     <string name="msg_new_data_has_refreshed">New weather data has been refreshed.</string>
 
     <string name="detail_icon_transition_name" translatable="false">TN_DetailIcon</string>
-
+    <string name="pref_current_location_desc">Your current location</string>
 
 
 </resources>

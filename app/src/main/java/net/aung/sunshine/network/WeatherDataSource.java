@@ -5,4 +5,5 @@ package net.aung.sunshine.network;
  */
 public interface WeatherDataSource {
     void getWeatherForecastList(String cityName);
+    void getWeatherForecastListByLatLng(String lat, String lng);
 }

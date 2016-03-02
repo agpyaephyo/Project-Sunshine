@@ -71,8 +71,11 @@ public class SunshineApplication extends Application
     }
 
     public void onEventMainThread(DataEvent.PreferenceCityChangeEvent event) {
-        Log.d(SunshineApplication.TAG, "Retrieving weather data for new city : " + event.getNewCity());
-        WeatherStatusModel.getInstance().loadWeatherStatusList(event.getNewCity(), true);
+        WeatherStatusModel.getInstance().loadWeatherStatusList(true);
+    }
+
+    public void onEventMainThread(DataEvent.PreferenceLocationChangeEvent event) {
+        WeatherStatusModel.getInstance().loadWeatherStatusList(true);
     }
 
     public void onEventMainThread(DataEvent.PreferenceNotificationChangeEvent event) {
@@ -84,13 +87,7 @@ public class SunshineApplication extends Application
     }
 
     private void loadWeatherDataFromNetwork() {
-        String userLocation = SettingsUtils.retrieveUserCity();
-        if (userLocation != null) {
-            Log.d(SunshineApplication.TAG, "Retrieving weather data for city : " + userLocation);
-            WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, true);
-        } else {
-            EventBus.getDefault().post(new DataEvent.LoadedWeatherStatusListErrorEvent(getString(R.string.error_no_city_has_put), SunshineConstants.STATUS_SERVER_UNKNOWN));
-        }
+        WeatherStatusModel.getInstance().loadWeatherStatusList(true);
     }
 
     @Override

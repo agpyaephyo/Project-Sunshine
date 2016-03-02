@@ -84,4 +84,41 @@ public class WeatherDataSourceImpl implements WeatherDataSource {
             }
         });
     }
+
+    @Override
+    public void getWeatherForecastListByLatLng(String lat, String lng) {
+        Call<WeatherStatusListResponse> weatherForecastListCall = owmApi.getDailyForecastByLatLng(
+                lat,
+                lng,
+                BuildConfig.OPEN_WEATHER_MAP_API_KEY,
+                NetworkConstants.RESPONSE_FORMAT_JSON,
+                NetworkConstants.RESPONSE_UNIT_METRIC,
+                NetworkConstants.RESPONSE_COUNT_DEFAULT
+        );
+        weatherForecastListCall.enqueue(new Callback<WeatherStatusListResponse>() {
+            @Override
+            public void onResponse(Response<WeatherStatusListResponse> response, Retrofit retrofit) {
+                WeatherStatusListResponse weatherStatusListResponse = response.body();
+                if (weatherStatusListResponse == null) {
+                    DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(response.message(), SunshineConstants.STATUS_SERVER_UNKNOWN);
+                    EventBus.getDefault().post(event);
+                } else {
+                    int serverResponseCode = weatherStatusListResponse.getCod();
+                    if (serverResponseCode == NetworkConstants.SERVER_RESPONSE_OK) {
+                        DataEvent.LoadedWeatherStatusListEvent event = new DataEvent.LoadedWeatherStatusListEvent(response.body());
+                        EventBus.getDefault().post(event);
+                    } else if (serverResponseCode == NetworkConstants.SERVER_RESPONSE_CITY_NOT_FOUND) {
+                        DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(weatherStatusListResponse.getMessage(), SunshineConstants.STATUS_SERVER_CITY_NOT_FOUND);
+                        EventBus.getDefault().post(event);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Throwable throwable) {
+                DataEvent.LoadedWeatherStatusListErrorEvent event = new DataEvent.LoadedWeatherStatusListErrorEvent(throwable.getMessage(), SunshineConstants.STATUS_SERVER_INVALID);
+                EventBus.getDefault().post(event);
+            }
+        });
+    }
 }

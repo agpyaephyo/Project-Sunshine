@@ -5,7 +5,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
+import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.responses.WeatherStatusListResponse;
@@ -14,6 +16,7 @@ import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.network.WeatherDataSource;
 import net.aung.sunshine.network.WeatherDataSourceImpl;
+import net.aung.sunshine.utils.SettingsUtils;
 import net.aung.sunshine.utils.SunshineConstants;
 
 import de.greenrobot.event.EventBus;
@@ -44,9 +47,22 @@ public class WeatherStatusModel {
         }
     }
 
-    public void loadWeatherStatusList(String city, boolean isForce) {
+    public void loadWeatherStatusList(boolean isForce) {
         if (isForce) {
-            weatherDataSource.getWeatherForecastList(city);
+            if(SettingsUtils.isQueryByLatLng()) {
+                String lat = SettingsUtils.retrieveUserLat();
+                String lng = SettingsUtils.retrieveUserLng();
+                Log.d(SunshineApplication.TAG, "Retrieving weather data for lat, lng : " + lat + ", "+lng);
+                weatherDataSource.getWeatherForecastListByLatLng(lat, lng);
+            } else {
+                String city = SettingsUtils.retrieveUserCity();
+                if(city != null) {
+                    Log.d(SunshineApplication.TAG, "Retrieving weather data for city : " + city);
+                    weatherDataSource.getWeatherForecastList(city);
+                } else {
+                    EventBus.getDefault().post(new DataEvent.LoadedWeatherStatusListErrorEvent(SunshineApplication.getContext().getString(R.string.error_no_city_has_put), SunshineConstants.STATUS_SERVER_UNKNOWN));
+                }
+            }
         }
     }
 

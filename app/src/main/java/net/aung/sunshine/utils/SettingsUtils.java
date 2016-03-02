@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.google.android.gms.location.places.Place;
+
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 
@@ -33,6 +35,28 @@ public class SettingsUtils {
         return userLocation;
     }
 
+    public static boolean isQueryByLatLng() {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        return defaultSharedPref.getBoolean(context.getString(R.string.pref_location_is_latlng), false);
+    }
+
+    public static String retrieveUserLat() {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        String userLat = defaultSharedPref.getString(context.getString(R.string.pref_location_lat), null);
+
+        return userLat;
+    }
+
+    public static String retrieveUserLng() {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        String userLat = defaultSharedPref.getString(context.getString(R.string.pref_location_lng), null);
+
+        return userLat;
+    }
+
     /**
      * @return
      */
@@ -45,7 +69,21 @@ public class SettingsUtils {
     public static void saveUserCity(String newCity) {
         Context context = SunshineApplication.getContext();
         SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        defaultSharedPref.edit().putString(context.getString(R.string.pref_location_key), newCity).apply();
+        SharedPreferences.Editor editor = defaultSharedPref.edit();
+        editor.putBoolean(context.getString(R.string.pref_location_is_latlng), false);
+        editor.putString(context.getString(R.string.pref_location_key), newCity);
+        editor.commit();
+    }
+
+    public static void saveUserLocation(Place place) {
+        Context context = SunshineApplication.getContext();
+        SharedPreferences defaultSharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = defaultSharedPref.edit();
+        editor.putBoolean(context.getString(R.string.pref_location_is_latlng), true);
+        editor.putString(context.getString(R.string.pref_location_key), place.getName().toString());
+        editor.putString(context.getString(R.string.pref_location_lat), String.valueOf(place.getLatLng().latitude));
+        editor.putString(context.getString(R.string.pref_location_lng), String.valueOf(place.getLatLng().longitude));
+        editor.commit();
     }
 
     public static boolean retrieveNotificationPref() {

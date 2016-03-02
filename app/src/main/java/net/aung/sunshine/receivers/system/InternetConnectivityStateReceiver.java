@@ -27,15 +27,7 @@ public class InternetConnectivityStateReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (NetworkUtils.isOnline(context)) {
             //Toast.makeText(context, "Internet is being connected", Toast.LENGTH_SHORT).show();
-
-            String userCity = SettingsUtils.retrieveUserCity();
-            if(userCity != null) {
-                Log.d(SunshineApplication.TAG, "Retrieving weather data for city : " + userCity);
-                WeatherStatusModel.getInstance().loadWeatherStatusList(userCity, true);
-            } else {
-                EventBus.getDefault().post(new DataEvent.LoadedWeatherStatusListErrorEvent(context.getString(R.string.error_no_city_has_put), SunshineConstants.STATUS_SERVER_UNKNOWN));
-            }
-
+            WeatherStatusModel.getInstance().loadWeatherStatusList(true);
         } else {
             //Toast.makeText(context, "Internet is being disconnected", Toast.LENGTH_SHORT).show();
         }

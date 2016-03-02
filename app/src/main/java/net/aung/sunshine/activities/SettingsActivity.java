@@ -10,6 +10,9 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 import net.aung.sunshine.R;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.utils.SettingsUtils;
@@ -22,7 +25,9 @@ import de.greenrobot.event.EventBus;
  */
 public class SettingsActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener,
-        SharedPreferences.OnSharedPreferenceChangeListener{
+        SharedPreferences.OnSharedPreferenceChangeListener {
+
+    public static final int PLACE_PICKER_REQUEST_CODE = 9090;
 
     public static Intent newIntent(Context context) {
         Intent intentToSettings = new Intent(context, SettingsActivity.class);
@@ -144,6 +149,23 @@ public class SettingsActivity extends PreferenceActivity
             } else {
                 cityPref.setSummary(cityName);
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, this);
+                SettingsUtils.saveUserLocation(place);
+
+                Preference cityPref = findPreference(getString(R.string.pref_location_key));
+                cityPref.setSummary(place.getName().toString());
+
+                EventBus.getDefault().post(new DataEvent.PreferenceLocationChangeEvent(String.valueOf(place.getLatLng().latitude), String.valueOf(place.getLatLng().longitude)));
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

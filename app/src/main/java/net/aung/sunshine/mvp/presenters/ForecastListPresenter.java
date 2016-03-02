@@ -41,10 +41,8 @@ public class ForecastListPresenter extends BasePresenter {
     }
 
     public void forceRefresh() {
-        String userLocation = SettingsUtils.retrieveUserCity();
-        Log.d(SunshineApplication.TAG, "Force refresh weather data for city : " + userLocation);
-
-        WeatherStatusModel.getInstance().loadWeatherStatusList(userLocation, true);
+        Log.d(SunshineApplication.TAG, "Force refresh weather data.");
+        WeatherStatusModel.getInstance().loadWeatherStatusList(true);
     }
 
 }

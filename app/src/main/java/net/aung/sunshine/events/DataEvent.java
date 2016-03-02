@@ -70,6 +70,24 @@ public class DataEvent {
         }
     }
 
+    public static class PreferenceLocationChangeEvent {
+        private String lat;
+        private String lng;
+
+        public PreferenceLocationChangeEvent(String lat, String lng) {
+            this.lat = lat;
+            this.lng = lng;
+        }
+
+        public String getLat() {
+            return lat;
+        }
+
+        public String getLng() {
+            return lng;
+        }
+    }
+
     public static class PreferenceNotificationChangeEvent {
 
         private boolean newPref;

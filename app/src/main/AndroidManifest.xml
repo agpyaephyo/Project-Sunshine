@@ -24,6 +24,9 @@
     <!-- custom permission with our package name - so that no other Android App can register to receive messages intended for our App -->
     <uses-permission android:name="net.aung.sunshine.permission.C2D_MESSAGE" />
 
+    <!-- for place picker -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".SunshineApplication"
         android:allowBackup="true"
@@ -31,6 +34,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/android_api_key" />
 
         <activity
             android:name=".activities.ForecastActivity"
