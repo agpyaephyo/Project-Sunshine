@@ -108,6 +108,10 @@
             android:name=".services.SunshineGCMRegistrationService"
             android:exported="false"/>
 
+        <service
+            android:name=".services.TodayWidgetIntentService"
+            android:exported="false" />
+
         <receiver android:name=".receivers.system.PowerConnectedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
@@ -139,6 +143,17 @@
                 <category android:name="net.aung.sunshine" />
             </intent-filter>
 
+        </receiver>
+
+        <receiver android:name=".widgets.TodayWidgetProvider"
+            android:label="@string/title_widget_today">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="net.aung.sunshine.ACTION_DATA_UPDATED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info_today" />
         </receiver>
 
         <provider

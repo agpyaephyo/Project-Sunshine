@@ -166,5 +166,7 @@
     <string name="detail_icon_transition_name" translatable="false">TN_DetailIcon</string>
     <string name="pref_current_location_desc">Your current location</string>
 
+    <string name="title_widget_today">Sunshine Today Widget</string>
+
 
 </resources>

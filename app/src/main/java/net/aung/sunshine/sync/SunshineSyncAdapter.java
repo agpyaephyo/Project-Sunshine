@@ -6,6 +6,7 @@ import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncRequest;
 import android.content.SyncResult;
 import android.database.Cursor;
@@ -30,6 +31,8 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     public static final int SYNC_INTERVAL = 60 * 180; //3 hour interval.
     public static final int SYNC_FLEXTIME = 0;
 
+    public static final String ACTION_DATA_UPDATED = "net.aung.sunshine.ACTION_DATA_UPDATED";
+
     public SunshineSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
     }
@@ -42,6 +45,10 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         if (isNotificationOn) {
             notifyWeather();
         }
+
+        Context context = SunshineApplication.getContext();
+        Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED);
+        context.sendBroadcast(dataUpdatedIntent);
     }
 
     private void notifyWeather() {

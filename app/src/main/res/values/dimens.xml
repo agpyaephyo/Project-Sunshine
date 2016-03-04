@@ -52,4 +52,12 @@
     <dimen name="weather_list_margin">0dp</dimen>
     <dimen name="weather_today_margin_top">0dp</dimen>
 
+    <dimen name="widget_today_xlarge_height">180dp</dimen>
+    <dimen name="widget_today_xlarge_width">250dp</dimen>
+
+    <dimen name="today_weather_widget_dimen">120dp</dimen>
+
+    <dimen name="text_max_temperature_widget">@dimen/text_max_temperature_detail</dimen>
+    <dimen name="text_min_temperature_widget">@dimen/text_min_temperature_detail</dimen>
+
 </resources>

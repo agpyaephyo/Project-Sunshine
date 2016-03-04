@@ -93,7 +93,7 @@ public class SunshineApplication extends Application
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(context.getString(R.string.pref_icon_key))) {
-            NotificationUtils.showUpdatedWeatherNotification();
+            SunshineSyncAdapter.syncImmediately(context);
         }
     }
 

@@ -37,7 +37,7 @@ public class NotificationUtils {
         int weatherArtResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(weather.getWeather().getId());
 
         try {
-            Bitmap weatherArtBitmap = getBitmapForNotification(weather);
+            Bitmap weatherArtBitmap = ImageUtils.getBitmapForNotification(weather);
 
             //Notification Title
             String title = context.getString(R.string.app_name);
@@ -100,29 +100,6 @@ public class NotificationUtils {
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(ALERT_NOTIFICATION_ID, builder.build());
-    }
-
-    private static Bitmap getBitmapForNotification(WeatherStatusVO weather) throws ExecutionException, InterruptedException {
-        Context context = SunshineApplication.getContext();
-        int weatherArtResourceId = WeatherDataUtils.getArtResourceForWeatherCondition(weather.getWeather().getId());
-        Bitmap weatherArtBitmap;
-        if (SettingsUtils.retrieveIconPackPref() == SettingsUtils.ICON_PACK_UDACITY) {
-            int largeIconWidth = context.getResources().getDimensionPixelSize(android.R.dimen.notification_large_icon_width); //Don't need to check for HoneyComb version because minimum API version is 16.
-            int largeIconHeight = context.getResources().getDimensionPixelSize(android.R.dimen.notification_large_icon_height);
-            String artUrl = WeatherDataUtils.getArtUrlFromWeatherCondition(weather.getWeather().getId());
-
-            weatherArtBitmap = Glide.with(context)
-                    .load(artUrl)
-                    .asBitmap()
-                    .placeholder(weatherArtResourceId)
-                    .error(weatherArtResourceId)
-                    .into(largeIconWidth, largeIconHeight)
-                    .get();
-        } else {
-            weatherArtBitmap = BitmapFactory.decodeResource(context.getResources(), weatherArtResourceId);
-        }
-
-        return weatherArtBitmap;
     }
 
     public static void hideWeatherNotification() {

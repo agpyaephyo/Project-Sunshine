@@ -16,6 +16,7 @@ import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.events.DataEvent;
 import net.aung.sunshine.network.WeatherDataSource;
 import net.aung.sunshine.network.WeatherDataSourceImpl;
+import net.aung.sunshine.utils.NotificationUtils;
 import net.aung.sunshine.utils.SettingsUtils;
 import net.aung.sunshine.utils.SunshineConstants;
 

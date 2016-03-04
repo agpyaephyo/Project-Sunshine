@@ -12,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.view.View;
 
 import net.aung.sunshine.R;
+import net.aung.sunshine.sync.SunshineSyncAdapter;
 import net.aung.sunshine.utils.DateFormatUtils;
 import net.aung.sunshine.utils.GcmUtils;
 import net.aung.sunshine.utils.NotificationUtils;
@@ -52,7 +53,8 @@ public class BaseActivity extends AppCompatActivity
             forceUpdateLocale();
             WeatherDataUtils.loadWeatherDescMap();
             DateFormatUtils.loadDateFormat(SettingsUtils.getLocale());
-            NotificationUtils.showUpdatedWeatherNotification();
+
+            SunshineSyncAdapter.syncImmediately(this);
         }
     }
 
