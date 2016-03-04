@@ -15,8 +15,6 @@ import net.aung.sunshine.fragments.ForecastDetailFragment;
  */
 public class ForecastDetailActivity extends BaseActivity {
 
-    private static final String IE_WEATHER_STATUS_DATE_TIME = "IE_WEATHER_STATUS_DATE_TIME";
-
     public static Intent createNewIntent(Context context, WeatherStatusVO weatherStatus) {
         Intent intentToForecastDetail = new Intent(context, ForecastDetailActivity.class);
         intentToForecastDetail.putExtra(IE_WEATHER_STATUS_DATE_TIME, weatherStatus.getDateTime());

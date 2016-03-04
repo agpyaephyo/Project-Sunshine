@@ -34,6 +34,8 @@
 
     <dimen name="text_min_max_temp_weather_list">28dp</dimen>
 
+    <dimen name="text_min_max_temp_weather_list_widget">24dp</dimen>
+
     <dimen name="icon_medium">60dp</dimen>
 
     <dimen name="toolbar_elevation">4dp</dimen>
@@ -54,6 +56,9 @@
 
     <dimen name="widget_today_xlarge_height">180dp</dimen>
     <dimen name="widget_today_xlarge_width">250dp</dimen>
+
+    <dimen name="widget_list_height">110dp</dimen>
+    <dimen name="widget_list_width">180dp</dimen>
 
     <dimen name="today_weather_widget_dimen">120dp</dimen>
 

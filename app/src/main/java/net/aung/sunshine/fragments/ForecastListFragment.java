@@ -73,8 +73,11 @@ public class ForecastListFragment extends BaseFragment
     private boolean mLanguageSettingChange = false;
     private List<WeatherStatusVO> mWeatherStatusList = null;
 
-    public static ForecastListFragment newInstance() {
+    public static ForecastListFragment newInstance(int position) {
         ForecastListFragment fragment = new ForecastListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARG_SELECTED_ROW, position);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -94,6 +97,12 @@ public class ForecastListFragment extends BaseFragment
         presenter.onCreate();
 
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    protected void readArguments(Bundle bundle) {
+        super.readArguments(bundle);
+        mSelectedRow = bundle.getInt(ARG_SELECTED_ROW);
     }
 
     @Override

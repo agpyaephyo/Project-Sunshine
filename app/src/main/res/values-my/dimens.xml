@@ -6,6 +6,8 @@
     <dimen name="text_min_temperature_detail">36sp</dimen>
     <dimen name="text_min_max_temp_weather_list">24dp</dimen>
 
+    <dimen name="text_min_max_temp_weather_list_widget">16dp</dimen>
+
     <dimen name="text_max_temperature_widget">45sp</dimen>
     <dimen name="text_min_temperature_widget">27sp</dimen>
 </resources>

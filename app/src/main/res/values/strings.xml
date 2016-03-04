@@ -167,6 +167,7 @@
     <string name="pref_current_location_desc">Your current location</string>
 
     <string name="title_widget_today">Sunshine Today Widget</string>
+    <string name="title_widget_weather_list">Sunshine Weather List Widget</string>
 
 
 </resources>

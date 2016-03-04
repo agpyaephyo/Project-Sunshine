@@ -1,14 +1,17 @@
 package net.aung.sunshine.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.util.Pair;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,8 +37,16 @@ public class ForecastActivity extends BaseActivity
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
 
+    @Nullable
     @Bind(R.id.appbar)
     AppBarLayout mAppBar;
+
+    public static Intent createNewIntent(Context context, WeatherStatusVO weatherStatus, int position) {
+        Intent intentToForecastDetail = new Intent(context, ForecastActivity.class);
+        intentToForecastDetail.putExtra(IE_WEATHER_STATUS_DATE_TIME, weatherStatus.getDateTime());
+        intentToForecastDetail.putExtra(IE_WEATHER_STATUS_POSITION, position);
+        return intentToForecastDetail;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,20 +74,21 @@ public class ForecastActivity extends BaseActivity
         });
 
         if (savedInstanceState == null) {
+            int weatherStatusPosition = getIntent().getIntExtra(IE_WEATHER_STATUS_POSITION, RecyclerView.NO_POSITION);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fl_container, ForecastListFragment.newInstance(), ForecastListFragment.TAG)
+                    .replace(R.id.fl_container, ForecastListFragment.newInstance(weatherStatusPosition), ForecastListFragment.TAG)
                     .commit();
         }
 
         if (getResources().getBoolean(R.bool.isTwoPane)) {
             //two panes tablets.
 
+            long weatherStatusDateTime = getIntent().getLongExtra(IE_WEATHER_STATUS_DATE_TIME, SunshineConstants.TODAY);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fl_detail_container, ForecastDetailFragment.newInstance(SunshineConstants.TODAY), ForecastDetailFragment.TAG)
+                    .replace(R.id.fl_detail_container, ForecastDetailFragment.newInstance(weatherStatusDateTime), ForecastDetailFragment.TAG)
                     .commit();
         }
     }
-
 
 
     @Override
@@ -127,7 +139,7 @@ public class ForecastActivity extends BaseActivity
                     */
 
             Intent intentToDetail = ForecastDetailActivity.createNewIntent(this, weatherStatus);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 ActivityOptionsCompat activityOptions = ActivityOptionsCompat.makeSceneTransitionAnimation(this,
                         new Pair(ivWeatherIcon, getString(R.string.detail_icon_transition_name)));
                 ActivityCompat.startActivity(this, intentToDetail, activityOptions.toBundle());

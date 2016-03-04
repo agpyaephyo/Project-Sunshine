@@ -27,6 +27,8 @@ import java.util.Locale;
 public class BaseActivity extends AppCompatActivity
         implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    protected static final String IE_WEATHER_STATUS_DATE_TIME = "IE_WEATHER_STATUS_DATE_TIME";
+    protected static final String IE_WEATHER_STATUS_POSITION = "IE_WEATHER_STATUS_POSITION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
