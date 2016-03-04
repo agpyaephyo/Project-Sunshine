@@ -169,5 +169,6 @@
     <string name="title_widget_today">Sunshine Today Widget</string>
     <string name="title_widget_weather_list">Sunshine Weather List Widget</string>
 
+    <string name="muzei_description">Wallpaper for today\'s weather</string>
 
 </resources>

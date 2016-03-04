@@ -18,6 +18,7 @@ import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
+import net.aung.sunshine.muzei.WeatherMuzeiSource;
 import net.aung.sunshine.utils.NotificationUtils;
 import net.aung.sunshine.utils.SettingsUtils;
 import net.aung.sunshine.utils.SunshineConstants;
@@ -49,6 +50,13 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         Context context = SunshineApplication.getContext();
         Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED);
         context.sendBroadcast(dataUpdatedIntent);
+
+        // Muzei is only compatible with Jelly Bean MR1+ devices, so there's no need to update the
+        // Muzei background on lower API level devices
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            context.startService(new Intent(ACTION_DATA_UPDATED)
+                    .setClass(context, WeatherMuzeiSource.class));
+        }
     }
 
     private void notifyWeather() {
