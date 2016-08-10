@@ -1,6 +1,16 @@
 # Project-Sunshine
 This project is to reflect the Project-Sunshine from one of Google's Udacity course with the latest implementation concepts such as RecyclerView, Data Binding Logic, MVP &amp; MVvM.
 
+# Android Wear Integration
+![screenshot_20160811-004447](https://cloud.githubusercontent.com/assets/2491168/17565942/7704b62c-5f5f-11e6-9a47-84a9cdf61e88.png)
+
+![screenshot_20160811-004450](https://cloud.githubusercontent.com/assets/2491168/17565945/77e408f4-5f5f-11e6-92ab-12a8b3dd0fed.png)
+
+![screenshot_20160810-234721](https://cloud.githubusercontent.com/assets/2491168/17565949/7bcc50de-5f5f-11e6-9b76-fff58c9a7e3d.png)
+
+![screenshot_20160810-231629](https://cloud.githubusercontent.com/assets/2491168/17565957/7d7d5112-5f5f-11e6-9532-d8875278a22d.png)
+
+# Handheld
 ![01 weatherlist-phone-portrait](https://cloud.githubusercontent.com/assets/2491168/13420308/8f09c338-dfb3-11e5-957a-68d44de3b52c.png)
 
 ![02 weatherdetail-phone-portrait](https://cloud.githubusercontent.com/assets/2491168/13420309/8f5450ce-dfb3-11e5-8dd1-48e327b63b1d.png)
