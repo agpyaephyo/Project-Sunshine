@@ -170,5 +170,8 @@
     <string name="title_widget_weather_list">Sunshine Weather List Widget</string>
 
     <string name="muzei_description">Wallpaper for today\'s weather</string>
+    <string name="lbl_map">Map</string>
+
+    <string name="dummy_long_text">The server of the App is trying to reach is not valid. Please update the App to its latest version. The server of the App is trying to reach is not valid. Please update the App to its latest version.</string>
 
 </resources>

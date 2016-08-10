@@ -65,4 +65,7 @@
     <dimen name="text_max_temperature_widget">@dimen/text_max_temperature_detail</dimen>
     <dimen name="text_min_temperature_widget">@dimen/text_min_temperature_detail</dimen>
 
+    <dimen name="big_picture_width">200dp</dimen>
+    <dimen name="big_picture_height">100dp</dimen>
+
 </resources>

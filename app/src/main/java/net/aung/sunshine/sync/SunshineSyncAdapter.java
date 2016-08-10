@@ -10,29 +10,51 @@ import android.content.Intent;
 import android.content.SyncRequest;
 import android.content.SyncResult;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.Asset;
+import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
 
 import net.aung.sunshine.R;
 import net.aung.sunshine.SunshineApplication;
 import net.aung.sunshine.data.persistence.WeatherContract;
 import net.aung.sunshine.data.vos.WeatherStatusVO;
 import net.aung.sunshine.muzei.WeatherMuzeiSource;
+import net.aung.sunshine.utils.ImageUtils;
 import net.aung.sunshine.utils.NotificationUtils;
 import net.aung.sunshine.utils.SettingsUtils;
+import net.aung.sunshine.utils.AppSharedConstants;
 import net.aung.sunshine.utils.SunshineConstants;
+import net.aung.sunshine.utils.WeatherDataUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Run on background thread.
  * Created by aung on 2/17/16.
  */
-public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
+public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter
+        implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
 
     public static final int SYNC_INTERVAL = 60 * 180; //3 hour interval.
     public static final int SYNC_FLEXTIME = 0;
 
     public static final String ACTION_DATA_UPDATED = "net.aung.sunshine.ACTION_DATA_UPDATED";
+
+    private GoogleApiClient mGoogleApiClient;
 
     public SunshineSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -41,6 +63,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
     @Override
     public void onPerformSync(Account account, Bundle extras, String authority, ContentProviderClient provider, SyncResult syncResult) {
         Log.d(SunshineApplication.TAG, "Performing Sync.");
+        buildGoogleApiClient();
 
         boolean isNotificationOn = SettingsUtils.retrieveNotificationPref();
         if (isNotificationOn) {
@@ -57,6 +80,17 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             context.startService(new Intent(ACTION_DATA_UPDATED)
                     .setClass(context, WeatherMuzeiSource.class));
         }
+
+        notifyWeather();
+    }
+
+    private void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(getContext())
+                .addApi(Wearable.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+        mGoogleApiClient.connect();
     }
 
     private void notifyWeather() {
@@ -68,9 +102,36 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         if (cursorWeather.moveToFirst()) {
             WeatherStatusVO weatherStatusDetail = WeatherStatusVO.parseFromCursor(cursorWeather);
             NotificationUtils.showWeatherNotification(weatherStatusDetail);
+            sendWeatherInfoToWear(weatherStatusDetail);
         }
 
         cursorWeather.close();
+    }
+
+    private void sendWeatherInfoToWear(WeatherStatusVO weatherStatusDetail) {
+        Log.d(SunshineApplication.TAG, "sendWeatherInfoToWear");
+        PutDataMapRequest putDataMapRequest = PutDataMapRequest.create(AppSharedConstants.DATA_PATH);
+        putDataMapRequest.getDataMap().putString(AppSharedConstants.MAX_TEMPERATURE,
+                weatherStatusDetail.getTemperature().getMaxTemperatureDisplay());
+        putDataMapRequest.getDataMap().putString(AppSharedConstants.MIN_TEMPERATURE,
+                weatherStatusDetail.getTemperature().getMinTemperatureDisplay());
+        putDataMapRequest.getDataMap().putString(AppSharedConstants.LOCALE,
+                SettingsUtils.getLocale().getLanguage());
+        putDataMapRequest.getDataMap().putInt(AppSharedConstants.WEATHER_ID,
+                weatherStatusDetail.getWeather().getId());
+
+        PutDataRequest putDataRequest = putDataMapRequest.asPutDataRequest();
+        Wearable.DataApi.putDataItem(mGoogleApiClient, putDataRequest)
+                .setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
+                    @Override
+                    public void onResult(@NonNull DataApi.DataItemResult dataItemResult) {
+                        if (!dataItemResult.getStatus().isSuccess()) {
+                            Log.d(SunshineApplication.TAG, "Failed to send weather information to wearable.");
+                        } else {
+                            Log.d(SunshineApplication.TAG, "Successfully sent weather information to wearable.");
+                        }
+                    }
+                });
     }
 
     /**
@@ -137,7 +198,7 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             String authority = context.getString(R.string.content_authority);
 
             //Since we've created an account
-            SunshineSyncAdapter.configurePeriodicSync(newAccount, authority, SYNC_INTERVAL, SYNC_FLEXTIME);
+            configurePeriodicSync(newAccount, authority, SYNC_INTERVAL, SYNC_FLEXTIME);
 
             //Without calling setSyncAutomatically, our periodic sync will not be enabled.
             ContentResolver.setSyncAutomatically(newAccount, authority, true);
@@ -149,5 +210,20 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
 
     public static void initializeSyncAdapter(Context context) {
         onAccountCreated(getSyncAccount(context), context);
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
     }
 }

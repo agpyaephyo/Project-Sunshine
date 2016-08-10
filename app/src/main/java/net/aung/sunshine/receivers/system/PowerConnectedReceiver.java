@@ -12,6 +12,8 @@ public class PowerConnectedReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        /*
         Toast.makeText(context, "Power adapter is being connected", Toast.LENGTH_SHORT).show();
+        */
     }
 }
