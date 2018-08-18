@@ -85,7 +85,8 @@ public class ForecastActivity extends BaseActivity
 
             long weatherStatusDateTime = getIntent().getLongExtra(IE_WEATHER_STATUS_DATE_TIME, SunshineConstants.TODAY);
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fl_detail_container, ForecastDetailFragment.newInstance(weatherStatusDateTime), ForecastDetailFragment.TAG)
+                    .replace(R.id.fl_detail_container,
+                            ForecastDetailFragment.newInstance(weatherStatusDateTime), ForecastDetailFragment.TAG)
                     .commit();
         }
     }

@@ -8,10 +8,14 @@ import java.util.Locale;
  */
 public class DateFormatUtils {
 
-    public static SimpleDateFormat sdfWeatherStatusDate = new SimpleDateFormat("EE MMM dd", SettingsUtils.getLocale());
-    public static SimpleDateFormat sdfWeatherStatusDateToday = new SimpleDateFormat("MMMM dd", SettingsUtils.getLocale());
-    public static SimpleDateFormat sdfWeatherStatusDateTomorrow = new SimpleDateFormat("MMM dd", SettingsUtils.getLocale());
-    public static SimpleDateFormat sdfDay = new SimpleDateFormat("EEEE", SettingsUtils.getLocale());
+    public static SimpleDateFormat sdfWeatherStatusDate =
+            new SimpleDateFormat("EE MMM dd", SettingsUtils.getLocale());
+    public static SimpleDateFormat sdfWeatherStatusDateToday =
+            new SimpleDateFormat("MMMM dd", SettingsUtils.getLocale());
+    public static SimpleDateFormat sdfWeatherStatusDateTomorrow =
+            new SimpleDateFormat("MMM dd", SettingsUtils.getLocale());
+    public static SimpleDateFormat sdfDay =
+            new SimpleDateFormat("EEEE", SettingsUtils.getLocale());
 
     public static void loadDateFormat(Locale locale) {
         sdfWeatherStatusDate = new SimpleDateFormat("EE MMM dd", locale);
